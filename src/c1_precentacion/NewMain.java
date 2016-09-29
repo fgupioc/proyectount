@@ -18,8 +18,7 @@ public class NewMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) { 
-        ingreso();
-              
+        ingreso();              
     }
     public static void ingreso(){
         Unidad dts = new Unidad();
