@@ -18,7 +18,9 @@ public class NewMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) { 
-        ingreso();              
+        FormMenu form = new FormMenu();
+        form.setVisible(true);
+        //ingreso();              
     }
     public static void ingreso(){
         Unidad dts = new Unidad();
@@ -29,7 +31,7 @@ public class NewMain {
         dts.setEstado(1);
         
         try {
-            int res = func.crearUnidad(dts);
+            int res = func.insertarUnidad(dts);
             if(res==1)
                 JOptionPane.showMessageDialog(null,"guardada");
             else

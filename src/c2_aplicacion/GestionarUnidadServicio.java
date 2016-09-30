@@ -9,6 +9,8 @@ import c3_dominio.Unidad;
 import c3_dominioFabrica.FabricaAbstractaDAO;
 import c3_dominioFabrica.IUnidadDAO;
 import c4_persistenciaConexion.GestorJDBC;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,7 +28,7 @@ public class GestionarUnidadServicio {
         unidadDAO = fabricaAbstractaDAO.crearUnidadDAO(gestorJDBC);
     }
 
-    public int crearUnidad(Unidad unidad) throws Exception {
+    public int insertarUnidad(Unidad unidad) throws Exception {
         int registros=0;
         gestorJDBC.abrirConexion(); 
         try {
@@ -37,7 +39,22 @@ public class GestionarUnidadServicio {
             JOptionPane.showMessageDialog(null,e);
             gestorJDBC.cancelarTransaccion();            
         }
+        gestorJDBC.cerrarConexion();
         return registros;
+    }
+    
+    public List<Unidad> listarUnidad() throws Exception{
+        List<Unidad> unidades= new ArrayList();
+        gestorJDBC.abrirConexion();
+        try {
+            gestorJDBC.iniciarTransaccion();
+            unidades = unidadDAO.Listar();
+            gestorJDBC.terminarTransaccion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        gestorJDBC.cerrarConexion();
+        return unidades;
     }
 
 }

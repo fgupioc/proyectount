@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,12 +31,12 @@ public class UnidadDAO implements IUnidadDAO {
     @Override
     public int ingresar(Unidad dts) throws SQLException {
 
-        /*String consultaSQL = "{Call spUnidadInsertar (?,?,?)}";
+        String consultaSQL = "{Call spUnidadInsertar (?,?,?)}";
         CallableStatement cst = gestorJDBC.procedimientoAlmacenado(consultaSQL);
         cst.setString(1, dts.getUnidad());
         cst.setString(2, dts.getDescripcion());
         cst.setInt(3, dts.getEstado());
-        return cst.executeUpdate();*/
+        return cst.executeUpdate(); 
 
       //procedimientro prar traer todo una tabla
         /*ResultSet rs;
@@ -59,7 +60,7 @@ public class UnidadDAO implements IUnidadDAO {
         
          */
          
-            CallableStatement cst = gestorJDBC.cn().prepareCall("{call spUnidadId(?,?,?,?)}"); 
+         /*   CallableStatement cst = gestorJDBC.cn().prepareCall("{call spUnidadId(?,?,?,?)}"); 
             
                 cst.setInt(1,1);  
                 cst.registerOutParameter(2, java.sql.Types.VARCHAR);
@@ -68,7 +69,26 @@ public class UnidadDAO implements IUnidadDAO {
                 cst.execute();   
                 System.out.println("Nombre: " + cst.getString(2)); 
         
-        return 1;
+        return 1;*/
+    }
+
+    @Override
+    public List<Unidad> Listar() throws SQLException {
+        Unidad dts;
+        List<Unidad> unidades = new ArrayList();
+        ResultSet rs ;
+        String mysql =  "{call spUnidadListado}";
+        rs = gestorJDBC.ejecutarProcedimiento(mysql);
+        while (rs.next()) {
+            dts = new Unidad();
+            dts.setIdunidad(rs.getInt("id"));
+            dts.setUnidad(rs.getString("nombre"));
+            dts.setDescripcion(rs.getString("descripcion"));
+            dts.setEstado(rs.getInt("estado"));            
+            unidades.add(dts);
+        }
+        rs.close();
+        return unidades;
     }
 
 }

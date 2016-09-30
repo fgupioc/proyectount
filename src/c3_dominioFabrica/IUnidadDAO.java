@@ -15,9 +15,8 @@ import java.util.List;
  */
 public interface IUnidadDAO {
 
-    //public List<Unidad> mostrar() throws SQLException;
     public int ingresar(Unidad dts) throws SQLException;
-
+    public List<Unidad> Listar() throws SQLException; 
     //public int editar(Unidad dts) throws SQLException;
     //public int eliminar(Unidad dts) throws SQLException;
 }

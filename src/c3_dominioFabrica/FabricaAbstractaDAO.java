@@ -29,7 +29,6 @@ public abstract class FabricaAbstractaDAO {
 
     public abstract GestorJDBC crearGestorJDBC();
 
-    public abstract IUnidadDAO crearUnidadDAO(GestorJDBC gestorJDBC);
-    //public abstract ICalificacionDAO crearCalificacionDAO(GestorJDBC gestorJDBC);
+    public abstract IUnidadDAO crearUnidadDAO(GestorJDBC gestorJDBC); 
 
 }
