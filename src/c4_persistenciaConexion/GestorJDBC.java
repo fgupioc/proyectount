@@ -61,4 +61,7 @@ public abstract class GestorJDBC {
         ResultSet rs = cst.executeQuery();        
         return rs;
     }
+    public Connection cn(){
+        return conexion;
+    }
 }

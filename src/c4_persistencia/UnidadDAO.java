@@ -30,12 +30,12 @@ public class UnidadDAO implements IUnidadDAO {
     @Override
     public int ingresar(Unidad dts) throws SQLException {
 
-        String consultaSQL = "{Call spUnidadInsertar (?,?,?)}";
+        /*String consultaSQL = "{Call spUnidadInsertar (?,?,?)}";
         CallableStatement cst = gestorJDBC.procedimientoAlmacenado(consultaSQL);
         cst.setString(1, dts.getUnidad());
         cst.setString(2, dts.getDescripcion());
         cst.setInt(3, dts.getEstado());
-        return cst.executeUpdate();
+        return cst.executeUpdate();*/
 
       //procedimientro prar traer todo una tabla
         /*ResultSet rs;
@@ -58,6 +58,17 @@ public class UnidadDAO implements IUnidadDAO {
          rs.close();
         
          */
+         
+            CallableStatement cst = gestorJDBC.cn().prepareCall("{call spUnidadId(?,?,?,?)}"); 
+            
+                cst.setInt(1,1);  
+                cst.registerOutParameter(2, java.sql.Types.VARCHAR);
+                cst.registerOutParameter(3, java.sql.Types.VARCHAR);
+                cst.registerOutParameter(4, java.sql.Types.VARCHAR);  
+                cst.execute();   
+                System.out.println("Nombre: " + cst.getString(2)); 
+        
+        return 1;
     }
 
 }
