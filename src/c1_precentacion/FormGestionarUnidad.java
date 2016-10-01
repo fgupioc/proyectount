@@ -7,6 +7,8 @@ package c1_precentacion;
 
 import c2_aplicacion.GestionarUnidadServicio;
 import c3_dominio.Unidad;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -260,28 +262,43 @@ public class FormGestionarUnidad extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, e);
         }
     }
+
+    private boolean buscarUnidadList(String nombre) {
+        boolean flag = false;
+        gu = new GestionarUnidadServicio();
+        try {
+            unidades = gu.listarUnidad();
+            flag = (gu.buscarUnidadList(unidades, nombre)) ? true : false;
+
+        } catch (Exception e) {
+        }
+        return flag;
+    }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (!txtNombre.getText().equals("")) {
             try {
                 unidad = new Unidad();
-                gu = new GestionarUnidadServicio();
-
-                unidad.setUnidad(txtNombre.getText());
-                unidad.setDescripcion(txtDescripcion.getText());
+                gu = new GestionarUnidadServicio(); 
+                unidad.setUnidad(txtNombre.getText().toLowerCase().trim());
+                unidad.setDescripcion(txtDescripcion.getText().toLowerCase().trim());
                 unidad.setEstado(1);
 
                 if (flag.equals("Guardar")) {
-                    if (gu.insertarUnidad(unidad)) {
-                        JOptionPane.showMessageDialog(null, "Guardado correctamente");
-                        mostrar();
-                        limpiar();
-                        botones(false);
-
+                    if (!buscarUnidadList(txtNombre.getText().toLowerCase().trim())) { 
+                        if (gu.insertarUnidad(unidad)) {
+                            JOptionPane.showMessageDialog(null, "Guardado correctamente");
+                            mostrar();
+                            limpiar();
+                            botones(false);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "NO se pudo guardar");
+                            mostrar();
+                            limpiar();
+                            botones(false);
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "NO se pudo guardar");
-                        mostrar();
-                        limpiar();
-                        botones(false);
+                        JOptionPane.showMessageDialog(this, "la unidad ya existe");
+                        txtNombre.requestFocus();
                     }
                 } else {
                     unidad.setIdunidad(Integer.parseInt(lblId.getText()));
@@ -372,14 +389,13 @@ public class FormGestionarUnidad extends javax.swing.JDialog {
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         gu = new GestionarUnidadServicio();
         unidad = new Unidad();
-        try {  
-            
+        try { 
             //unidad.setUnidad(String.valueOf(evt.getKeyChar()));
             unidad.setUnidad(txtBuscar.getText());
             unidades = gu.buscarNombre(unidad);
             gu.llenarLista(listado, unidades);
             lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
-            
+
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txtBuscarKeyPressed

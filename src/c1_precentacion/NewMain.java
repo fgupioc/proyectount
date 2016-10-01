@@ -6,39 +6,40 @@
 package c1_precentacion;
 
 import c2_aplicacion.GestionarUnidadServicio;
-import c3_dominio.Unidad; 
+import c3_dominio.Unidad;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Franz
  */
 public class NewMain {
-     
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) { 
+    public static void main(String[] args) {
         FormMenu form = new FormMenu();
         form.setVisible(true);
-        //ingreso();              
+        //ingreso();
     }
-    public static void ingreso(){
-        Unidad dts = new Unidad();
-        GestionarUnidadServicio func = new GestionarUnidadServicio();
-        
-        dts.setUnidad("test1");
-        dts.setDescripcion("descricion");
-        dts.setEstado(1);
-        
+
+    public static void ingreso() {
+       // Unidad dts = new Unidad();
+        GestionarUnidadServicio func = new GestionarUnidadServicio(); 
         try {
+             List<Unidad> unidades = new ArrayList();
+             unidades = func.listarUnidad();
+             for(Unidad unidad : unidades){
+                 System.out.println("nombre : "+unidad.getUnidad());
+             }
             
-            if(func.insertarUnidad(dts))
-                JOptionPane.showMessageDialog(null,"guardada");
-            else
-                JOptionPane.showMessageDialog(null,"error ala guardar");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,e);
+            JOptionPane.showMessageDialog(null, e);
         }
     }
-    
+
 }

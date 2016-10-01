@@ -113,17 +113,17 @@ public class GestionarUnidadServicio {
         model.addColumn("id");
         model.addColumn("Nombre");
         model.addColumn("Descripcion");
-        model.addColumn("estado");
-         
-        unidad = new Unidad();
+        model.addColumn("estado"); 
+        
         model.setNumRows(unidades.size());
-        for (int i = 0; i < unidades.size(); i++) {
-            unidad = (Unidad) unidades.get(i);
-            model.setValueAt(unidad.getIdunidad(), i, 0);
-            model.setValueAt(unidad.getUnidad(), i, 1);
-            model.setValueAt(unidad.getDescripcion(), i, 2);
-            model.setValueAt(unidad.getEstado(), i, 3);
-        }
+        int i =0;
+        for(Unidad dts:unidades){            
+            model.setValueAt(dts.getIdunidad(), i, 0);
+            model.setValueAt(dts.getUnidad(), i, 1);
+            model.setValueAt(dts.getDescripcion(), i, 2);
+            model.setValueAt(dts.getEstado(), i, 3);
+            i++;
+        }       
          listado.setModel(model);
          ocultar(listado);
     }
@@ -135,6 +135,19 @@ public class GestionarUnidadServicio {
         listado.getColumnModel().getColumn(3).setMaxWidth(0);
         listado.getColumnModel().getColumn(3).setMinWidth(0);
         listado.getColumnModel().getColumn(3).setPreferredWidth(0);
+    }
+    
+    public boolean buscarUnidadList(List<Unidad> unidades, String nombre){
+        boolean flag = false; 
+        for(Unidad dt:unidades){           
+           if(dt.getUnidad().equals(nombre)){ 
+               flag = true;
+               break;
+           }else{ 
+               flag = false;
+           }
+        }        
+        return flag;
     }
     
 }
