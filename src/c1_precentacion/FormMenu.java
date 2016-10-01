@@ -14,7 +14,8 @@ public class FormMenu extends javax.swing.JFrame {
     /**
      * Creates new form FormMenu
      */
-    public FormMenu() {
+    public FormMenu() {  
+        setExtendedState(MAXIMIZED_BOTH);
         initComponents();
     }
 

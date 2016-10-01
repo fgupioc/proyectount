@@ -31,8 +31,8 @@ public class NewMain {
         dts.setEstado(1);
         
         try {
-            int res = func.insertarUnidad(dts);
-            if(res==1)
+            
+            if(func.insertarUnidad(dts))
                 JOptionPane.showMessageDialog(null,"guardada");
             else
                 JOptionPane.showMessageDialog(null,"error ala guardar");

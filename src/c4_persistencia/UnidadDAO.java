@@ -12,6 +12,7 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -22,21 +23,26 @@ import javax.swing.JOptionPane;
  */
 public class UnidadDAO implements IUnidadDAO {
 
-    GestorJDBC gestorJDBC;
+    private GestorJDBC gestorJDBC;
+    private CallableStatement cst;
+    private ResultSet rs ;
+    private List<Unidad> unidades;
+    private String mysql;
+    private Unidad unidad;
 
     UnidadDAO(GestorJDBC gestorJDBC) {
         this.gestorJDBC = gestorJDBC;
     }
 
     @Override
-    public int ingresar(Unidad dts) throws SQLException {
-
-        String consultaSQL = "{Call spUnidadInsertar (?,?,?)}";
-        CallableStatement cst = gestorJDBC.procedimientoAlmacenado(consultaSQL);
+    public boolean ingresar(Unidad dts) throws SQLException { 
+        mysql= "{Call spUnidadInsertar (?,?,?)}";
+        cst = gestorJDBC.procedimientoAlmacenado(mysql);
         cst.setString(1, dts.getUnidad());
         cst.setString(2, dts.getDescripcion());
-        cst.setInt(3, dts.getEstado());
-        return cst.executeUpdate(); 
+        cst.setInt(3, dts.getEstado());   
+        
+        return (cst.executeUpdate()==1)?true:false; 
 
       //procedimientro prar traer todo una tabla
         /*ResultSet rs;
@@ -73,21 +79,60 @@ public class UnidadDAO implements IUnidadDAO {
     }
 
     @Override
-    public List<Unidad> Listar() throws SQLException {
-        Unidad dts;
-        List<Unidad> unidades = new ArrayList();
-        ResultSet rs ;
-        String mysql =  "{call spUnidadListado}";
+    public List<Unidad> Listar() throws SQLException { 
+        unidades = new ArrayList();        
+        mysql =  "{call spUnidadListado}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
-            dts = new Unidad();
-            dts.setIdunidad(rs.getInt("id"));
-            dts.setUnidad(rs.getString("nombre"));
-            dts.setDescripcion(rs.getString("descripcion"));
-            dts.setEstado(rs.getInt("estado"));            
-            unidades.add(dts);
+            unidad = new Unidad();
+            unidad.setIdunidad(rs.getInt("id"));
+            unidad.setUnidad(rs.getString("nombre"));
+            unidad.setDescripcion(rs.getString("descripcion"));
+            unidad.setEstado(rs.getInt("estado"));            
+            unidades.add(unidad);
         }
         rs.close();
+        return unidades;
+    }
+
+    @Override
+    public boolean editar(Unidad dts) throws SQLException {  
+       mysql ="{call spUnidadEditar(?,?,?)}";
+       cst = gestorJDBC.procedimientoAlmacenado(mysql);
+       
+       cst.setInt(1,dts.getIdunidad());
+       cst.setString(2,dts.getUnidad());
+       cst.setString(3, dts.getDescripcion());
+       
+       return (cst.executeUpdate()==1)?true:false;        
+    } 
+
+    @Override
+    public boolean eliminar(Unidad dts) throws SQLException {
+       mysql = "{call spUnidadEliminar(?)}";
+       cst = gestorJDBC.procedimientoAlmacenado(mysql);
+       
+       cst.setInt(1,dts.getIdunidad());
+       
+       return (cst.executeUpdate()==1)?true:false;
+    }
+
+    @Override
+    public List<Unidad> buscarNombre(Unidad dts) throws Exception {
+        unidades =new ArrayList();
+      
+        mysql ="{call spUnidadBuscarNombre('"+dts.getUnidad()+"')}";
+        
+        rs = gestorJDBC.ejecutarProcedimiento(mysql);
+        while (rs.next()) {
+            unidad = new Unidad();
+            unidad.setIdunidad(rs.getInt("id"));
+            unidad.setUnidad(rs.getString("nombre"));
+            unidad.setDescripcion(rs.getString("descripcion"));
+            unidad.setEstado(rs.getInt("estado"));            
+            unidades.add(unidad);
+        }
+        rs.close(); 
         return unidades;
     }
 
