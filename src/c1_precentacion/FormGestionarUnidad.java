@@ -29,7 +29,7 @@ public class FormGestionarUnidad extends javax.swing.JDialog {
         initComponents();
         mostrar();
         botones(false);
-        lblId.setVisible(false);        
+        lblId.setVisible(false);
     }
 
     /**
@@ -254,7 +254,7 @@ public class FormGestionarUnidad extends javax.swing.JDialog {
         try {
             gu = new GestionarUnidadServicio();
             unidades = gu.listarUnidad();
-            gu.llenarLista(listado,unidades);
+            gu.llenarLista(listado, unidades);
             lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e);
@@ -357,7 +357,7 @@ public class FormGestionarUnidad extends javax.swing.JDialog {
                         botones(false);
                     }
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, e); 
+                    JOptionPane.showMessageDialog(this, e);
                 }
             } else {
                 mostrar();
@@ -370,17 +370,16 @@ public class FormGestionarUnidad extends javax.swing.JDialog {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
-      gu = new GestionarUnidadServicio();
-      unidad = new Unidad();
-        try { 
-            if(txtBuscar.getText()!=""){
-            unidad.setUnidad(String.valueOf(evt.getKeyChar()));
+        gu = new GestionarUnidadServicio();
+        unidad = new Unidad();
+        try {  
+            
+            //unidad.setUnidad(String.valueOf(evt.getKeyChar()));
+            unidad.setUnidad(txtBuscar.getText());
             unidades = gu.buscarNombre(unidad);
-             gu.llenarLista(listado,unidades);
+            gu.llenarLista(listado, unidades);
             lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
-            }else{
-                mostrar();
-            } 
+            
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
