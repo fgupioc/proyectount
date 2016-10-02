@@ -1,9 +1,1 @@
- <tables> 
-	<campos> 
-		<host>localhost</host>
-		<database>almacenbd</database>
-		<user>root</user>
-		<password></password> 
-	</campos> 
-</tables>
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><tables><campos><host>localhost</host><database>almacenbd</database><user>root</user><password/></campos></tables>

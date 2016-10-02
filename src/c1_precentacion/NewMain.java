@@ -5,11 +5,14 @@
  */
 package c1_precentacion;
 
+import c2_aplicacion.GestionarConfiguracionServicio;
 import c2_aplicacion.GestionarUnidadServicio;
 import c3_dominio.Unidad;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import java.util.List; 
+import java.util.List;
+
 /**
  *
  * @author Franz
@@ -19,11 +22,23 @@ public class NewMain {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        FormMenu form = new FormMenu();
-        form.setVisible(true);
-        //ingreso();
-       
+    public static void main(String[] args) throws Exception {
+        GestionarConfiguracionServicio conf = new GestionarConfiguracionServicio();
+        String sFichero = "C://Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/Config.xml";
+        File fichero = new File(sFichero);
+        if (fichero.exists()) {
+            if (conf.validarConexion()) {
+                FormMenu form = new FormMenu();
+                form.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null,"Error en la autenticación a la base de datos","Erros en las credenciales",0);
+                FormConfigurarHost form = new FormConfigurarHost();
+                form.setVisible(true);
+            }
+        } else {
+            FormConfigurarHost form = new FormConfigurarHost();
+            form.setVisible(true);
+        } 
     }
 
     public static void ingreso() {
@@ -40,8 +55,5 @@ public class NewMain {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-
-    
-    
 
 }

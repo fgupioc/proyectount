@@ -21,6 +21,8 @@ public abstract class GestorJDBC {
    
    public abstract void abrirConexion() throws Exception;
    
+   public abstract boolean comprobarConexion();
+   
    public void cerrarConexion() throws Exception{
    conexion.close();
    }
