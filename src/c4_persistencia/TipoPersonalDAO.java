@@ -5,10 +5,13 @@
  */
 package c4_persistencia;
 
-import c3_dominio.Unidad; 
+import c3_dominio.TipoPersonal; 
 import c3_dominioFabrica.ITipoPersonalDAO;
 import c4_persistenciaConexion.GestorJDBC;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,34 +20,85 @@ import java.util.List;
  */
 public class TipoPersonalDAO implements ITipoPersonalDAO{
     GestorJDBC gestorJDBC;
+    private CallableStatement cst;
+    private ResultSet rs ;
+    private List<TipoPersonal> tipoPersonals;
+    private String mysql;
+    private TipoPersonal tipoPersonal;
     
     TipoPersonalDAO(GestorJDBC gestorJDBC) {
         this.gestorJDBC = gestorJDBC;
     }
 
     @Override
-    public boolean ingresar(Unidad unidad) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean ingresar(TipoPersonal dts) throws SQLException { 
+        mysql= "{Call spUnidadInsertar (?,?,?)}";
+        cst = gestorJDBC.procedimientoAlmacenado(mysql);
+        cst.setString(1, dts.getUnidad());
+        cst.setString(2, dts.getDescripcion());
+        cst.setInt(3, dts.getEstado());   
+        
+        return (cst.executeUpdate()==1)?true:false; 
+ 
     }
 
     @Override
-    public List<Unidad> Listar() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<TipoPersonal> Listar() throws SQLException { 
+        tipoPersonals = new ArrayList();        
+        mysql =  "{call spUnidadListado}";
+        rs = gestorJDBC.ejecutarProcedimiento(mysql);
+        while (rs.next()) {
+            tipoPersonal = new TipoPersonal();
+            tipoPersonal.setIdunidad(rs.getInt("id"));
+            tipoPersonal.setUnidad(rs.getString("nombre"));
+            tipoPersonal.setDescripcion(rs.getString("descripcion"));
+            tipoPersonal.setEstado(rs.getInt("estado"));            
+            tipoPersonals.add(tipoPersonal);
+        }
+        rs.close();
+        return tipoPersonals;
     }
 
     @Override
-    public boolean editar(Unidad unidad) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean editar(TipoPersonal dts) throws SQLException {  
+       mysql ="{call spUnidadEditar(?,?,?)}";
+       cst = gestorJDBC.procedimientoAlmacenado(mysql);
+       
+       cst.setInt(1,dts.getIdunidad());
+       cst.setString(2,dts.getUnidad());
+       cst.setString(3, dts.getDescripcion());
+       
+       return (cst.executeUpdate()==1)?true:false;        
+    } 
+
+    @Override
+    public boolean eliminar(TipoPersonal dts) throws SQLException {
+       mysql = "{call spUnidadEliminar(?)}";
+       cst = gestorJDBC.procedimientoAlmacenado(mysql);
+       
+       cst.setInt(1,dts.getIdunidad());
+       
+       return (cst.executeUpdate()==1)?true:false;
     }
 
     @Override
-    public boolean eliminar(Unidad unidad) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<TipoPersonal> buscarNombre(TipoPersonal dts) throws Exception {
+        tipoPersonals =new ArrayList();
+      
+        mysql ="{call spUnidadBuscarNombre('"+dts.getUnidad()+"')}";
+        
+        rs = gestorJDBC.ejecutarProcedimiento(mysql);
+        while (rs.next()) {
+            tipoPersonal = new TipoPersonal();
+            tipoPersonal.setIdunidad(rs.getInt("id"));
+            tipoPersonal.setUnidad(rs.getString("nombre"));
+            tipoPersonal.setDescripcion(rs.getString("descripcion"));
+            tipoPersonal.setEstado(rs.getInt("estado"));            
+            tipoPersonals.add(tipoPersonal);
+        }
+        rs.close(); 
+        return tipoPersonals;
     }
-
-    @Override
-    public List<Unidad> buscarNombre(Unidad unidad) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
 }

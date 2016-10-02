@@ -169,9 +169,8 @@ public class FormConfigurarHost extends javax.swing.JFrame {
                         }else{
                             JOptionPane.showMessageDialog(null,"No se pudo guardad las credenciales","Erros",2);
                         }
-                    } catch(Exception e) {
-                      JOptionPane.showMessageDialog(this,"1");
-                        JOptionPane.showMessageDialog(this,e);
+                    } catch(Exception e) { 
+                       JOptionPane.showMessageDialog(this,e);
                     } 
                 } else {
                     JOptionPane.showMessageDialog(this, "Debe llenar el Usuario", "Aviso", 0);

@@ -5,7 +5,7 @@
  */
 package c3_dominioFabrica;
 
-import c3_dominio.Unidad;
+import c3_dominio.TipoProducto;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
  * @author Franz
  */
 public interface ITipoProductoDAO {
-    public boolean ingresar(Unidad unidad) throws SQLException;
-    public List<Unidad> Listar() throws SQLException; 
-    public boolean editar(Unidad unidad) throws SQLException;
-    public boolean eliminar(Unidad unidad) throws SQLException;
-    public List<Unidad> buscarNombre(Unidad unidad) throws Exception;
+    public boolean ingresar(TipoProducto tipoProducto) throws SQLException;
+    public List<TipoProducto> Listar() throws SQLException; 
+    public boolean editar(TipoProducto tipoProducto) throws SQLException;
+    public boolean eliminar(TipoProducto tipoProducto) throws SQLException;
+    public List<TipoProducto> buscarNombre(TipoProducto tipoProducto) throws Exception;
 }

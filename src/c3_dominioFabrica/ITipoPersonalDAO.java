@@ -5,7 +5,7 @@
  */
 package c3_dominioFabrica;
 
-import c3_dominio.Unidad;
+import c3_dominio.TipoPersonal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
  * @author Franz
  */
 public interface ITipoPersonalDAO {
-    public boolean ingresar(Unidad unidad) throws SQLException;
-    public List<Unidad> Listar() throws SQLException; 
-    public boolean editar(Unidad unidad) throws SQLException;
-    public boolean eliminar(Unidad unidad) throws SQLException;
-    public List<Unidad> buscarNombre(Unidad unidad) throws Exception;    
+    public boolean ingresar(TipoPersonal tipoPersonal) throws SQLException;
+    public List<TipoPersonal> Listar() throws SQLException; 
+    public boolean editar(TipoPersonal tipoPersonal) throws SQLException;
+    public boolean eliminar(TipoPersonal tipoPersonal) throws SQLException;
+    public List<TipoPersonal> buscarNombre(TipoPersonal tipoPersonal) throws Exception;    
 }

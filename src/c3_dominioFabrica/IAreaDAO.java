@@ -5,7 +5,7 @@
  */
 package c3_dominioFabrica;
 
-import c3_dominio.Unidad;
+import c3_dominio.Area;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
  * @author Franz
  */
 public interface IAreaDAO {
-    public boolean ingresar(Unidad unidad) throws SQLException;
-    public List<Unidad> Listar() throws SQLException; 
-    public boolean editar(Unidad unidad) throws SQLException;
-    public boolean eliminar(Unidad unidad) throws SQLException;
-    public List<Unidad> buscarNombre(Unidad unidad) throws Exception; 
+    public boolean ingresar(Area area) throws SQLException;
+    public List<Area> Listar() throws SQLException; 
+    public boolean editar(Area area) throws SQLException;
+    public boolean eliminar(Area area) throws SQLException;
+    public List<Area> buscarNombre(Area area) throws Exception; 
 }

@@ -5,7 +5,7 @@
  */
 package c3_dominioFabrica;
 
-import c3_dominio.Unidad;
+import c3_dominio.Marca;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
  * @author Franz
  */
 public interface IMarcaDAO {
-    public boolean ingresar(Unidad unidad) throws SQLException;
-    public List<Unidad> Listar() throws SQLException; 
-    public boolean editar(Unidad unidad) throws SQLException;
-    public boolean eliminar(Unidad unidad) throws SQLException;
-    public List<Unidad> buscarNombre(Unidad unidad) throws Exception;    
+    public boolean ingresar(Marca marca) throws SQLException;
+    public List<Marca> Listar() throws SQLException; 
+    public boolean editar(Marca marca) throws SQLException;
+    public boolean eliminar(Marca marca) throws SQLException;
+    public List<Marca> buscarNombre(Marca marca) throws Exception;    
 }

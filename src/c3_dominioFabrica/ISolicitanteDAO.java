@@ -5,7 +5,7 @@
  */
 package c3_dominioFabrica;
 
-import c3_dominio.Unidad;
+import c3_dominio.Solicitante;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
  * @author Franz
  */
 public interface ISolicitanteDAO {
-    public boolean ingresar(Unidad unidad) throws SQLException;
-    public List<Unidad> Listar() throws SQLException; 
-    public boolean editar(Unidad unidad) throws SQLException;
-    public boolean eliminar(Unidad unidad) throws SQLException;
-    public List<Unidad> buscarNombre(Unidad unidad) throws Exception;    
+    public boolean ingresar(Solicitante solicitante) throws SQLException;
+    public List<Solicitante> Listar() throws SQLException; 
+    public boolean editar(Solicitante solicitante) throws SQLException;
+    public boolean eliminar(Solicitante solicitante) throws SQLException;
+    public List<Solicitante> buscarNombre(Solicitante solicitante) throws Exception;    
 }
