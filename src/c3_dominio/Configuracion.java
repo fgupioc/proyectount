@@ -2,7 +2,7 @@
 package c3_dominio;
  
 public class Configuracion {
-    private String host,db,user,pass,puerto;
+    private String host,db,user,pass,puerto,directorio;     
 
     public Configuracion() {
     }
@@ -13,6 +13,14 @@ public class Configuracion {
         this.user = user;
         this.pass = pass;
         this.puerto = puerto;
+    }
+
+    public String getDirectorio() {
+        return directorio;
+    }
+
+    public void setDirectorio(String directorio) {
+        this.directorio = directorio;
     }
 
     public String getHost() {
@@ -55,4 +63,7 @@ public class Configuracion {
         this.puerto = puerto;
     }
     
+    public  String directorioUrl(){
+        return this.directorio="C://Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/Config.xml";
+    }
 }

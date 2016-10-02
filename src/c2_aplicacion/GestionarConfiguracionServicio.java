@@ -30,6 +30,7 @@ public class GestionarConfiguracionServicio {
 
     private GestorJDBC gestorJDBC;
     private Configuracion configuracion;
+    Configuracion conf;
 
     public GestionarConfiguracionServicio() {
         FabricaAbstractaDAO fabricaAbstractaDAO = FabricaAbstractaDAO.getInstancia();
@@ -68,7 +69,8 @@ public class GestionarConfiguracionServicio {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("C://Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/Config.xml"));
+            conf = new Configuracion();
+            StreamResult result = new StreamResult(new File(conf.directorioUrl()));
 
             transformer.transform(source, result);
             flag = (result != null) ? true : false;

@@ -1,5 +1,6 @@
 package c4_persistenciaConexion;
 
+import c3_dominio.Configuracion;
 import java.io.File;
 import java.io.IOException;
 import java.sql.DriverManager;
@@ -21,13 +22,14 @@ public class ConexionMYSQL extends GestorJDBC {
     private String db;
     private String user;
     private String pass;
+    private Configuracion conf;
 
     public ConexionMYSQL() {
-        String sFichero = "C://Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/Config.xml";
-        File fichero = new File(sFichero);
+        conf = new Configuracion();        
+        File fichero = new File(conf.directorioUrl());
         if (fichero.exists()) {
             SAXBuilder builder = new SAXBuilder();
-            File xmlFile = new File("C://Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/Config.xml");
+            File xmlFile = new File(conf.directorioUrl());
             try {
                 Document document = (Document) builder.build(xmlFile);
                 Element rootNode = document.getRootElement();
@@ -56,7 +58,8 @@ public class ConexionMYSQL extends GestorJDBC {
     public boolean comprobarConexion() {
         boolean flag = false; 
         SAXBuilder builder = new SAXBuilder();
-        File xmlFile = new File("C://Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/Config.xml");
+        conf = new Configuracion();
+        File xmlFile = new File(conf.directorioUrl());
         try {
             Document document = (Document) builder.build(xmlFile);
             Element rootNode = document.getRootElement();

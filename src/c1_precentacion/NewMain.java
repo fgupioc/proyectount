@@ -7,6 +7,7 @@ package c1_precentacion;
 
 import c2_aplicacion.GestionarConfiguracionServicio;
 import c2_aplicacion.GestionarUnidadServicio;
+import c3_dominio.Configuracion;
 import c3_dominio.Unidad;
 import java.io.File;
 import java.util.ArrayList;
@@ -24,8 +25,8 @@ public class NewMain {
      */
     public static void main(String[] args) throws Exception {
         GestionarConfiguracionServicio conf = new GestionarConfiguracionServicio();
-        String sFichero = "C://Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/Config.xml";
-        File fichero = new File(sFichero);
+        Configuracion dir = new Configuracion(); 
+        File fichero = new File(dir.directorioUrl());
         if (fichero.exists()) {
             if (conf.validarConexion()) {
                 FormMenu form = new FormMenu();
