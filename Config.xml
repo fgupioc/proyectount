@@ -1,0 +1,9 @@
+ <tables> 
+	<campos> 
+		<host>localhost</host>
+		<database>almacenbd</database>
+		<user>root</user>
+		<password></password> 
+	</campos> 
+</tables>
+
