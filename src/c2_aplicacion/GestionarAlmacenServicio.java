@@ -5,9 +5,10 @@
  */
 package c2_aplicacion;
 
-import c3_dominio.Area;
+ 
+import c3_dominio.Almacen;
 import c3_dominioFabrica.FabricaAbstractaDAO;
-import c3_dominioFabrica.IAreaDAO;
+import c3_dominioFabrica.IAlmacenDAO;
 import c4_persistenciaConexion.GestorJDBC; 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,24 +20,24 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Franz
  */
-public class GestionarAreaServicio {
+public class GestionarAlmacenServicio {
     private  GestorJDBC gestorJDBC;
-    private IAreaDAO areaDAO;
-    private Area area;
-    List<Area> areas;
+    private IAlmacenDAO almacenDAO;
+    private Almacen almacen;
+    List<Almacen> almacenes;
 
-    public GestionarAreaServicio() {
+    public GestionarAlmacenServicio() {
         FabricaAbstractaDAO fabricaAbstractaDAO = FabricaAbstractaDAO.getInstancia();
         gestorJDBC = fabricaAbstractaDAO.crearGestorJDBC();
-        areaDAO = fabricaAbstractaDAO.crearArea(gestorJDBC);
+        almacenDAO = fabricaAbstractaDAO.crearAlmacenDAO(gestorJDBC);
     }
     
-    public boolean insertarArea(Area area) throws Exception{
+     public boolean insertarAlmacen(Almacen almacen) throws Exception{
         boolean flag = false;
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            flag = areaDAO.ingresar(area);
+            flag = almacenDAO.ingresar(almacen);
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -45,26 +46,26 @@ public class GestionarAreaServicio {
         gestorJDBC.cerrarConexion();
         return flag;
     }
-    public List<Area> listarArea()throws Exception{
-        areas = new ArrayList();
+    public List<Almacen> listarAlmacen()throws Exception{
+        almacenes = new ArrayList();
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            areas = areaDAO.Listar();
+            almacenes = almacenDAO.Listar();
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             gestorJDBC.cancelarTransaccion();
         }
         gestorJDBC.cerrarConexion();
-        return areas;
+        return almacenes;
     }
-    public boolean editarArea(Area area)throws Exception{
+    public boolean editarAlmacen(Almacen almacen)throws Exception{
         boolean flag = false;
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            flag = areaDAO.editar(area);
+            flag = almacenDAO.editar(almacen);
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -73,12 +74,12 @@ public class GestionarAreaServicio {
         gestorJDBC.cerrarConexion();
         return flag;  
     }
-    public boolean eliminar(Area area)throws Exception{
+    public boolean eliminar(Almacen almacen)throws Exception{
         boolean flag = false;
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            flag = areaDAO.eliminar(area);
+            flag = almacenDAO.eliminar(almacen);
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -88,33 +89,33 @@ public class GestionarAreaServicio {
         return flag;
     }
     
-    public List<Area> buscarNombre(Area area) throws Exception{
-        areas = new ArrayList();
+    public List<Almacen> buscarNombre(Almacen almacen) throws Exception{
+        almacenes = new ArrayList();
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            areas = areaDAO.buscarNombre(area);
+            almacenes = almacenDAO.buscarNombre(almacen);
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             gestorJDBC.cancelarTransaccion();
         }
         gestorJDBC.cerrarConexion();
-        return areas;
+        return almacenes;
     }
     
-    public void llenarLista(JTable listado, List<Area> areaes) throws Exception {
+    public void llenarLista(JTable listado, List<Almacen> almacenes) throws Exception {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);
         model.addColumn("id");
         model.addColumn("Nombre"); 
         model.addColumn("estado"); 
         
-        model.setNumRows(areaes.size());
+        model.setNumRows(almacenes.size());
         int i =0;
-        for(Area dts:areaes){            
-            model.setValueAt(dts.getIdarea(), i, 0);
-            model.setValueAt(dts.getArea(), i, 1); 
+        for(Almacen dts:almacenes){            
+            model.setValueAt(dts.getIdalmacen(), i, 0);
+            model.setValueAt(dts.getAlmacen(), i, 1); 
             model.setValueAt(dts.getEstado(), i, 2);
             i++;
         }       
@@ -131,10 +132,10 @@ public class GestionarAreaServicio {
         listado.getColumnModel().getColumn(2).setPreferredWidth(0);
     }
     
-    public boolean buscarAreaList(List<Area> areas, String nombre){
+    public boolean buscarAlmacenList(List<Almacen> almacens, String nombre){
         boolean flag = false; 
-        for(Area dt:areas){           
-           if(dt.getArea().equals(nombre)){ 
+        for(Almacen dt:almacens){           
+           if(dt.getAlmacen().equals(nombre)){ 
                flag = true;
                break;
            }else{ 
@@ -143,5 +144,4 @@ public class GestionarAreaServicio {
         }        
         return flag;
     }
-    
 }

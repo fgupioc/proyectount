@@ -30,17 +30,20 @@ public class FormMenu extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        miTipoPersonal = new javax.swing.JMenu();
         miUnidad = new javax.swing.JMenuItem();
         miCategoria = new javax.swing.JMenuItem();
         miMarca = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        miArea = new javax.swing.JMenuItem();
+        miAlamcen = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        miTipoPersonal.setText("Edit");
 
         miUnidad.setText("Unidades");
         miUnidad.addActionListener(new java.awt.event.ActionListener() {
@@ -48,7 +51,7 @@ public class FormMenu extends javax.swing.JFrame {
                 miUnidadActionPerformed(evt);
             }
         });
-        jMenu2.add(miUnidad);
+        miTipoPersonal.add(miUnidad);
 
         miCategoria.setText("Categoria");
         miCategoria.addActionListener(new java.awt.event.ActionListener() {
@@ -56,7 +59,7 @@ public class FormMenu extends javax.swing.JFrame {
                 miCategoriaActionPerformed(evt);
             }
         });
-        jMenu2.add(miCategoria);
+        miTipoPersonal.add(miCategoria);
 
         miMarca.setText("Marca");
         miMarca.addActionListener(new java.awt.event.ActionListener() {
@@ -64,9 +67,33 @@ public class FormMenu extends javax.swing.JFrame {
                 miMarcaActionPerformed(evt);
             }
         });
-        jMenu2.add(miMarca);
+        miTipoPersonal.add(miMarca);
 
-        jMenuBar1.add(jMenu2);
+        jMenuItem1.setText("TipoPersonal");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        miTipoPersonal.add(jMenuItem1);
+
+        miArea.setText("Area");
+        miArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAreaActionPerformed(evt);
+            }
+        });
+        miTipoPersonal.add(miArea);
+
+        miAlamcen.setText("Almacen");
+        miAlamcen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAlamcenActionPerformed(evt);
+            }
+        });
+        miTipoPersonal.add(miAlamcen);
+
+        jMenuBar1.add(miTipoPersonal);
 
         setJMenuBar(jMenuBar1);
 
@@ -99,16 +126,34 @@ public class FormMenu extends javax.swing.JFrame {
         form.setVisible(true);
     }//GEN-LAST:event_miMarcaActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       FormGestionarTipoPersonal form = new FormGestionarTipoPersonal(this, false);
+       form.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void miAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAreaActionPerformed
+         FormGestionarArea form = new FormGestionarArea(this, false);
+       form.setVisible(true);
+    }//GEN-LAST:event_miAreaActionPerformed
+
+    private void miAlamcenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlamcenActionPerformed
+        FormGestionarAlmacen form = new FormGestionarAlmacen(this, false);
+       form.setVisible(true);
+    }//GEN-LAST:event_miAlamcenActionPerformed
+
     /**
      * @param args the command line arguments
       */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem miAlamcen;
+    private javax.swing.JMenuItem miArea;
     private javax.swing.JMenuItem miCategoria;
     private javax.swing.JMenuItem miMarca;
+    private javax.swing.JMenu miTipoPersonal;
     private javax.swing.JMenuItem miUnidad;
     // End of variables declaration//GEN-END:variables
 }

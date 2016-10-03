@@ -5,8 +5,8 @@
  */
 package c4_persistencia;
 
-import c3_dominio.Ubicacion;  
-import c3_dominioFabrica.IUbicacionDAO;
+import c3_dominio.Almacen;  
+import c3_dominioFabrica.IAlmacenDAO;
 import c4_persistenciaConexion.GestorJDBC;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -18,40 +18,38 @@ import java.util.List;
  *
  * @author Franz
  */
-public class UbicacionDAO implements IUbicacionDAO{
+public class AlmacenDAO implements IAlmacenDAO{
     GestorJDBC gestorJDBC;
     private CallableStatement cst;
     private ResultSet rs ;
-    private List<Ubicacion> ubicacions;
+    private List<Almacen> ubicacions;
     private String mysql;
-    private Ubicacion ubicacion;
+    private Almacen ubicacion;
     
-    UbicacionDAO(GestorJDBC gestorJDBC) {
+    AlmacenDAO(GestorJDBC gestorJDBC) {
         this.gestorJDBC = gestorJDBC;
     }
 
      @Override
-    public boolean ingresar(Ubicacion dts) throws SQLException { 
-        mysql= "{Call spUnidadInsertar (?,?,?)}";
+    public boolean ingresar(Almacen dts) throws SQLException { 
+        mysql= "{Call spAlmacenInsertar (?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
-        cst.setString(1, dts.getUnidad());
-        cst.setString(2, dts.getDescripcion());
-        cst.setInt(3, dts.getEstado());   
+        cst.setString(1, dts.getAlmacen()); 
+        cst.setInt(2, dts.getEstado());   
         
         return (cst.executeUpdate()==1)?true:false; 
  
     }
 
     @Override
-    public List<Ubicacion> Listar() throws SQLException { 
+    public List<Almacen> Listar() throws SQLException { 
         ubicacions = new ArrayList();        
-        mysql =  "{call spUnidadListado}";
+        mysql =  "{call spAlmacenListado}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
-            ubicacion = new Ubicacion();
-            ubicacion.setIdunidad(rs.getInt("id"));
-            ubicacion.setUnidad(rs.getString("nombre"));
-            ubicacion.setDescripcion(rs.getString("descripcion"));
+            ubicacion = new Almacen();
+            ubicacion.setIdalmacen(rs.getInt("id")); 
+            ubicacion.setAlmacen(rs.getString("descripcion"));
             ubicacion.setEstado(rs.getInt("estado"));            
             ubicacions.add(ubicacion);
         }
@@ -60,39 +58,37 @@ public class UbicacionDAO implements IUbicacionDAO{
     }
 
     @Override
-    public boolean editar(Ubicacion dts) throws SQLException {  
-       mysql ="{call spUnidadEditar(?,?,?)}";
+    public boolean editar(Almacen dts) throws SQLException {  
+       mysql ="{call spAlmacenEditar(?,?)}";
        cst = gestorJDBC.procedimientoAlmacenado(mysql);
        
-       cst.setInt(1,dts.getIdunidad());
-       cst.setString(2,dts.getUnidad());
-       cst.setString(3, dts.getDescripcion());
+       cst.setInt(1,dts.getIdalmacen()); 
+       cst.setString(2, dts.getAlmacen());
        
        return (cst.executeUpdate()==1)?true:false;        
     } 
 
     @Override
-    public boolean eliminar(Ubicacion dts) throws SQLException {
-       mysql = "{call spUnidadEliminar(?)}";
+    public boolean eliminar(Almacen dts) throws SQLException {
+       mysql = "{call spAlmacenEliminar(?)}";
        cst = gestorJDBC.procedimientoAlmacenado(mysql);
        
-       cst.setInt(1,dts.getIdunidad());
+       cst.setInt(1,dts.getIdalmacen());
        
        return (cst.executeUpdate()==1)?true:false;
     }
 
     @Override
-    public List<Ubicacion> buscarNombre(Ubicacion dts) throws Exception {
+    public List<Almacen> buscarNombre(Almacen dts) throws Exception {
         ubicacions =new ArrayList();
       
-        mysql ="{call spUnidadBuscarNombre('"+dts.getUnidad()+"')}";
+        mysql ="{call spAlmacenBuscarNombre('"+dts.getAlmacen()+"')}";
         
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
-            ubicacion = new Ubicacion();
-            ubicacion.setIdunidad(rs.getInt("id"));
-            ubicacion.setUnidad(rs.getString("nombre"));
-            ubicacion.setDescripcion(rs.getString("descripcion"));
+            ubicacion = new Almacen();
+            ubicacion.setIdalmacen(rs.getInt("id")); 
+            ubicacion.setAlmacen(rs.getString("descripcion"));
             ubicacion.setEstado(rs.getInt("estado"));            
             ubicacions.add(ubicacion);
         }

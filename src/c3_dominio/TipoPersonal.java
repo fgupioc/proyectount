@@ -10,25 +10,24 @@ package c3_dominio;
  * @author Franz
  */
 public class TipoPersonal {
-    private int idunidad,estado;
-    private String unidad,descripcion;
+    private int idtipoPersonal,estado;
+    private String tipoPersonal;
 
     public TipoPersonal() {
     }
 
-    public TipoPersonal(int idunidad, int estado, String unidad, String descripcion) {
-        this.idunidad = idunidad;
+    public TipoPersonal(int idtipoPersonal, int estado, String tipoPersonal) {
+        this.idtipoPersonal = idtipoPersonal;
         this.estado = estado;
-        this.unidad = unidad;
-        this.descripcion = descripcion;
+        this.tipoPersonal = tipoPersonal;
     }
 
-    public int getIdunidad() {
-        return idunidad;
+    public int getIdtipoPersonal() {
+        return idtipoPersonal;
     }
 
-    public void setIdunidad(int idunidad) {
-        this.idunidad = idunidad;
+    public void setIdtipoPersonal(int idtipoPersonal) {
+        this.idtipoPersonal = idtipoPersonal;
     }
 
     public int getEstado() {
@@ -39,20 +38,13 @@ public class TipoPersonal {
         this.estado = estado;
     }
 
-    public String getUnidad() {
-        return unidad;
+    public String getTipoPersonal() {
+        return tipoPersonal;
     }
 
-    public void setUnidad(String unidad) {
-        this.unidad = unidad;
+    public void setTipoPersonal(String tipoPersonal) {
+        this.tipoPersonal = tipoPersonal;
     }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+    
     
 }

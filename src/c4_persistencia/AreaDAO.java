@@ -32,26 +32,23 @@ public class AreaDAO implements IAreaDAO{
 
       @Override
     public boolean ingresar(Area dts) throws SQLException { 
-        mysql= "{Call spUnidadInsertar (?,?,?)}";
+        mysql= "{Call spAreaInsertar (?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
-        cst.setString(1, dts.getUnidad());
-        cst.setString(2, dts.getDescripcion());
-        cst.setInt(3, dts.getEstado());   
+        cst.setString(1, dts.getArea()); 
+        cst.setInt(2, dts.getEstado());   
         
-        return (cst.executeUpdate()==1)?true:false; 
- 
+        return (cst.executeUpdate()==1)?true:false;  
     }
 
     @Override
     public List<Area> Listar() throws SQLException { 
         areas = new ArrayList();        
-        mysql =  "{call spUnidadListado}";
+        mysql =  "{call spAreaListado}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             area = new Area();
-            area.setIdunidad(rs.getInt("id"));
-            area.setUnidad(rs.getString("nombre"));
-            area.setDescripcion(rs.getString("descripcion"));
+            area.setIdarea(rs.getInt("id")); 
+            area.setArea(rs.getString("descripcion"));
             area.setEstado(rs.getInt("estado"));            
             areas.add(area);
         }
@@ -61,38 +58,35 @@ public class AreaDAO implements IAreaDAO{
 
     @Override
     public boolean editar(Area dts) throws SQLException {  
-       mysql ="{call spUnidadEditar(?,?,?)}";
+       mysql ="{call spAreaEditar(?,?)}";
        cst = gestorJDBC.procedimientoAlmacenado(mysql);
        
-       cst.setInt(1,dts.getIdunidad());
-       cst.setString(2,dts.getUnidad());
-       cst.setString(3, dts.getDescripcion());
+       cst.setInt(1,dts.getIdarea());
+       cst.setString(2,dts.getArea()); 
        
        return (cst.executeUpdate()==1)?true:false;        
     } 
 
     @Override
     public boolean eliminar(Area dts) throws SQLException {
-       mysql = "{call spUnidadEliminar(?)}";
+       mysql = "{call spAreaEliminar(?)}";
        cst = gestorJDBC.procedimientoAlmacenado(mysql);
        
-       cst.setInt(1,dts.getIdunidad());
+       cst.setInt(1,dts.getIdarea());
        
        return (cst.executeUpdate()==1)?true:false;
     }
 
     @Override
     public List<Area> buscarNombre(Area dts) throws Exception {
-        areas =new ArrayList();
-      
-        mysql ="{call spUnidadBuscarNombre('"+dts.getUnidad()+"')}";
+        areas =new ArrayList(); 
+        mysql ="{call spAreaBuscarNombre('"+dts.getArea()+"')}";
         
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             area = new Area();
-            area.setIdunidad(rs.getInt("id"));
-            area.setUnidad(rs.getString("nombre"));
-            area.setDescripcion(rs.getString("descripcion"));
+            area.setIdarea(rs.getInt("id")); 
+            area.setArea(rs.getString("descripcion"));
             area.setEstado(rs.getInt("estado"));            
             areas.add(area);
         }

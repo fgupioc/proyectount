@@ -10,25 +10,24 @@ package c3_dominio;
  * @author Franz
  */
 public class Area {
-    private int idunidad,estado;
-    private String unidad,descripcion;
+    private int idarea,estado;
+    private String area;
 
     public Area() {
     }
 
-    public Area(int idunidad, int estado, String unidad, String descripcion) {
-        this.idunidad = idunidad;
+    public Area(int idarea, int estado, String area) {
+        this.idarea = idarea;
         this.estado = estado;
-        this.unidad = unidad;
-        this.descripcion = descripcion;
+        this.area = area;
     }
 
-    public int getIdunidad() {
-        return idunidad;
+    public int getIdarea() {
+        return idarea;
     }
 
-    public void setIdunidad(int idunidad) {
-        this.idunidad = idunidad;
+    public void setIdarea(int idarea) {
+        this.idarea = idarea;
     }
 
     public int getEstado() {
@@ -39,20 +38,13 @@ public class Area {
         this.estado = estado;
     }
 
-    public String getUnidad() {
-        return unidad;
+    public String getArea() {
+        return area;
     }
 
-    public void setUnidad(String unidad) {
-        this.unidad = unidad;
+    public void setArea(String area) {
+        this.area = area;
     }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+    
     
 }

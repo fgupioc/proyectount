@@ -32,11 +32,10 @@ public class TipoPersonalDAO implements ITipoPersonalDAO{
 
     @Override
     public boolean ingresar(TipoPersonal dts) throws SQLException { 
-        mysql= "{Call spUnidadInsertar (?,?,?)}";
+        mysql= "{Call spTipo_PersonalInsertar(?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
-        cst.setString(1, dts.getUnidad());
-        cst.setString(2, dts.getDescripcion());
-        cst.setInt(3, dts.getEstado());   
+        cst.setString(1, dts.getTipoPersonal()); 
+        cst.setInt(2, dts.getEstado());   
         
         return (cst.executeUpdate()==1)?true:false; 
  
@@ -45,13 +44,12 @@ public class TipoPersonalDAO implements ITipoPersonalDAO{
     @Override
     public List<TipoPersonal> Listar() throws SQLException { 
         tipoPersonals = new ArrayList();        
-        mysql =  "{call spUnidadListado}";
+        mysql =  "{call spTipo_PersonalListado}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             tipoPersonal = new TipoPersonal();
-            tipoPersonal.setIdunidad(rs.getInt("id"));
-            tipoPersonal.setUnidad(rs.getString("nombre"));
-            tipoPersonal.setDescripcion(rs.getString("descripcion"));
+            tipoPersonal.setIdtipoPersonal(rs.getInt("id")); 
+            tipoPersonal.setTipoPersonal(rs.getString("descripcion"));
             tipoPersonal.setEstado(rs.getInt("estado"));            
             tipoPersonals.add(tipoPersonal);
         }
@@ -61,22 +59,21 @@ public class TipoPersonalDAO implements ITipoPersonalDAO{
 
     @Override
     public boolean editar(TipoPersonal dts) throws SQLException {  
-       mysql ="{call spUnidadEditar(?,?,?)}";
+       mysql ="{call spTipo_PersonalEditar(?,?)}";
        cst = gestorJDBC.procedimientoAlmacenado(mysql);
        
-       cst.setInt(1,dts.getIdunidad());
-       cst.setString(2,dts.getUnidad());
-       cst.setString(3, dts.getDescripcion());
+       cst.setInt(1,dts.getIdtipoPersonal());
+       cst.setString(2,dts.getTipoPersonal()); 
        
        return (cst.executeUpdate()==1)?true:false;        
     } 
 
     @Override
     public boolean eliminar(TipoPersonal dts) throws SQLException {
-       mysql = "{call spUnidadEliminar(?)}";
+       mysql = "{call spTipo_PersonalEliminar(?)}";
        cst = gestorJDBC.procedimientoAlmacenado(mysql);
        
-       cst.setInt(1,dts.getIdunidad());
+       cst.setInt(1,dts.getIdtipoPersonal());
        
        return (cst.executeUpdate()==1)?true:false;
     }
@@ -85,14 +82,13 @@ public class TipoPersonalDAO implements ITipoPersonalDAO{
     public List<TipoPersonal> buscarNombre(TipoPersonal dts) throws Exception {
         tipoPersonals =new ArrayList();
       
-        mysql ="{call spUnidadBuscarNombre('"+dts.getUnidad()+"')}";
+        mysql ="{call spUnidadBuscarNombre('"+dts.getTipoPersonal()+"')}";
         
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             tipoPersonal = new TipoPersonal();
-            tipoPersonal.setIdunidad(rs.getInt("id"));
-            tipoPersonal.setUnidad(rs.getString("nombre"));
-            tipoPersonal.setDescripcion(rs.getString("descripcion"));
+            tipoPersonal.setIdtipoPersonal(rs.getInt("id")); 
+            tipoPersonal.setTipoPersonal(rs.getString("descripcion"));
             tipoPersonal.setEstado(rs.getInt("estado"));            
             tipoPersonals.add(tipoPersonal);
         }
