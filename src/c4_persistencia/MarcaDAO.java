@@ -31,11 +31,10 @@ public class MarcaDAO implements IMarcaDAO{
 
       @Override
     public boolean ingresar(Marca dts) throws SQLException { 
-        mysql= "{Call spUnidadInsertar (?,?,?)}";
+        mysql= "{Call spMarcaInsertar (?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
-        cst.setString(1, dts.getUnidad());
-        cst.setString(2, dts.getDescripcion());
-        cst.setInt(3, dts.getEstado());   
+        cst.setString(1, dts.getMarca()); 
+        cst.setInt(2, dts.getEstado());   
         
         return (cst.executeUpdate()==1)?true:false; 
  
@@ -44,13 +43,12 @@ public class MarcaDAO implements IMarcaDAO{
     @Override
     public List<Marca> Listar() throws SQLException { 
         marcas = new ArrayList();        
-        mysql =  "{call spUnidadListado}";
+        mysql =  "{call spMarcaListado}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             marca = new Marca();
-            marca.setIdunidad(rs.getInt("id"));
-            marca.setUnidad(rs.getString("nombre"));
-            marca.setDescripcion(rs.getString("descripcion"));
+            marca.setIdmarca(rs.getInt("id")); 
+            marca.setMarca(rs.getString("descripcion"));
             marca.setEstado(rs.getInt("estado"));            
             marcas.add(marca);
         }
@@ -60,22 +58,21 @@ public class MarcaDAO implements IMarcaDAO{
 
     @Override
     public boolean editar(Marca dts) throws SQLException {  
-       mysql ="{call spUnidadEditar(?,?,?)}";
+       mysql ="{call spMarcaEditar(?,?)}";
        cst = gestorJDBC.procedimientoAlmacenado(mysql);
        
-       cst.setInt(1,dts.getIdunidad());
-       cst.setString(2,dts.getUnidad());
-       cst.setString(3, dts.getDescripcion());
+       cst.setInt(1,dts.getIdmarca());
+       cst.setString(2,dts.getMarca()); 
        
        return (cst.executeUpdate()==1)?true:false;        
     } 
 
     @Override
     public boolean eliminar(Marca dts) throws SQLException {
-       mysql = "{call spUnidadEliminar(?)}";
+       mysql = "{call spMarcaEliminar(?)}";
        cst = gestorJDBC.procedimientoAlmacenado(mysql);
        
-       cst.setInt(1,dts.getIdunidad());
+       cst.setInt(1,dts.getIdmarca());
        
        return (cst.executeUpdate()==1)?true:false;
     }
@@ -84,14 +81,13 @@ public class MarcaDAO implements IMarcaDAO{
     public List<Marca> buscarNombre(Marca dts) throws Exception {
         marcas =new ArrayList();
       
-        mysql ="{call spUnidadBuscarNombre('"+dts.getUnidad()+"')}";
+        mysql ="{call spMarcaBuscarNombre('"+dts.getMarca()+"')}";
         
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             marca = new Marca();
-            marca.setIdunidad(rs.getInt("id"));
-            marca.setUnidad(rs.getString("nombre"));
-            marca.setDescripcion(rs.getString("descripcion"));
+            marca.setIdmarca(rs.getInt("id"));
+            marca.setMarca(rs.getString("descripcion")); 
             marca.setEstado(rs.getInt("estado"));            
             marcas.add(marca);
         }

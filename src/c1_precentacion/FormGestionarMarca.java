@@ -5,8 +5,8 @@
  */
 package c1_precentacion;
 
-import c2_aplicacion.GestionarCategoriaServicio; 
-import c3_dominio.Categoria; 
+import c2_aplicacion.GestionarMarcaServicio;
+import c3_dominio.Marca; 
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -14,17 +14,17 @@ import javax.swing.JOptionPane;
  *
  * @author Franz
  */
-public class FormGestionarCategoria extends javax.swing.JDialog {
+public class FormGestionarMarca extends javax.swing.JDialog {
 
     /**
      * Creates new form FormGestionarUnidad
      */
     private String flag = "Guardar";
-   Categoria categoria;
-    private GestionarCategoriaServicio gu;
-    private List<Categoria> categorias;
+    Marca marca;
+    private GestionarMarcaServicio gu;
+    private List<Marca> marcas;
 
-    public FormGestionarCategoria(java.awt.Frame parent, boolean modal) {
+    public FormGestionarMarca(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         mostrar();
@@ -218,9 +218,9 @@ public class FormGestionarCategoria extends javax.swing.JDialog {
 
     private void mostrar() {
         try {
-            gu = new GestionarCategoriaServicio();
-            categorias = gu.listarCategoria();
-            gu.llenarLista(listado, categorias);
+            gu = new GestionarMarcaServicio();
+            marcas = gu.listarMarca();
+            gu.llenarLista(listado, marcas);
             lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e);
@@ -229,10 +229,10 @@ public class FormGestionarCategoria extends javax.swing.JDialog {
 
     private boolean buscarMarcaList(String nombre) {
         boolean flag = false;
-        gu = new GestionarCategoriaServicio();
+        gu = new GestionarMarcaServicio();
         try {
-            categorias = gu.listarCategoria();
-            flag = (gu.buscarCategoriaList(categorias, nombre)) ? true : false;
+            marcas = gu.listarMarca();
+            flag = (gu.buscarMarcaList(marcas, nombre)) ? true : false;
 
         } catch (Exception e) {
         }
@@ -241,14 +241,14 @@ public class FormGestionarCategoria extends javax.swing.JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (!txtNombre.getText().equals("")) {
             try {
-                categoria = new Categoria();
-                gu = new GestionarCategoriaServicio(); 
-                categoria.setCategoria(txtNombre.getText().toLowerCase().trim()); 
-                categoria.setEstado(1);
+                marca = new Marca();
+                gu = new GestionarMarcaServicio(); 
+                marca.setMarca(txtNombre.getText().toLowerCase().trim()); 
+                marca.setEstado(1);
 
                 if (flag.equals("Guardar")) {
                     if (!buscarMarcaList(txtNombre.getText().toLowerCase().trim())) { 
-                        if (gu.insertarCategoria(categoria)) {
+                        if (gu.insertarMarca(marca)) {
                             JOptionPane.showMessageDialog(null, "Guardado correctamente");
                             mostrar();
                             limpiar();
@@ -264,8 +264,8 @@ public class FormGestionarCategoria extends javax.swing.JDialog {
                         txtNombre.requestFocus();
                     }
                 } else {
-                    categoria.setIdcategoria(Integer.parseInt(lblId.getText()));
-                    if (gu.editarCategoria(categoria)) {
+                    marca.setIdmarca(Integer.parseInt(lblId.getText()));
+                    if (gu.editarMarca(marca)) {
                         JOptionPane.showMessageDialog(null, "Se Actualizo correctamente");
                         mostrar();
                         limpiar();
@@ -317,10 +317,10 @@ public class FormGestionarCategoria extends javax.swing.JDialog {
             int res = JOptionPane.showConfirmDialog(this, "¿Esta Seguro De Eliminar?", "Eliminar", 0, 3);
             if (res == 0) {
                 try {
-                    gu = new GestionarCategoriaServicio();
-                   categoria = new Categoria();
-                    categoria.setIdcategoria(Integer.parseInt(lblId.getText()));
-                    if (gu.eliminarCategoria(categoria)) {
+                    gu = new GestionarMarcaServicio();
+                    marca = new Marca();
+                    marca.setIdmarca(Integer.parseInt(lblId.getText()));
+                    if (gu.eliminar(marca)) {
                         JOptionPane.showMessageDialog(this, "Eliminado correctamente");
                         mostrar();
                         limpiar();
@@ -345,13 +345,13 @@ public class FormGestionarCategoria extends javax.swing.JDialog {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
-        gu = new GestionarCategoriaServicio();
-        categoria = new Categoria();
+        gu = new GestionarMarcaServicio();
+        marca = new Marca();
         try { 
             //unidad.setUnidad(String.valueOf(evt.getKeyChar()));
-            categoria.setCategoria(txtBuscar.getText());
-            categorias = gu.buscarNombre(categoria);
-            gu.llenarLista(listado, categorias);
+            marca.setMarca(txtBuscar.getText());
+            marcas = gu.buscarNombre(marca);
+            gu.llenarLista(listado, marcas);
             lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
 
         } catch (Exception e) {
