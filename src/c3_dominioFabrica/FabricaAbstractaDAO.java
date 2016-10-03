@@ -47,5 +47,7 @@ public abstract class FabricaAbstractaDAO {
     
     public abstract ISolicitanteDAO crearSolicitanteDAO(GestorJDBC gestorJDBC);
     
+    public abstract IPersonalDAO crearPersonalDAO(GestorJDBC gestorJDBC);
+    
    
 }

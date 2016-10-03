@@ -9,6 +9,7 @@ import c3_dominioFabrica.ISolicitanteDAO;
 import c3_dominioFabrica.ITipoPersonalDAO;
 import c3_dominioFabrica.ITipoProductoDAO;
 import c3_dominioFabrica.IAlmacenDAO;
+import c3_dominioFabrica.IPersonalDAO;
 import c3_dominioFabrica.IUnidadDAO;
 import c4_persistenciaConexion.ConexionMYSQL;
 import c4_persistenciaConexion.GestorJDBC;
@@ -68,6 +69,11 @@ public class FabricaDAOmysql extends FabricaAbstractaDAO {
     @Override
     public ISolicitanteDAO crearSolicitanteDAO(GestorJDBC gestorJDBC) {
          return new SolicitanteDAO(gestorJDBC);
+    }
+
+    @Override
+    public IPersonalDAO crearPersonalDAO(GestorJDBC gestorJDBC) {
+        return new PersonalDAO(gestorJDBC);
     }
 
     

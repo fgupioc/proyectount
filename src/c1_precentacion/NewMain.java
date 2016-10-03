@@ -6,6 +6,7 @@
 package c1_precentacion;
 
 import c2_aplicacion.GestionarConfiguracionServicio;
+import c2_aplicacion.GestionarPersonalServicio;
 import c2_aplicacion.GestionarUnidadServicio;
 import c3_dominio.Configuracion;
 import c3_dominio.Unidad;
@@ -40,21 +41,7 @@ public class NewMain {
             FormConfigurarHost form = new FormConfigurarHost();
             form.setVisible(true);
         } 
-    }
-
-    public static void ingreso() {
-        // Unidad dts = new Unidad();
-        GestionarUnidadServicio func = new GestionarUnidadServicio();
-        try {
-            List<Unidad> unidades = new ArrayList();
-            unidades = func.listarUnidad();
-            for (Unidad unidad : unidades) {
-                System.out.println("nombre : " + unidad.getUnidad());
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
+       
+    } 
 
 }

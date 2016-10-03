@@ -37,6 +37,7 @@ public class FormMenu extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         miArea = new javax.swing.JMenuItem();
         miAlamcen = new javax.swing.JMenuItem();
+        miPersonal = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,6 +94,14 @@ public class FormMenu extends javax.swing.JFrame {
         });
         miTipoPersonal.add(miAlamcen);
 
+        miPersonal.setText("Personal");
+        miPersonal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPersonalActionPerformed(evt);
+            }
+        });
+        miTipoPersonal.add(miPersonal);
+
         jMenuBar1.add(miTipoPersonal);
 
         setJMenuBar(jMenuBar1);
@@ -141,6 +150,11 @@ public class FormMenu extends javax.swing.JFrame {
        form.setVisible(true);
     }//GEN-LAST:event_miAlamcenActionPerformed
 
+    private void miPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPersonalActionPerformed
+        FormGestionarPersonal form = new FormGestionarPersonal(this, false);
+       form.setVisible(true);
+    }//GEN-LAST:event_miPersonalActionPerformed
+
     /**
      * @param args the command line arguments
       */
@@ -153,6 +167,7 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem miArea;
     private javax.swing.JMenuItem miCategoria;
     private javax.swing.JMenuItem miMarca;
+    private javax.swing.JMenuItem miPersonal;
     private javax.swing.JMenu miTipoPersonal;
     private javax.swing.JMenuItem miUnidad;
     // End of variables declaration//GEN-END:variables

@@ -22,7 +22,7 @@ public class TipoPersonalDAO implements ITipoPersonalDAO{
     GestorJDBC gestorJDBC;
     private CallableStatement cst;
     private ResultSet rs ;
-    private List<TipoPersonal> tipoPersonals;
+    private List<TipoPersonal> tipoPersonales;
     private String mysql;
     private TipoPersonal tipoPersonal;
     
@@ -43,7 +43,7 @@ public class TipoPersonalDAO implements ITipoPersonalDAO{
 
     @Override
     public List<TipoPersonal> Listar() throws SQLException { 
-        tipoPersonals = new ArrayList();        
+        tipoPersonales = new ArrayList();        
         mysql =  "{call spTipo_PersonalListado}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
@@ -51,10 +51,10 @@ public class TipoPersonalDAO implements ITipoPersonalDAO{
             tipoPersonal.setIdtipoPersonal(rs.getInt("id")); 
             tipoPersonal.setTipoPersonal(rs.getString("descripcion"));
             tipoPersonal.setEstado(rs.getInt("estado"));            
-            tipoPersonals.add(tipoPersonal);
+            tipoPersonales.add(tipoPersonal);
         }
         rs.close();
-        return tipoPersonals;
+        return tipoPersonales;
     }
 
     @Override
@@ -80,7 +80,7 @@ public class TipoPersonalDAO implements ITipoPersonalDAO{
 
     @Override
     public List<TipoPersonal> buscarNombre(TipoPersonal dts) throws Exception {
-        tipoPersonals =new ArrayList();
+        tipoPersonales =new ArrayList();
       
         mysql ="{call spUnidadBuscarNombre('"+dts.getTipoPersonal()+"')}";
         
@@ -90,10 +90,10 @@ public class TipoPersonalDAO implements ITipoPersonalDAO{
             tipoPersonal.setIdtipoPersonal(rs.getInt("id")); 
             tipoPersonal.setTipoPersonal(rs.getString("descripcion"));
             tipoPersonal.setEstado(rs.getInt("estado"));            
-            tipoPersonals.add(tipoPersonal);
+            tipoPersonales.add(tipoPersonal);
         }
         rs.close(); 
-        return tipoPersonals;
+        return tipoPersonales;
     }
     
     
