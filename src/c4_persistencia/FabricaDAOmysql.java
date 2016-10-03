@@ -3,8 +3,7 @@ package c4_persistencia;
 import c3_dominioFabrica.FabricaAbstractaDAO;
 import c3_dominioFabrica.IAreaDAO;
 import c3_dominioFabrica.ICategoriaDAO;
-import c3_dominioFabrica.IMarcaDAO;
-import c3_dominioFabrica.IOperacionDAO;
+import c3_dominioFabrica.IMarcaDAO; 
 import c3_dominioFabrica.IPresentacionDAO;
 import c3_dominioFabrica.ISolicitanteDAO;
 import c3_dominioFabrica.ITipoPersonalDAO;
@@ -71,10 +70,7 @@ public class FabricaDAOmysql extends FabricaAbstractaDAO {
          return new SolicitanteDAO(gestorJDBC);
     }
 
-    @Override
-    public IOperacionDAO crearOperacionDAO(GestorJDBC gestorJDBC) {
-         return new OperacionDAO(gestorJDBC);
-    }
+    
     
    
 }
