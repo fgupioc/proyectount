@@ -11,16 +11,15 @@ package c3_dominio;
  */
 public class Unidad {
     private int idunidad,estado;
-    private String unidad,descripcion;
+    private String unidad;
 
     public Unidad() {
     }
 
-    public Unidad(int idunidad, int estado, String unidad, String descripcion) {
+    public Unidad(int idunidad, int estado, String unidad) {
         this.idunidad = idunidad;
         this.estado = estado;
         this.unidad = unidad;
-        this.descripcion = descripcion;
     }
 
     public int getIdunidad() {
@@ -47,12 +46,5 @@ public class Unidad {
         this.unidad = unidad;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
     
 }

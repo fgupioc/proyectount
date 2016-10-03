@@ -10,25 +10,24 @@ package c3_dominio;
  * @author Franz
  */
 public class Categoria {
-    private int idunidad,estado;
-    private String unidad,descripcion;
+    private int idcategoria,estado;
+    private String categoria;
 
     public Categoria() {
     }
 
-    public Categoria(int idunidad, int estado, String unidad, String descripcion) {
-        this.idunidad = idunidad;
+    public Categoria(int idunidad, int estado, String categoria) {
+        this.idcategoria = idunidad;
         this.estado = estado;
-        this.unidad = unidad;
-        this.descripcion = descripcion;
+        this.categoria = categoria;
     }
 
-    public int getIdunidad() {
-        return idunidad;
+    public int getIdcategoria() {
+        return idcategoria;
     }
 
-    public void setIdunidad(int idunidad) {
-        this.idunidad = idunidad;
+    public void setIdcategoria(int idcategoria) {
+        this.idcategoria = idcategoria;
     }
 
     public int getEstado() {
@@ -39,20 +38,12 @@ public class Categoria {
         this.estado = estado;
     }
 
-    public String getUnidad() {
-        return unidad;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setUnidad(String unidad) {
-        this.unidad = unidad;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    } 
     
 }

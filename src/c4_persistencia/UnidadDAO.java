@@ -36,11 +36,10 @@ public class UnidadDAO implements IUnidadDAO {
 
     @Override
     public boolean ingresar(Unidad dts) throws SQLException { 
-        mysql= "{Call spUnidadInsertar (?,?,?)}";
+        mysql= "{Call spUnidadInsertar (?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
-        cst.setString(1, dts.getUnidad());
-        cst.setString(2, dts.getDescripcion());
-        cst.setInt(3, dts.getEstado());   
+        cst.setString(1, dts.getUnidad()); 
+        cst.setInt(2, dts.getEstado());   
         
         return (cst.executeUpdate()==1)?true:false; 
 
@@ -86,8 +85,7 @@ public class UnidadDAO implements IUnidadDAO {
         while (rs.next()) {
             unidad = new Unidad();
             unidad.setIdunidad(rs.getInt("id"));
-            unidad.setUnidad(rs.getString("nombre"));
-            unidad.setDescripcion(rs.getString("descripcion"));
+            unidad.setUnidad(rs.getString("descripcion")); 
             unidad.setEstado(rs.getInt("estado"));            
             unidades.add(unidad);
         }
@@ -97,12 +95,11 @@ public class UnidadDAO implements IUnidadDAO {
 
     @Override
     public boolean editar(Unidad dts) throws SQLException {  
-       mysql ="{call spUnidadEditar(?,?,?)}";
+       mysql ="{call spUnidadEditar(?,?)}";
        cst = gestorJDBC.procedimientoAlmacenado(mysql);
        
        cst.setInt(1,dts.getIdunidad());
-       cst.setString(2,dts.getUnidad());
-       cst.setString(3, dts.getDescripcion());
+       cst.setString(2,dts.getUnidad()); 
        
        return (cst.executeUpdate()==1)?true:false;        
     } 
@@ -127,8 +124,7 @@ public class UnidadDAO implements IUnidadDAO {
         while (rs.next()) {
             unidad = new Unidad();
             unidad.setIdunidad(rs.getInt("id"));
-            unidad.setUnidad(rs.getString("nombre"));
-            unidad.setDescripcion(rs.getString("descripcion"));
+            unidad.setUnidad(rs.getString("descripcion")); 
             unidad.setEstado(rs.getInt("estado"));            
             unidades.add(unidad);
         }

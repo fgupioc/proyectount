@@ -111,17 +111,15 @@ public class GestionarUnidadServicio {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);
         model.addColumn("id");
-        model.addColumn("Nombre");
-        model.addColumn("Descripcion");
+        model.addColumn("Nombre"); 
         model.addColumn("estado"); 
         
         model.setNumRows(unidades.size());
         int i =0;
         for(Unidad dts:unidades){            
             model.setValueAt(dts.getIdunidad(), i, 0);
-            model.setValueAt(dts.getUnidad(), i, 1);
-            model.setValueAt(dts.getDescripcion(), i, 2);
-            model.setValueAt(dts.getEstado(), i, 3);
+            model.setValueAt(dts.getUnidad(), i, 1); 
+            model.setValueAt(dts.getEstado(), i, 2);
             i++;
         }       
          listado.setModel(model);
@@ -132,9 +130,9 @@ public class GestionarUnidadServicio {
         listado.getColumnModel().getColumn(0).setMaxWidth(0);
         listado.getColumnModel().getColumn(0).setMinWidth(0);
         listado.getColumnModel().getColumn(0).setPreferredWidth(0);
-        listado.getColumnModel().getColumn(3).setMaxWidth(0);
-        listado.getColumnModel().getColumn(3).setMinWidth(0);
-        listado.getColumnModel().getColumn(3).setPreferredWidth(0);
+        listado.getColumnModel().getColumn(2).setMaxWidth(0);
+        listado.getColumnModel().getColumn(2).setMinWidth(0);
+        listado.getColumnModel().getColumn(2).setPreferredWidth(0);
     }
     
     public boolean buscarUnidadList(List<Unidad> unidades, String nombre){
