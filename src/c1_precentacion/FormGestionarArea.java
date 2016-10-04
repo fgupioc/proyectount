@@ -5,8 +5,8 @@
  */
 package c1_precentacion;
 
-import c2_aplicacion.GestionarAreaServicio; 
-import c3_dominio.Area; 
+import c2_aplicacion.GestionarAreaServicio;
+import c3_dominio.Area;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -20,7 +20,7 @@ public class FormGestionarArea extends javax.swing.JDialog {
      * Creates new form FormGestionarUnidad
      */
     private String flag = "Guardar";
-   Area area;
+    Area area;
     private GestionarAreaServicio gu;
     private List<Area> areas;
 
@@ -203,13 +203,13 @@ public class FormGestionarArea extends javax.swing.JDialog {
 
     private void limpiar() {
         lblId.setText("id");
-        txtNombre.setText(""); 
+        txtNombre.setText("");
         txtNombre.requestFocus();
         txtBuscar.setText("");
     }
 
     private void botones(boolean btn) {
-        txtNombre.setEnabled(btn); 
+        txtNombre.setEnabled(btn);
         btnGuardar.setEnabled(btn);
         btnCancelar.setEnabled(btn);
         btnNuevo.setEnabled(!btn);
@@ -242,12 +242,12 @@ public class FormGestionarArea extends javax.swing.JDialog {
         if (!txtNombre.getText().equals("")) {
             try {
                 area = new Area();
-                gu = new GestionarAreaServicio(); 
-                area.setArea(txtNombre.getText().toLowerCase().trim()); 
+                gu = new GestionarAreaServicio();
+                area.setArea(txtNombre.getText().toLowerCase().trim());
                 area.setEstado(1);
 
                 if (flag.equals("Guardar")) {
-                    if (!buscarMarcaList(txtNombre.getText().toLowerCase().trim())) { 
+                    if (!buscarMarcaList(txtNombre.getText().toLowerCase().trim())) {
                         if (gu.insertarArea(area)) {
                             JOptionPane.showMessageDialog(null, "Guardado correctamente");
                             mostrar();
@@ -305,7 +305,7 @@ public class FormGestionarArea extends javax.swing.JDialog {
     private void listadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoMouseClicked
         int fila = listado.rowAtPoint(evt.getPoint());
         lblId.setText(listado.getValueAt(fila, 0).toString());
-        txtNombre.setText(listado.getValueAt(fila, 1).toString()); 
+        txtNombre.setText(listado.getValueAt(fila, 1).toString());
 
         flag = "Editar";
         botones(true);
@@ -318,18 +318,22 @@ public class FormGestionarArea extends javax.swing.JDialog {
             if (res == 0) {
                 try {
                     gu = new GestionarAreaServicio();
-                   area = new Area();
+                    area = new Area();
                     area.setIdarea(Integer.parseInt(lblId.getText()));
                     if (gu.eliminar(area)) {
                         JOptionPane.showMessageDialog(this, "Eliminado correctamente");
                         mostrar();
                         limpiar();
                         botones(false);
+                        btnGuardar.setText("Guardar");
+                        flag = "Guardar";
                     } else {
                         JOptionPane.showMessageDialog(this, "No se pudo eliminar", "Aviso", 2);
                         mostrar();
                         limpiar();
                         botones(false);
+                        btnGuardar.setText("Guardar");
+                        flag = "Guardar";
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, e);
@@ -338,6 +342,8 @@ public class FormGestionarArea extends javax.swing.JDialog {
                 mostrar();
                 limpiar();
                 botones(false);
+                btnGuardar.setText("Guardar");
+                flag = "Guardar";
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe de selecionar una Unidad para eliminar", "Aviso", 2);
@@ -347,7 +353,7 @@ public class FormGestionarArea extends javax.swing.JDialog {
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         gu = new GestionarAreaServicio();
         area = new Area();
-        try { 
+        try {
             //unidad.setUnidad(String.valueOf(evt.getKeyChar()));
             area.setArea(txtBuscar.getText());
             areas = gu.buscarNombre(area);

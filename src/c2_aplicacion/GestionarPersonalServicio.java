@@ -125,14 +125,16 @@ public class GestionarPersonalServicio {
         return tipoPersonales;
     }
 
-    public int obtenerId(List<TipoPersonal> tipoPersonales, String nombre) {
-        int id = 0; 
-            for (TipoPersonal tipo : tipoPersonales) {
+    public TipoPersonal obtenerId(List<TipoPersonal> tipoPersonales, String nombre) {
+        tipoPersonal = new TipoPersonal();
+        int id = 0;
+        for (TipoPersonal tipo : tipoPersonales) {
             if (tipo.getTipoPersonal().equals(nombre)) {
-                id = tipo.getIdtipoPersonal();
+                tipoPersonal.setIdtipoPersonal(tipo.getIdtipoPersonal());
+                tipoPersonal.setTipoPersonal(tipo.getTipoPersonal());
             }
-        } 
-        return id;
+        }
+        return tipoPersonal;
     }
 
     public void llenarLista(JTable listado, List<Personal> personales) throws Exception {
@@ -183,10 +185,11 @@ public class GestionarPersonalServicio {
         listado.getColumnModel().getColumn(8).setPreferredWidth(0);
     }
 
-    public boolean buscarPersonalList(List<Personal> personales, String nombre) {
+    public boolean buscarUsuarioList(List<Personal> personales, String nombre) {
         boolean flag = false;
         for (Personal dt : personales) {
-            if (dt.getNombre().equals(nombre)) {
+            if (dt.getUsuario().equals(nombre)) {
+
                 flag = true;
                 break;
             } else {

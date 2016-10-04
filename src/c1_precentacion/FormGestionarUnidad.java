@@ -205,13 +205,13 @@ public class FormGestionarUnidad extends javax.swing.JDialog {
 
     private void limpiar() {
         lblId.setText("id");
-        txtNombre.setText(""); 
+        txtNombre.setText("");
         txtNombre.requestFocus();
         txtBuscar.setText("");
     }
 
     private void botones(boolean btn) {
-        txtNombre.setEnabled(btn); 
+        txtNombre.setEnabled(btn);
         btnGuardar.setEnabled(btn);
         btnCancelar.setEnabled(btn);
         btnNuevo.setEnabled(!btn);
@@ -244,12 +244,12 @@ public class FormGestionarUnidad extends javax.swing.JDialog {
         if (!txtNombre.getText().equals("")) {
             try {
                 unidad = new Unidad();
-                gu = new GestionarUnidadServicio(); 
-                unidad.setUnidad(txtNombre.getText().toLowerCase().trim()); 
+                gu = new GestionarUnidadServicio();
+                unidad.setUnidad(txtNombre.getText().toLowerCase().trim());
                 unidad.setEstado(1);
 
                 if (flag.equals("Guardar")) {
-                    if (!buscarUnidadList(txtNombre.getText().toLowerCase().trim())) { 
+                    if (!buscarUnidadList(txtNombre.getText().toLowerCase().trim())) {
                         if (gu.insertarUnidad(unidad)) {
                             JOptionPane.showMessageDialog(null, "Guardado correctamente");
                             mostrar();
@@ -307,7 +307,7 @@ public class FormGestionarUnidad extends javax.swing.JDialog {
     private void listadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoMouseClicked
         int fila = listado.rowAtPoint(evt.getPoint());
         lblId.setText(listado.getValueAt(fila, 0).toString());
-        txtNombre.setText(listado.getValueAt(fila, 1).toString()); 
+        txtNombre.setText(listado.getValueAt(fila, 1).toString());
 
         flag = "Editar";
         botones(true);
@@ -327,11 +327,15 @@ public class FormGestionarUnidad extends javax.swing.JDialog {
                         mostrar();
                         limpiar();
                         botones(false);
+                        btnGuardar.setText("Guardar");
+                        flag = "Guardar";
                     } else {
                         JOptionPane.showMessageDialog(this, "No se pudo eliminar", "Aviso", 2);
                         mostrar();
                         limpiar();
                         botones(false);
+                        btnGuardar.setText("Guardar");
+                        flag = "Guardar";
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, e);
@@ -340,6 +344,8 @@ public class FormGestionarUnidad extends javax.swing.JDialog {
                 mostrar();
                 limpiar();
                 botones(false);
+                btnGuardar.setText("Guardar");
+                flag = "Guardar";
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe de selecionar una Unidad para eliminar", "Aviso", 2);
@@ -349,7 +355,7 @@ public class FormGestionarUnidad extends javax.swing.JDialog {
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         gu = new GestionarUnidadServicio();
         unidad = new Unidad();
-        try { 
+        try {
             //unidad.setUnidad(String.valueOf(evt.getKeyChar()));
             unidad.setUnidad(txtBuscar.getText());
             unidades = gu.buscarNombre(unidad);

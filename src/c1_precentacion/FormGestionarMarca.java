@@ -325,11 +325,15 @@ public class FormGestionarMarca extends javax.swing.JDialog {
                         mostrar();
                         limpiar();
                         botones(false);
+                         btnGuardar.setText("Guardar");
+                flag = "Guardar";
                     } else {
                         JOptionPane.showMessageDialog(this, "No se pudo eliminar", "Aviso", 2);
                         mostrar();
                         limpiar();
                         botones(false);
+                         btnGuardar.setText("Guardar");
+                flag = "Guardar";
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, e);
@@ -338,6 +342,8 @@ public class FormGestionarMarca extends javax.swing.JDialog {
                 mostrar();
                 limpiar();
                 botones(false);
+                 btnGuardar.setText("Guardar");
+                flag = "Guardar";
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe de selecionar una Unidad para eliminar", "Aviso", 2);

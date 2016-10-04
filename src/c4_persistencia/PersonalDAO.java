@@ -26,7 +26,7 @@ public class PersonalDAO implements IPersonalDAO {
     private CallableStatement cst, cst2;
     private ResultSet rs, rs2;
     private List<Personal> personales;
-     List<TipoPersonal> tipoPersonales;
+    List<TipoPersonal> tipoPersonales;
     private String mysql, mysql2;
     private Personal personal;
     TipoPersonal tipoPersonal;
@@ -37,13 +37,18 @@ public class PersonalDAO implements IPersonalDAO {
 
     @Override
     public boolean ingresar(Personal dts) throws SQLException {
-        mysql = "{Call spPersonalInsertar (?,?)}";
+        mysql = "{Call spPersonalInsertar(?,?,?,?,?,?,?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
         cst.setString(1, dts.getNombre());
-        cst.setInt(2, dts.getEstado());
-
+        cst.setString(2, dts.getApellidoPaterno());
+        cst.setString(3, dts.getApellidoMaterno());
+        cst.setString(4, dts.getTipoDocumento());
+        cst.setString(5, dts.getNumDocumento());
+        cst.setString(6, dts.getUsuario());
+        cst.setString(7, dts.getPassword());
+        cst.setInt(8, dts.getEstado());
+        cst.setInt(9, dts.getTipoPersonal().getIdtipoPersonal());
         return (cst.executeUpdate() == 1) ? true : false;
-
     }
 
     @Override
@@ -79,11 +84,32 @@ public class PersonalDAO implements IPersonalDAO {
 
     @Override
     public boolean editar(Personal dts) throws SQLException {
-        mysql = "{call spPersonalEditar(?,?)}";
-        cst = gestorJDBC.procedimientoAlmacenado(mysql);
-        cst.setInt(1, dts.getIdpersonal());
-        cst.setString(2, dts.getNombre());
-
+        if (dts.getPassword().equals("")) {
+            mysql = "{call spPersonalEditar(?,?,?,?,?,?,?,?,?)}";
+            cst = gestorJDBC.procedimientoAlmacenado(mysql);
+            cst.setInt(1, dts.getIdpersonal());
+            cst.setString(2, dts.getNombre());
+            cst.setString(3, dts.getApellidoPaterno());
+            cst.setString(4, dts.getApellidoMaterno());
+            cst.setString(5, dts.getTipoDocumento());
+            cst.setString(6, dts.getNumDocumento());
+            cst.setString(7, dts.getUsuario());
+            cst.setInt(8, dts.getEstado());
+            cst.setInt(9, dts.getTipoPersonal().getIdtipoPersonal());
+        } else {
+            mysql = "{call spPersonalEditarPass(?,?,?,?,?,?,?,?,?,?)}";
+            cst = gestorJDBC.procedimientoAlmacenado(mysql);
+            cst.setInt(1, dts.getIdpersonal());
+            cst.setString(2, dts.getNombre());
+            cst.setString(3, dts.getApellidoPaterno());
+            cst.setString(4, dts.getApellidoMaterno());
+            cst.setString(5, dts.getTipoDocumento());
+            cst.setString(6, dts.getNumDocumento());
+            cst.setString(7, dts.getUsuario());
+            cst.setString(8, dts.getPassword());
+            cst.setInt(9, dts.getEstado());
+            cst.setInt(10, dts.getTipoPersonal().getIdtipoPersonal());
+        }
         return (cst.executeUpdate() == 1) ? true : false;
     }
 
@@ -91,9 +117,7 @@ public class PersonalDAO implements IPersonalDAO {
     public boolean eliminar(Personal dts) throws SQLException {
         mysql = "{call spPersonalEliminar(?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
-
         cst.setInt(1, dts.getIdpersonal());
-
         return (cst.executeUpdate() == 1) ? true : false;
     }
 
@@ -107,8 +131,23 @@ public class PersonalDAO implements IPersonalDAO {
         while (rs.next()) {
             personal = new Personal();
             personal.setIdpersonal(rs.getInt("id"));
-            personal.setNombre(rs.getString("descripcion"));
+            personal.setNombre(rs.getString("nombre"));
+            personal.setApellidoPaterno(rs.getString("apellidoPaterno"));
+            personal.setApellidoMaterno(rs.getString("apellidoMaterno"));
+            personal.setTipoDocumento(rs.getString("tipoDocumento"));
+            personal.setNumDocumento(rs.getString("numDocumento"));
+            personal.setUsuario(rs.getString("usuario"));
             personal.setEstado(rs.getInt("estado"));
+            mysql2 = "{call spTipo_PersonalId('" + rs.getString("tipo_personal_id") + "')}";
+
+            rs2 = gestorJDBC.ejecutarProcedimiento(mysql2);
+            while (rs2.next()) {
+                tipoPersonal = new TipoPersonal();
+                tipoPersonal.setIdtipoPersonal(rs2.getInt("id"));
+                tipoPersonal.setTipoPersonal(rs2.getString("descripcion"));
+                tipoPersonal.setEstado(rs2.getInt("estado"));
+                personal.setTipoPersonal(tipoPersonal);
+            }
             personales.add(personal);
         }
         rs.close();
@@ -120,12 +159,12 @@ public class PersonalDAO implements IPersonalDAO {
         tipoPersonales = new ArrayList();
         mysql = "{call spTipo_PersonalListado()}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
-        while(rs.next()){
+        while (rs.next()) {
             tipoPersonal = new TipoPersonal();
             tipoPersonal.setIdtipoPersonal(rs.getInt("id"));
             tipoPersonal.setTipoPersonal(rs.getString("descripcion"));
             tipoPersonales.add(tipoPersonal);
-        }         
+        }
         return tipoPersonales;
     }
 

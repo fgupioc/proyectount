@@ -320,7 +320,7 @@ public class FormGestionarPersonal extends javax.swing.JDialog {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
-        } 
+        }
     }
 
     private void mostrar() {
@@ -334,66 +334,110 @@ public class FormGestionarPersonal extends javax.swing.JDialog {
         }
     }
 
-    private boolean buscarPersonalList(String nombre) {
-        boolean flag = false;
+    private boolean buscarUsuarioList(String nombre) {
+        boolean res = false;
         gu = new GestionarPersonalServicio();
-        try {
-            personales = gu.listarPersonal();
-            flag = (gu.buscarPersonalList(personales, nombre)) ? true : false;
-
-        } catch (Exception e) {
+        if (lblId.getText().equals("id")) {
+            try {
+                personales = gu.listarPersonal();
+                res = (gu.buscarUsuarioList(personales, nombre)) ? true : false;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error en el Usuario", "Aviso", 0);
+            }
+        } else {
+            res = false;
         }
-        return flag;
+        return res;
+    }
+
+    private boolean validarPass() {
+        boolean res = false;
+        if (lblId.getText().equals("id")) {
+            if (txtPass.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar una contraseña", "Aviso", 0);
+                txtPass.requestFocus();
+                res = true;
+            } else {
+                res = false;
+            }
+        } else {
+            res = false;
+        }
+        return res;
+
     }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (!txtNombre.getText().equals("")) {
-            try {
-                personal = new Personal();
-                gu = new GestionarPersonalServicio();
-                personal.setNombre(txtNombre.getText().toLowerCase().trim());
-                personal.setApellidoPaterno(txtPaterno.getText().toLowerCase().trim());
-                personal.setApellidoMaterno(txtMaterno.getText().toLowerCase().trim());
-                personal.setTipoDocumento(flag);
-                personal.setNumDocumento(txtNumero.getText().toLowerCase().trim());
-                personal.setUsuario(txtUsuario.getText().toLowerCase().trim());
-                personal.setPassword(txtPass.getText().toLowerCase().trim());
-                personal.setEstado(1);
-                tipoPersonales = gu.listarCargos();
-                JOptionPane.showMessageDialog(null,gu.obtenerId(tipoPersonales,String.valueOf(cboCargo.getSelectedItem())));
-                if (flag.equals("Guardar")) {
-//                    if (!buscarPersonalList(txtNombre.getText().toLowerCase().trim())) {
-//                        if (gu.insertarPersonal(personal)) {
-//                            JOptionPane.showMessageDialog(null, "Guardado correctamente");
-//                            mostrar();
-//                            limpiar();
-//                            botones(false);
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "No se pudo guardar");
-//                            mostrar();
-//                            limpiar();
-//                            botones(false);
-//                        }
-//                    } else {
-//                        JOptionPane.showMessageDialog(this, "la personal ya existe");
-//                        txtNombre.requestFocus();
-//                    }
-                } else {
-                    personal.setIdpersonal(Integer.parseInt(lblId.getText()));
-                    if (gu.editarPersonal(personal)) {
-                        JOptionPane.showMessageDialog(null, "Se Actualizo correctamente");
-                        mostrar();
-                        limpiar();
-                        botones(false);
+            if (!txtPaterno.getText().equals("")) {
+                if (!txtMaterno.getText().equals("")) {
+                    if (!txtNumero.getText().equals("")) {
+                        if (!txtUsuario.getText().equals("")) {
+                            if ((!buscarUsuarioList((txtUsuario.getText().toLowerCase().trim())))) {
+                                if (!validarPass()) {
+                                    try {
+                                        personal = new Personal();
+                                        gu = new GestionarPersonalServicio();
+                                        tipoPersonal = new TipoPersonal();
+                                        personal.setNombre(txtNombre.getText().toLowerCase().trim());
+                                        personal.setApellidoPaterno(txtPaterno.getText().toLowerCase().trim());
+                                        personal.setApellidoMaterno(txtMaterno.getText().toLowerCase().trim());
+                                        personal.setTipoDocumento(cboTipoDoc.getSelectedItem().toString());
+                                        personal.setNumDocumento(txtNumero.getText().toLowerCase().trim());
+                                        personal.setUsuario(txtUsuario.getText().toLowerCase().trim());
+                                        personal.setPassword(txtPass.getText().toLowerCase().trim());
+                                        personal.setEstado(1);
+                                        tipoPersonales = gu.listarCargos();
+                                        tipoPersonal = gu.obtenerId(tipoPersonales, cboCargo.getSelectedItem().toString());
+                                        personal.setTipoPersonal(tipoPersonal);
+                                        if (flag.equals("Guardar")) {
+                                            if (gu.insertarPersonal(personal)) {
+                                                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+                                                mostrar();
+                                                limpiar();
+                                                botones(false);
+                                            } else {
+                                                JOptionPane.showMessageDialog(null, "No se pudo guardar");
+                                                mostrar();
+                                                limpiar();
+                                                botones(false);
+                                            }
+                                        } else {
+                                            personal.setIdpersonal(Integer.parseInt(lblId.getText()));
+                                            if (gu.editarPersonal(personal)) {
+                                                JOptionPane.showMessageDialog(null, "Se Actualizo correctamente");
+                                                mostrar();
+                                                limpiar();
+                                                botones(false);
+                                            } else {
+                                                JOptionPane.showMessageDialog(null, "No se pudo Actualizar");
+                                                mostrar();
+                                                limpiar();
+                                                botones(false);
+                                            }
+                                        }
+                                    } catch (Exception e) {
+                                        JOptionPane.showMessageDialog(null, e);
+                                    }
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(this, "El usuario ingresado ya existe", "Aviso", 0);
+                                txtPass.requestFocus();
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Debe ingresar un usuario", "Aviso", 0);
+                            txtUsuario.requestFocus();
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "no se pudo actualizar");
-                        mostrar();
-                        limpiar();
-                        botones(false);
+                        JOptionPane.showMessageDialog(this, "Debe llenar el Numero de documento", "Aviso", 0);
+                        txtNumero.requestFocus();
                     }
-
+                } else {
+                    JOptionPane.showMessageDialog(this, "Debe llenar el Apellido Materno", "Aviso", 0);
+                    txtMaterno.requestFocus();
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe llenar el Apellido Paterno", "Aviso", 0);
+                txtPaterno.requestFocus();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Debe llenar el nombre", "Aviso", 0);
@@ -420,7 +464,16 @@ public class FormGestionarPersonal extends javax.swing.JDialog {
         int fila = listado.rowAtPoint(evt.getPoint());
         lblId.setText(listado.getValueAt(fila, 0).toString());
         txtNombre.setText(listado.getValueAt(fila, 1).toString());
-
+        txtPaterno.setText(listado.getValueAt(fila, 2).toString());
+        txtMaterno.setText(listado.getValueAt(fila, 3).toString());
+        cboTipoDoc.setSelectedItem(listado.getValueAt(fila, 4).toString());
+        txtNumero.setText(listado.getValueAt(fila, 5).toString());
+        txtUsuario.setText(listado.getValueAt(fila, 6).toString());
+        if ("encargado".equals(listado.getValueAt(fila, 9).toString())) {
+            cboCargo.setSelectedIndex(0);
+        } else {
+            cboCargo.setSelectedIndex(1);
+        }
         flag = "Editar";
         botones(true);
         btnGuardar.setText("Editar");
@@ -439,11 +492,15 @@ public class FormGestionarPersonal extends javax.swing.JDialog {
                         mostrar();
                         limpiar();
                         botones(false);
+                        btnGuardar.setText("Guardar");
+                        flag = "Guardar";
                     } else {
                         JOptionPane.showMessageDialog(this, "No se pudo eliminar", "Aviso", 2);
                         mostrar();
                         limpiar();
                         botones(false);
+                        btnGuardar.setText("Guardar");
+                        flag = "Guardar";
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, e);
@@ -452,6 +509,8 @@ public class FormGestionarPersonal extends javax.swing.JDialog {
                 mostrar();
                 limpiar();
                 botones(false);
+                btnGuardar.setText("Guardar");
+                flag = "Guardar";
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe de selecionar una Personal para eliminar", "Aviso", 2);
@@ -467,7 +526,6 @@ public class FormGestionarPersonal extends javax.swing.JDialog {
             personales = gu.buscarNombre(personal);
             gu.llenarLista(listado, personales);
             lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
-
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
