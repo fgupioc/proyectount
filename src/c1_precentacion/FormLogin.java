@@ -9,6 +9,7 @@ import c2_aplicacion.GestionarConfiguracionServicio;
 import c2_aplicacion.GestionarPersonalServicio;
 import c3_dominio.Configuracion;
 import c3_dominio.Personal;
+import c3_dominio.LoginUser;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -129,12 +130,11 @@ public class FormLogin extends javax.swing.JFrame {
         if (!txtUser.getText().equals("")) {
             if (!txtPass.getText().equals("")) {
                 GestionarPersonalServicio gu = new GestionarPersonalServicio();
-                Personal personal = new Personal();
-                try {
-                    personal = gu.loginPersonal(txtUser.getText(), txtPass.getText());
-                    if (personal != null) {
-                        FormMenu form = new FormMenu();  
-                        form.lblNombre.setText(personal.getNombre());
+                LoginUser user =LoginUser.getInstancia();
+                try {                   
+                    user.setPersonal(gu.loginPersonal(txtUser.getText(), user.encryptPass(txtPass.getText().trim())));
+                    if (user.getPersonal() != null) {
+                        FormMenu form = new FormMenu();                          
                         this.dispose();
                         form.setVisible(true);
                     } else {

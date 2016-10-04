@@ -6,6 +6,7 @@
 package c1_precentacion;
 
 import c2_aplicacion.GestionarPersonalServicio;
+import c3_dominio.LoginUser;
 import c3_dominio.Personal;
 import c3_dominio.TipoPersonal;
 import java.util.AbstractList;
@@ -378,13 +379,14 @@ public class FormGestionarPersonal extends javax.swing.JDialog {
                                         personal = new Personal();
                                         gu = new GestionarPersonalServicio();
                                         tipoPersonal = new TipoPersonal();
+                                        LoginUser user = LoginUser.getInstancia();
                                         personal.setNombre(txtNombre.getText().toLowerCase().trim());
                                         personal.setApellidoPaterno(txtPaterno.getText().toLowerCase().trim());
                                         personal.setApellidoMaterno(txtMaterno.getText().toLowerCase().trim());
                                         personal.setTipoDocumento(cboTipoDoc.getSelectedItem().toString());
                                         personal.setNumDocumento(txtNumero.getText().toLowerCase().trim());
                                         personal.setUsuario(txtUsuario.getText().toLowerCase().trim());
-                                        personal.setPassword(txtPass.getText().toLowerCase().trim());
+                                        personal.setPassword(user.encryptPass(txtPass.getText().trim()));
                                         personal.setEstado(1);
                                         tipoPersonales = gu.listarCargos();
                                         tipoPersonal = gu.obtenerId(tipoPersonales, cboCargo.getSelectedItem().toString());

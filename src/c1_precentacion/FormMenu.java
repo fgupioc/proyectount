@@ -6,6 +6,8 @@
 package c1_precentacion;
 
 import c3_dominio.Personal;
+import c3_dominio.LoginUser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,7 +19,9 @@ public class FormMenu extends javax.swing.JFrame {
      */
     public FormMenu() {  
         setExtendedState(MAXIMIZED_BOTH);
-        initComponents();           
+        initComponents();   
+        LoginUser user = LoginUser.getInstancia();
+        lblNombre.setText(user.getPersonal().getNombre());
     }
 
     /**
@@ -32,6 +36,7 @@ public class FormMenu extends javax.swing.JFrame {
         lblNombre = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        miSalir = new javax.swing.JMenuItem();
         miTipoPersonal = new javax.swing.JMenu();
         miUnidad = new javax.swing.JMenuItem();
         miCategoria = new javax.swing.JMenuItem();
@@ -46,6 +51,15 @@ public class FormMenu extends javax.swing.JFrame {
         lblNombre.setText("jLabel1");
 
         jMenu1.setText("File");
+
+        miSalir.setText("Salir");
+        miSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSalirActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miSalir);
+
         jMenuBar1.add(jMenu1);
 
         miTipoPersonal.setText("Edit");
@@ -151,8 +165,8 @@ public class FormMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void miAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAreaActionPerformed
-         FormGestionarArea form = new FormGestionarArea(this, false);
-       form.setVisible(true);
+//         FormGestionarArea form = new FormGestionarArea(this, false);
+//       form.setVisible(true);
     }//GEN-LAST:event_miAreaActionPerformed
 
     private void miAlamcenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlamcenActionPerformed
@@ -164,6 +178,12 @@ public class FormMenu extends javax.swing.JFrame {
         FormGestionarPersonal form = new FormGestionarPersonal(this, false);
        form.setVisible(true);
     }//GEN-LAST:event_miPersonalActionPerformed
+
+    private void miSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSalirActionPerformed
+       FormLogin form = new FormLogin();
+       this.dispose(); 
+       form.setVisible(true);
+    }//GEN-LAST:event_miSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,6 +199,7 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem miCategoria;
     private javax.swing.JMenuItem miMarca;
     private javax.swing.JMenuItem miPersonal;
+    private javax.swing.JMenuItem miSalir;
     private javax.swing.JMenu miTipoPersonal;
     private javax.swing.JMenuItem miUnidad;
     // End of variables declaration//GEN-END:variables
