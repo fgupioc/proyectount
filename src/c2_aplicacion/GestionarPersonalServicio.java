@@ -136,7 +136,21 @@ public class GestionarPersonalServicio {
         }
         return tipoPersonal;
     }
-
+    
+    public Personal loginPersonal(String user, String pass)throws Exception{
+        personal = new Personal();
+        gestorJDBC.abrirConexion();
+        try {
+            gestorJDBC.iniciarTransaccion();
+            personal= personalDAO.loginPersonal(user, pass);
+            gestorJDBC.terminarTransaccion();
+        } catch (Exception e) {
+            gestorJDBC.cancelarTransaccion();
+            JOptionPane.showMessageDialog(null,e);
+        }
+        gestorJDBC.cerrarConexion();
+        return personal;
+    }
     public void llenarLista(JTable listado, List<Personal> personales) throws Exception {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);

@@ -5,18 +5,19 @@
  */
 package c1_precentacion;
 
+import c3_dominio.Personal;
+
 /**
  *
  * @author Franz
  */
-public class FormMenu extends javax.swing.JFrame {
-
+public class FormMenu extends javax.swing.JFrame { 
     /**
      * Creates new form FormMenu
      */
     public FormMenu() {  
         setExtendedState(MAXIMIZED_BOTH);
-        initComponents();
+        initComponents();           
     }
 
     /**
@@ -28,6 +29,7 @@ public class FormMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblNombre = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         miTipoPersonal = new javax.swing.JMenu();
@@ -40,6 +42,8 @@ public class FormMenu extends javax.swing.JFrame {
         miPersonal = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblNombre.setText("jLabel1");
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -110,11 +114,17 @@ public class FormMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(lblNombre)
+                .addContainerGap(332, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(lblNombre)
+                .addContainerGap(234, Short.MAX_VALUE))
         );
 
         pack();
@@ -163,6 +173,7 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    public static javax.swing.JLabel lblNombre;
     private javax.swing.JMenuItem miAlamcen;
     private javax.swing.JMenuItem miArea;
     private javax.swing.JMenuItem miCategoria;

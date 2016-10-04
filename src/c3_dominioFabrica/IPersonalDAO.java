@@ -15,10 +15,11 @@ import java.util.List;
  * @author Franz
  */
 public interface IPersonalDAO {
-     public boolean ingresar(Personal personal) throws SQLException;
+    public boolean ingresar(Personal personal) throws SQLException;
     public List<Personal> Listar() throws SQLException; 
     public boolean editar(Personal personal) throws SQLException;
     public boolean eliminar(Personal personal) throws SQLException;
     public List<Personal> buscarNombre(Personal personal) throws Exception; 
     public List<TipoPersonal> listaTipoPersonal() throws Exception;
+    public Personal loginPersonal(String user, String pass) throws Exception;
 }

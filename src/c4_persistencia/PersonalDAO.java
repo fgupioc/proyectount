@@ -67,7 +67,6 @@ public class PersonalDAO implements IPersonalDAO {
             personal.setUsuario(rs.getString("usuario"));
             personal.setEstado(rs.getInt("estado"));
             mysql2 = "{call spTipo_PersonalId('" + rs.getString("tipo_personal_id") + "')}";
-
             rs2 = gestorJDBC.ejecutarProcedimiento(mysql2);
             while (rs2.next()) {
                 tipoPersonal = new TipoPersonal();
@@ -139,7 +138,6 @@ public class PersonalDAO implements IPersonalDAO {
             personal.setUsuario(rs.getString("usuario"));
             personal.setEstado(rs.getInt("estado"));
             mysql2 = "{call spTipo_PersonalId('" + rs.getString("tipo_personal_id") + "')}";
-
             rs2 = gestorJDBC.ejecutarProcedimiento(mysql2);
             while (rs2.next()) {
                 tipoPersonal = new TipoPersonal();
@@ -166,6 +164,33 @@ public class PersonalDAO implements IPersonalDAO {
             tipoPersonales.add(tipoPersonal);
         }
         return tipoPersonales;
+    }
+
+    @Override
+    public Personal loginPersonal(String user, String pass) throws Exception {      
+        mysql ="{call spLoginUser('"+user+"','"+pass+"')}";
+        rs = gestorJDBC.ejecutarProcedimiento(mysql);        
+        while (rs.next()) {
+            personal = new Personal();
+            personal.setIdpersonal(rs.getInt("id"));
+            personal.setNombre(rs.getString("nombre"));
+            personal.setApellidoPaterno(rs.getString("apellidoPaterno"));
+            personal.setApellidoMaterno(rs.getString("apellidoMaterno"));
+            personal.setTipoDocumento(rs.getString("tipoDocumento"));
+            personal.setNumDocumento(rs.getString("numDocumento"));
+            personal.setUsuario(rs.getString("usuario"));
+            personal.setEstado(rs.getInt("estado"));
+            mysql2 = "{call spTipo_PersonalId('" + rs.getString("tipo_personal_id") + "')}";
+            rs2 = gestorJDBC.ejecutarProcedimiento(mysql2);
+            while (rs2.next()) {
+                tipoPersonal = new TipoPersonal();
+                tipoPersonal.setIdtipoPersonal(rs2.getInt("id"));
+                tipoPersonal.setTipoPersonal(rs2.getString("descripcion"));
+                tipoPersonal.setEstado(rs2.getInt("estado"));
+                personal.setTipoPersonal(tipoPersonal);
+            } 
+        }        
+        return personal;
     }
 
 }

@@ -160,7 +160,7 @@ public class FormConfigurarHost extends javax.swing.JFrame {
                         if(conf.guardar(dts)){
                             JOptionPane.showMessageDialog(this,"La configuracion se Guardo");
                             if(conf.validarConexion()){
-                                FormMenu form = new FormMenu();
+                                FormLogin form = new FormLogin();
                                 form.setVisible(true);
                                 this.dispose();
                               }else{ 
