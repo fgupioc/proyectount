@@ -32,25 +32,21 @@ public class TipoProductoDAO implements ITipoProductoDAO{
 
       @Override
     public boolean ingresar(TipoProducto dts) throws SQLException { 
-        mysql= "{Call spUnidadInsertar (?,?,?)}";
-        cst = gestorJDBC.procedimientoAlmacenado(mysql);
-        cst.setString(1, dts.getUnidad());
-        cst.setString(2, dts.getDescripcion());
-        cst.setInt(3, dts.getEstado());   
-        
-        return (cst.executeUpdate()==1)?true:false; 
- 
+        mysql= "{Call spTipo_ProductoInsertar (?,?)}";
+        cst = gestorJDBC.procedimientoAlmacenado(mysql); 
+        cst.setString(1, dts.getDescripcion());
+        cst.setInt(2, dts.getEstado());           
+        return (cst.executeUpdate()==1)?true:false;  
     }
 
     @Override
     public List<TipoProducto> Listar() throws SQLException { 
         tipoProductos = new ArrayList();        
-        mysql =  "{call spUnidadListado}";
+        mysql =  "{call spTipo_ProductoListado}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             tipoProducto = new TipoProducto();
-            tipoProducto.setIdunidad(rs.getInt("id"));
-            tipoProducto.setUnidad(rs.getString("nombre"));
+            tipoProducto.setIdtipoproducto(rs.getInt("id")); 
             tipoProducto.setDescripcion(rs.getString("descripcion"));
             tipoProducto.setEstado(rs.getInt("estado"));            
             tipoProductos.add(tipoProducto);
@@ -61,23 +57,19 @@ public class TipoProductoDAO implements ITipoProductoDAO{
 
     @Override
     public boolean editar(TipoProducto dts) throws SQLException {  
-       mysql ="{call spUnidadEditar(?,?,?)}";
-       cst = gestorJDBC.procedimientoAlmacenado(mysql);
-       
-       cst.setInt(1,dts.getIdunidad());
-       cst.setString(2,dts.getUnidad());
-       cst.setString(3, dts.getDescripcion());
-       
+       mysql ="{call spTipo_ProductoEditar(?,?,?)}";
+       cst = gestorJDBC.procedimientoAlmacenado(mysql);       
+       cst.setInt(1,dts.getIdtipoproducto()); 
+       cst.setString(2, dts.getDescripcion());
+       cst.setInt(3,dts.getEstado());       
        return (cst.executeUpdate()==1)?true:false;        
     } 
 
     @Override
     public boolean eliminar(TipoProducto dts) throws SQLException {
-       mysql = "{call spUnidadEliminar(?)}";
-       cst = gestorJDBC.procedimientoAlmacenado(mysql);
-       
-       cst.setInt(1,dts.getIdunidad());
-       
+       mysql = "{call spTipo_ProductoEliminar(?)}";
+       cst = gestorJDBC.procedimientoAlmacenado(mysql);       
+       cst.setInt(1,dts.getIdtipoproducto());       
        return (cst.executeUpdate()==1)?true:false;
     }
 
@@ -85,13 +77,12 @@ public class TipoProductoDAO implements ITipoProductoDAO{
     public List<TipoProducto> buscarNombre(TipoProducto dts) throws Exception {
         tipoProductos =new ArrayList();
       
-        mysql ="{call spUnidadBuscarNombre('"+dts.getUnidad()+"')}";
+        mysql ="{call spTipo_ProductoBuscarNombre('"+dts.getDescripcion()+"')}";
         
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             tipoProducto = new TipoProducto();
-            tipoProducto.setIdunidad(rs.getInt("id"));
-            tipoProducto.setUnidad(rs.getString("nombre"));
+            tipoProducto.setIdtipoproducto(rs.getInt("id")); 
             tipoProducto.setDescripcion(rs.getString("descripcion"));
             tipoProducto.setEstado(rs.getInt("estado"));            
             tipoProductos.add(tipoProducto);

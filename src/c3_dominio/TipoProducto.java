@@ -10,25 +10,24 @@ package c3_dominio;
  * @author Franz
  */
 public class TipoProducto {
-    private int idunidad,estado;
-    private String unidad,descripcion;
+    private int idtipoproducto,estado;
+    private String descripcion;
 
     public TipoProducto() {
     }
 
-    public TipoProducto(int idunidad, int estado, String unidad, String descripcion) {
-        this.idunidad = idunidad;
+    public TipoProducto(int idtipoproducto, int estado, String descripcion) {
+        this.idtipoproducto = idtipoproducto;
         this.estado = estado;
-        this.unidad = unidad;
         this.descripcion = descripcion;
     }
 
-    public int getIdunidad() {
-        return idunidad;
+    public int getIdtipoproducto() {
+        return idtipoproducto;
     }
 
-    public void setIdunidad(int idunidad) {
-        this.idunidad = idunidad;
+    public void setIdtipoproducto(int idtipoproducto) {
+        this.idtipoproducto = idtipoproducto;
     }
 
     public int getEstado() {
@@ -39,14 +38,6 @@ public class TipoProducto {
         this.estado = estado;
     }
 
-    public String getUnidad() {
-        return unidad;
-    }
-
-    public void setUnidad(String unidad) {
-        this.unidad = unidad;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
@@ -54,5 +45,7 @@ public class TipoProducto {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+    
+    
     
 }

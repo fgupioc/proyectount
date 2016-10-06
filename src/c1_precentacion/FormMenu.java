@@ -45,6 +45,8 @@ public class FormMenu extends javax.swing.JFrame {
         miArea = new javax.swing.JMenuItem();
         miAlamcen = new javax.swing.JMenuItem();
         miPersonal = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,6 +122,22 @@ public class FormMenu extends javax.swing.JFrame {
         });
         miTipoPersonal.add(miPersonal);
 
+        jMenuItem2.setText("Solicitante");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        miTipoPersonal.add(jMenuItem2);
+
+        jMenuItem3.setText("tipoProductos");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        miTipoPersonal.add(jMenuItem3);
+
         jMenuBar1.add(miTipoPersonal);
 
         setJMenuBar(jMenuBar1);
@@ -185,6 +203,16 @@ public class FormMenu extends javax.swing.JFrame {
        form.setVisible(true);
     }//GEN-LAST:event_miSalirActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       FormGestionarSolicitante form = new FormGestionarSolicitante(this,false);
+       form.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+       FormGestionarTipoProducto form = new FormGestionarTipoProducto(this,false);
+       form.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
       */
@@ -193,6 +221,8 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     public static javax.swing.JLabel lblNombre;
     private javax.swing.JMenuItem miAlamcen;
     private javax.swing.JMenuItem miArea;

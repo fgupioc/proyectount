@@ -32,12 +32,12 @@ public class SolicitanteDAO implements ISolicitanteDAO{
 
     @Override
     public boolean ingresar(Solicitante dts) throws SQLException { 
-        mysql= "{Call spUnidadInsertar (?,?,?)}";
-//        cst = gestorJDBC.procedimientoAlmacenado(mysql);
-//        cst.setString(1, dts.getUnidad());
-//        cst.setString(2, dts.getDescripcion());
-//        cst.setInt(3, dts.getEstado());   
-        
+        mysql= "{Call spSolicitanteInsertar (?,?,?,?)}";
+       cst = gestorJDBC.procedimientoAlmacenado(mysql);
+        cst.setString(1, dts.getNombre());
+        cst.setString(2, dts.getPaterno());
+        cst.setString(3, dts.getMaterno()); 
+        cst.setInt(4, dts.getEstado());
         return (cst.executeUpdate()==1)?true:false; 
  
     }
@@ -45,14 +45,15 @@ public class SolicitanteDAO implements ISolicitanteDAO{
     @Override
     public List<Solicitante> Listar() throws SQLException { 
         solicitantes = new ArrayList();        
-        mysql =  "{call spUnidadListado}";
+        mysql =  "{call spSolicitanteListado}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
-//            solicitante = new Solicitante();
-//            solicitante.setIdunidad(rs.getInt("id"));
-//            solicitante.setUnidad(rs.getString("nombre"));
-//            solicitante.setDescripcion(rs.getString("descripcion"));
-//            solicitante.setEstado(rs.getInt("estado"));            
+            solicitante = new Solicitante();
+            solicitante.setIdsolicitante(rs.getInt("id"));
+            solicitante.setNombre(rs.getString("nombre"));
+            solicitante.setPaterno(rs.getString("apellidoPaterno"));
+            solicitante.setMaterno(rs.getString("apellidoMaterno"));
+            solicitante.setEstado(rs.getInt("estado"));            
             solicitantes.add(solicitante);
         }
         rs.close();
@@ -61,23 +62,23 @@ public class SolicitanteDAO implements ISolicitanteDAO{
 
     @Override
     public boolean editar(Solicitante dts) throws SQLException {  
-       mysql ="{call spUnidadEditar(?,?,?)}";
+       mysql ="{call spSolicitanteEditar(?,?,?,?,?)}";
        cst = gestorJDBC.procedimientoAlmacenado(mysql);
        
-//       cst.setInt(1,dts.getIdunidad());
-//       cst.setString(2,dts.getUnidad());
-//       cst.setString(3, dts.getDescripcion());
-       
+       cst.setInt(1,dts.getIdsolicitante());
+       cst.setString(2,dts.getNombre());
+       cst.setString(3, dts.getPaterno());
+       cst.setString(4, dts.getMaterno());
+       cst.setInt(5, dts.getEstado());
+
        return (cst.executeUpdate()==1)?true:false;        
     } 
 
     @Override
     public boolean eliminar(Solicitante dts) throws SQLException {
-       mysql = "{call spUnidadEliminar(?)}";
-       cst = gestorJDBC.procedimientoAlmacenado(mysql);
-//       
-//       cst.setInt(1,dts.getIdunidad());
-       
+       mysql = "{call spSolicitanteEliminar(?)}";
+       cst = gestorJDBC.procedimientoAlmacenado(mysql);       
+       cst.setInt(1,dts.getIdsolicitante());       
        return (cst.executeUpdate()==1)?true:false;
     }
 
@@ -85,15 +86,16 @@ public class SolicitanteDAO implements ISolicitanteDAO{
     public List<Solicitante> buscarNombre(Solicitante dts) throws Exception {
         solicitantes =new ArrayList();
       
-//        mysql ="{call spUnidadBuscarNombre('"+dts.getUnidad()+"')}";
+        mysql ="{call spSolicitanteBuscarNombre('"+dts.getNombre()+"')}";
         
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             solicitante = new Solicitante();
-//            solicitante.setIdunidad(rs.getInt("id"));
-//            solicitante.setUnidad(rs.getString("nombre"));
-//            solicitante.setDescripcion(rs.getString("descripcion"));
-//            solicitante.setEstado(rs.getInt("estado"));            
+            solicitante.setIdsolicitante(rs.getInt("id"));
+            solicitante.setNombre(rs.getString("nombre"));
+            solicitante.setPaterno(rs.getString("apellidoPaterno"));
+            solicitante.setMaterno(rs.getString("apellidoMaterno"));
+            solicitante.setEstado(rs.getInt("estado"));            
             solicitantes.add(solicitante);
         }
         rs.close(); 
