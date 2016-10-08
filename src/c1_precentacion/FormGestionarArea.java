@@ -45,6 +45,8 @@ public class FormGestionarArea extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         lblId = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         listado = new javax.swing.JTable();
         lblNumRegistro = new javax.swing.JLabel();
@@ -64,6 +66,8 @@ public class FormGestionarArea extends javax.swing.JDialog {
 
         lblId.setText("id");
 
+        jLabel2.setText("Codigo : ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -73,11 +77,15 @@ public class FormGestionarArea extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(txtNombre))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblId)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(24, 24, 24)
+                        .addComponent(txtCodigo)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -86,9 +94,13 @@ public class FormGestionarArea extends javax.swing.JDialog {
                 .addComponent(lblId)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         listado.setModel(new javax.swing.table.DefaultTableModel(
@@ -203,12 +215,14 @@ public class FormGestionarArea extends javax.swing.JDialog {
 
     private void limpiar() {
         lblId.setText("id");
+        txtCodigo.setText("");
         txtNombre.setText("");
         txtNombre.requestFocus();
         txtBuscar.setText("");
     }
 
     private void botones(boolean btn) {
+        txtCodigo.setEnabled(btn);
         txtNombre.setEnabled(btn);
         btnGuardar.setEnabled(btn);
         btnCancelar.setEnabled(btn);
@@ -219,7 +233,7 @@ public class FormGestionarArea extends javax.swing.JDialog {
     private void mostrar() {
         try {
             gu = new GestionarAreaServicio();
-            areas = gu.listarArea();
+            areas = gu.listar();
             gu.llenarLista(listado, areas);
             lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
         } catch (Exception e) {
@@ -231,7 +245,7 @@ public class FormGestionarArea extends javax.swing.JDialog {
         boolean flag = false;
         gu = new GestionarAreaServicio();
         try {
-            areas = gu.listarArea();
+            areas = gu.listar();
             flag = (gu.buscarAreaList(areas, nombre)) ? true : false;
 
         } catch (Exception e) {
@@ -243,12 +257,12 @@ public class FormGestionarArea extends javax.swing.JDialog {
             try {
                 area = new Area();
                 gu = new GestionarAreaServicio();
-                area.setArea(txtNombre.getText().toLowerCase().trim());
+                area.setCodigo(txtCodigo.getText().toUpperCase().trim());
+                area.setDescripcion(txtNombre.getText().toLowerCase().trim());
                 area.setEstado(1);
-
                 if (flag.equals("Guardar")) {
                     if (!buscarMarcaList(txtNombre.getText().toLowerCase().trim())) {
-                        if (gu.insertarArea(area)) {
+                        if (gu.insertar(area)) {
                             JOptionPane.showMessageDialog(null, "Guardado correctamente");
                             mostrar();
                             limpiar();
@@ -264,8 +278,8 @@ public class FormGestionarArea extends javax.swing.JDialog {
                         txtNombre.requestFocus();
                     }
                 } else {
-                    area.setIdarea(Integer.parseInt(lblId.getText()));
-                    if (gu.editarArea(area)) {
+                    area.setId(Integer.parseInt(lblId.getText()));
+                    if (gu.editar(area)) {
                         JOptionPane.showMessageDialog(null, "Se Actualizo correctamente");
                         mostrar();
                         limpiar();
@@ -299,13 +313,16 @@ public class FormGestionarArea extends javax.swing.JDialog {
         mostrar();
         limpiar();
         botones(true);
+        btnGuardar.setText("Guardar");
+        flag = "Guardar";
         btnEliminar.setEnabled(false);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void listadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoMouseClicked
         int fila = listado.rowAtPoint(evt.getPoint());
         lblId.setText(listado.getValueAt(fila, 0).toString());
-        txtNombre.setText(listado.getValueAt(fila, 1).toString());
+        txtCodigo.setText(listado.getValueAt(fila, 1).toString());
+        txtNombre.setText(listado.getValueAt(fila, 2).toString());
 
         flag = "Editar";
         botones(true);
@@ -319,7 +336,7 @@ public class FormGestionarArea extends javax.swing.JDialog {
                 try {
                     gu = new GestionarAreaServicio();
                     area = new Area();
-                    area.setIdarea(Integer.parseInt(lblId.getText()));
+                    area.setId(Integer.parseInt(lblId.getText()));
                     if (gu.eliminar(area)) {
                         JOptionPane.showMessageDialog(this, "Eliminado correctamente");
                         mostrar();
@@ -355,7 +372,7 @@ public class FormGestionarArea extends javax.swing.JDialog {
         area = new Area();
         try {
             //unidad.setUnidad(String.valueOf(evt.getKeyChar()));
-            area.setArea(txtBuscar.getText());
+            area.setDescripcion(txtBuscar.getText());
             areas = gu.buscarNombre(area);
             gu.llenarLista(listado, areas);
             lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
@@ -374,6 +391,7 @@ public class FormGestionarArea extends javax.swing.JDialog {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -381,6 +399,7 @@ public class FormGestionarArea extends javax.swing.JDialog {
     private javax.swing.JLabel lblNumRegistro;
     private javax.swing.JTable listado;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

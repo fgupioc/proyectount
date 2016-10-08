@@ -10,24 +10,25 @@ package c3_dominio;
  * @author Franz
  */
 public class Marca {
-    private int idmarca,estado;
-    private String marca;
+    private int id,estado;
+    private String descripcion,codigo;
 
     public Marca() {
     }
 
-    public Marca(int idmarca, int estado, String marca) {
-        this.idmarca = idmarca;
+    public Marca(int id, int estado, String descripcion, String codigo) {
+        this.id = id;
         this.estado = estado;
-        this.marca = marca;
+        this.descripcion = descripcion;
+        this.codigo = codigo;
     }
 
-    public int getIdmarca() {
-        return idmarca;
+    public int getId() {
+        return id;
     }
 
-    public void setIdmarca(int idmarca) {
-        this.idmarca = idmarca;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getEstado() {
@@ -38,13 +39,21 @@ public class Marca {
         this.estado = estado;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+    
     
 }

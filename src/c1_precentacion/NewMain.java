@@ -7,6 +7,7 @@ package c1_precentacion;
 
 import c2_aplicacion.GestionarConfiguracionServicio;
 import c2_aplicacion.GestionarPersonalServicio;
+import c2_aplicacion.GestionarProductoServicio;
 import c3_dominio.Configuracion;
 import c3_dominio.Personal;
 import c3_dominio.LoginUser;
@@ -23,8 +24,8 @@ public class NewMain {
      * @param args the command line arguments
      * @throws java.lang.Exception
      */
-    public static void main(String[] args) throws Exception { 
-        iniciar();
+    public static void main(String[] args) throws Exception {         
+       iniciar();
     }
 
     public static void iniciar() throws Exception {

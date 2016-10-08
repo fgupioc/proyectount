@@ -33,13 +33,12 @@ public class CategoriaDAO implements ICategoriaDAO{
 
        @Override
     public boolean ingresar(Categoria dts) throws SQLException { 
-        mysql= "{Call spCategoriaInsertar (?,?)}";
+        mysql= "{Call spCategoriaInsertar (?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
-        cst.setString(1, dts.getCategoria()); 
-        cst.setInt(2, dts.getEstado());   
-        
-        return (cst.executeUpdate()==1)?true:false; 
- 
+        cst.setString(1, dts.getCodigo()); 
+        cst.setString(2, dts.getDescripcion()); 
+        cst.setInt(3, dts.getEstado());           
+        return (cst.executeUpdate()==1)?true:false;  
     }
 
     @Override
@@ -49,8 +48,9 @@ public class CategoriaDAO implements ICategoriaDAO{
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             categoria = new Categoria();
-            categoria.setIdcategoria(rs.getInt("id"));
-            categoria.setCategoria(rs.getString("descripcion")); 
+            categoria.setId(rs.getInt("id"));
+            categoria.setCodigo(rs.getString("codigo"));
+            categoria.setDescripcion(rs.getString("descripcion")); 
             categoria.setEstado(rs.getInt("estado"));            
             categorias.add(categoria);
         }
@@ -60,21 +60,19 @@ public class CategoriaDAO implements ICategoriaDAO{
 
     @Override
     public boolean editar(Categoria dts) throws SQLException {  
-       mysql ="{call spCategoriaEditar(?,?)}";
+       mysql ="{call spCategoriaEditar(?,?,?)}";
        cst = gestorJDBC.procedimientoAlmacenado(mysql); 
-       cst.setInt(1,dts.getIdcategoria()); 
-       cst.setString(2, dts.getCategoria());
-       
+       cst.setInt(1,dts.getId()); 
+       cst.setString(2,dts.getCodigo()); 
+       cst.setString(3, dts.getDescripcion());       
        return (cst.executeUpdate()==1)?true:false;        
     } 
 
     @Override
     public boolean eliminar(Categoria dts) throws SQLException {
        mysql = "{call spCategoriaEliminar(?)}";
-       cst = gestorJDBC.procedimientoAlmacenado(mysql);
-       
-       cst.setInt(1,dts.getIdcategoria());
-       
+       cst = gestorJDBC.procedimientoAlmacenado(mysql);       
+       cst.setInt(1,dts.getId());       
        return (cst.executeUpdate()==1)?true:false;
     }
 
@@ -82,13 +80,13 @@ public class CategoriaDAO implements ICategoriaDAO{
     public List<Categoria> buscarNombre(Categoria dts) throws Exception {
         categorias =new ArrayList();
       
-        mysql ="{call spCategoriaBuscarNombre('"+dts.getCategoria()+"')}";
+        mysql ="{call spCategoriaBuscarNombre('"+dts.getDescripcion()+"')}";
         
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             categoria = new Categoria();
-            categoria.setIdcategoria(rs.getInt("id"));
-            categoria.setCategoria(rs.getString("descripcion")); 
+            categoria.setId(rs.getInt("id"));
+            categoria.setDescripcion(rs.getString("descripcion")); 
             categoria.setEstado(rs.getInt("estado"));            
             categorias.add(categoria);
         }

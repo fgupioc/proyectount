@@ -10,24 +10,26 @@ package c3_dominio;
  * @author Franz
  */
 public class Almacen {
-    private int idalmacen,estado;
-    private String almacen;
+
+    private int id, estado;
+    private String descripcion, codigo;
 
     public Almacen() {
     }
 
-    public Almacen(int idalmacen, int estado, String almacen) {
-        this.idalmacen = idalmacen;
+    public Almacen(int id, int estado, String descripcion, String codigo) {
+        this.id = id;
         this.estado = estado;
-        this.almacen = almacen;
+        this.descripcion = descripcion;
+        this.codigo = codigo;
     }
 
-    public int getIdalmacen() {
-        return idalmacen;
+    public int getId() {
+        return id;
     }
 
-    public void setIdalmacen(int idalmacen) {
-        this.idalmacen = idalmacen;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getEstado() {
@@ -38,15 +40,21 @@ public class Almacen {
         this.estado = estado;
     }
 
-    public String getAlmacen() {
-        return almacen;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setAlmacen(String almacen) {
-        this.almacen = almacen;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-     
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
     
     
 }

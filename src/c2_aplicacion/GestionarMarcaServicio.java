@@ -31,7 +31,7 @@ public class GestionarMarcaServicio {
         marcaDAO = fabricaAbstractaDAO.crearMarcaDAO(gestorJDBC);
     }
     
-    public boolean insertarMarca(Marca marca) throws Exception{
+    public boolean insertar(Marca marca) throws Exception{
         boolean flag = false;
         gestorJDBC.abrirConexion();
         try {
@@ -45,7 +45,7 @@ public class GestionarMarcaServicio {
         gestorJDBC.cerrarConexion();
         return flag;
     }
-    public List<Marca> listarMarca()throws Exception{
+    public List<Marca> listar()throws Exception{
         marcas = new ArrayList();
         gestorJDBC.abrirConexion();
         try {
@@ -59,7 +59,7 @@ public class GestionarMarcaServicio {
         gestorJDBC.cerrarConexion();
         return marcas;
     }
-    public boolean editarMarca(Marca marca)throws Exception{
+    public boolean editar(Marca marca)throws Exception{
         boolean flag = false;
         gestorJDBC.abrirConexion();
         try {
@@ -106,15 +106,17 @@ public class GestionarMarcaServicio {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);
         model.addColumn("id");
+        model.addColumn("Codigo");
         model.addColumn("Nombre"); 
         model.addColumn("estado"); 
         
         model.setNumRows(marcas.size());
         int i =0;
         for(Marca dts:marcas){            
-            model.setValueAt(dts.getIdmarca(), i, 0);
-            model.setValueAt(dts.getMarca(), i, 1); 
-            model.setValueAt(dts.getEstado(), i, 2);
+            model.setValueAt(dts.getId(), i, 0);
+            model.setValueAt(dts.getCodigo(), i, 1); 
+            model.setValueAt(dts.getDescripcion(), i, 2);
+            model.setValueAt(dts.getEstado(), i, 3);
             i++;
         }       
          listado.setModel(model);
@@ -125,15 +127,18 @@ public class GestionarMarcaServicio {
         listado.getColumnModel().getColumn(0).setMaxWidth(0);
         listado.getColumnModel().getColumn(0).setMinWidth(0);
         listado.getColumnModel().getColumn(0).setPreferredWidth(0);
-        listado.getColumnModel().getColumn(2).setMaxWidth(0);
-        listado.getColumnModel().getColumn(2).setMinWidth(0);
-        listado.getColumnModel().getColumn(2).setPreferredWidth(0);
+        listado.getColumnModel().getColumn(1).setMaxWidth(80);
+        listado.getColumnModel().getColumn(1).setMinWidth(80);
+        listado.getColumnModel().getColumn(1).setPreferredWidth(80);
+        listado.getColumnModel().getColumn(3).setMaxWidth(0);
+        listado.getColumnModel().getColumn(3).setMinWidth(0);
+        listado.getColumnModel().getColumn(3).setPreferredWidth(0);
     }
     
     public boolean buscarMarcaList(List<Marca> unidades, String nombre){
         boolean flag = false; 
         for(Marca dt:marcas){           
-           if(dt.getMarca().equals(nombre)){ 
+           if(dt.getDescripcion().equals(nombre)){ 
                flag = true;
                break;
            }else{ 

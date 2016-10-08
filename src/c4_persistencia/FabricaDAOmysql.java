@@ -10,6 +10,7 @@ import c3_dominioFabrica.ITipoPersonalDAO;
 import c3_dominioFabrica.ITipoProductoDAO;
 import c3_dominioFabrica.IAlmacenDAO;
 import c3_dominioFabrica.IPersonalDAO;
+import c3_dominioFabrica.IProductoDAO;
 import c3_dominioFabrica.IUnidadDAO;
 import c4_persistenciaConexion.ConexionMYSQL;
 import c4_persistenciaConexion.GestorJDBC;
@@ -62,7 +63,7 @@ public class FabricaDAOmysql extends FabricaAbstractaDAO {
     }
 
     @Override
-    public IAreaDAO crearArea(GestorJDBC gestorJDBC) {
+    public IAreaDAO crearAreaDAO(GestorJDBC gestorJDBC) {
          return new AreaDAO(gestorJDBC);
     }
 
@@ -74,6 +75,11 @@ public class FabricaDAOmysql extends FabricaAbstractaDAO {
     @Override
     public IPersonalDAO crearPersonalDAO(GestorJDBC gestorJDBC) {
         return new PersonalDAO(gestorJDBC);
+    }
+
+    @Override
+    public IProductoDAO crearProductoDAO(GestorJDBC gestorJDBC) {
+        return new ProductoDAO(gestorJDBC);
     }
 
     

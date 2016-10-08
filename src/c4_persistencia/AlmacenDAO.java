@@ -32,13 +32,12 @@ public class AlmacenDAO implements IAlmacenDAO{
 
      @Override
     public boolean ingresar(Almacen dts) throws SQLException { 
-        mysql= "{Call spAlmacenInsertar (?,?)}";
+        mysql= "{Call spAlmacenInsertar (?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
-        cst.setString(1, dts.getAlmacen()); 
-        cst.setInt(2, dts.getEstado());   
-        
-        return (cst.executeUpdate()==1)?true:false; 
- 
+        cst.setString(1, dts.getCodigo());
+        cst.setString(2, dts.getDescripcion()); 
+        cst.setInt(3, dts.getEstado());           
+        return (cst.executeUpdate()==1)?true:false;  
     }
 
     @Override
@@ -48,8 +47,9 @@ public class AlmacenDAO implements IAlmacenDAO{
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             ubicacion = new Almacen();
-            ubicacion.setIdalmacen(rs.getInt("id")); 
-            ubicacion.setAlmacen(rs.getString("descripcion"));
+            ubicacion.setId(rs.getInt("id")); 
+            ubicacion.setCodigo(rs.getString("codigo"));
+            ubicacion.setDescripcion(rs.getString("descripcion"));
             ubicacion.setEstado(rs.getInt("estado"));            
             ubicacions.add(ubicacion);
         }
@@ -59,42 +59,36 @@ public class AlmacenDAO implements IAlmacenDAO{
 
     @Override
     public boolean editar(Almacen dts) throws SQLException {  
-       mysql ="{call spAlmacenEditar(?,?)}";
-       cst = gestorJDBC.procedimientoAlmacenado(mysql);
-       
-       cst.setInt(1,dts.getIdalmacen()); 
-       cst.setString(2, dts.getAlmacen());
-       
+       mysql ="{call spAlmacenEditar(?,?,?)}";
+       cst = gestorJDBC.procedimientoAlmacenado(mysql);       
+       cst.setInt(1,dts.getId()); 
+       cst.setString(2, dts.getCodigo());
+       cst.setString(3, dts.getDescripcion());        
        return (cst.executeUpdate()==1)?true:false;        
     } 
 
     @Override
     public boolean eliminar(Almacen dts) throws SQLException {
        mysql = "{call spAlmacenEliminar(?)}";
-       cst = gestorJDBC.procedimientoAlmacenado(mysql);
-       
-       cst.setInt(1,dts.getIdalmacen());
-       
+       cst = gestorJDBC.procedimientoAlmacenado(mysql);       
+       cst.setInt(1,dts.getId());       
        return (cst.executeUpdate()==1)?true:false;
     }
 
     @Override
     public List<Almacen> buscarNombre(Almacen dts) throws Exception {
-        ubicacions =new ArrayList();
-      
-        mysql ="{call spAlmacenBuscarNombre('"+dts.getAlmacen()+"')}";
-        
+        ubicacions =new ArrayList();      
+        mysql ="{call spAlmacenBuscarNombre('"+dts.getDescripcion()+"')}";        
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             ubicacion = new Almacen();
-            ubicacion.setIdalmacen(rs.getInt("id")); 
-            ubicacion.setAlmacen(rs.getString("descripcion"));
+            ubicacion.setId(rs.getInt("id")); 
+            ubicacion.setCodigo(rs.getString("codigo"));
+            ubicacion.setDescripcion(rs.getString("descripcion"));
             ubicacion.setEstado(rs.getInt("estado"));            
             ubicacions.add(ubicacion);
         }
         rs.close(); 
         return ubicacions;
-    }
-    
-    
+    } 
 }

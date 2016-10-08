@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class MarcaDAO implements IMarcaDAO{
     GestorJDBC gestorJDBC;
-     private CallableStatement cst;
+    private CallableStatement cst;
     private ResultSet rs ;
     private List<Marca> marcas;
     private String mysql;
@@ -31,13 +31,12 @@ public class MarcaDAO implements IMarcaDAO{
 
       @Override
     public boolean ingresar(Marca dts) throws SQLException { 
-        mysql= "{Call spMarcaInsertar (?,?)}";
+        mysql= "{Call spMarcaInsertar (?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
-        cst.setString(1, dts.getMarca()); 
-        cst.setInt(2, dts.getEstado());   
-        
-        return (cst.executeUpdate()==1)?true:false; 
- 
+        cst.setString(1, dts.getCodigo()); 
+        cst.setString(2, dts.getDescripcion()); 
+        cst.setInt(3, dts.getEstado());    
+        return (cst.executeUpdate()==1)?true:false;  
     }
 
     @Override
@@ -47,8 +46,9 @@ public class MarcaDAO implements IMarcaDAO{
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             marca = new Marca();
-            marca.setIdmarca(rs.getInt("id")); 
-            marca.setMarca(rs.getString("descripcion"));
+            marca.setId(rs.getInt("id")); 
+            marca.setCodigo(rs.getString("codigo")); 
+            marca.setDescripcion(rs.getString("descripcion"));
             marca.setEstado(rs.getInt("estado"));            
             marcas.add(marca);
         }
@@ -58,42 +58,35 @@ public class MarcaDAO implements IMarcaDAO{
 
     @Override
     public boolean editar(Marca dts) throws SQLException {  
-       mysql ="{call spMarcaEditar(?,?)}";
-       cst = gestorJDBC.procedimientoAlmacenado(mysql);
-       
-       cst.setInt(1,dts.getIdmarca());
-       cst.setString(2,dts.getMarca()); 
-       
+       mysql ="{call spMarcaEditar(?,?,?)}";
+       cst = gestorJDBC.procedimientoAlmacenado(mysql);       
+       cst.setInt(1,dts.getId());
+       cst.setString(2,dts.getCodigo());        
+       cst.setString(3,dts.getDescripcion());        
        return (cst.executeUpdate()==1)?true:false;        
     } 
 
     @Override
     public boolean eliminar(Marca dts) throws SQLException {
        mysql = "{call spMarcaEliminar(?)}";
-       cst = gestorJDBC.procedimientoAlmacenado(mysql);
-       
-       cst.setInt(1,dts.getIdmarca());
-       
+       cst = gestorJDBC.procedimientoAlmacenado(mysql);       
+       cst.setInt(1,dts.getId());       
        return (cst.executeUpdate()==1)?true:false;
     }
 
     @Override
     public List<Marca> buscarNombre(Marca dts) throws Exception {
-        marcas =new ArrayList();
-      
-        mysql ="{call spMarcaBuscarNombre('"+dts.getMarca()+"')}";
-        
+        marcas =new ArrayList();      
+        mysql ="{call spMarcaBuscarNombre('"+dts.getDescripcion()+"')}";        
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             marca = new Marca();
-            marca.setIdmarca(rs.getInt("id"));
-            marca.setMarca(rs.getString("descripcion")); 
+            marca.setId(rs.getInt("id"));
+            marca.setDescripcion(rs.getString("descripcion")); 
             marca.setEstado(rs.getInt("estado"));            
             marcas.add(marca);
         }
         rs.close(); 
         return marcas;
-    }
-    
-    
+    }    
 }

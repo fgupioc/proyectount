@@ -169,7 +169,8 @@ public class FormLogin extends javax.swing.JFrame {
                 GestionarPersonalServicio gu = new GestionarPersonalServicio();
                 LoginUser user =LoginUser.getInstancia();
                 try {                   
-                    user.setPersonal(gu.loginPersonal(txtUser.getText(), user.encryptPass(txtPass.getText().trim())));
+                    //user.setPersonal(gu.loginPersonal(txtUser.getText(), user.encryptPass(txtPass.getText().trim())));
+                    user.setPersonal(gu.loginPersonal(txtUser.getText(), txtPass.getText().trim()));
                     if (user.getPersonal() != null) {
                         FormMenu form = new FormMenu();                          
                         this.dispose();

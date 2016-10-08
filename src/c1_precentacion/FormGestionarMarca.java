@@ -6,7 +6,7 @@
 package c1_precentacion;
 
 import c2_aplicacion.GestionarMarcaServicio;
-import c3_dominio.Marca; 
+import c3_dominio.Marca;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -23,7 +23,7 @@ public class FormGestionarMarca extends javax.swing.JDialog {
     Marca marca;
     private GestionarMarcaServicio gu;
     private List<Marca> marcas;
-
+    
     public FormGestionarMarca(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -45,6 +45,8 @@ public class FormGestionarMarca extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         lblId = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         listado = new javax.swing.JTable();
         lblNumRegistro = new javax.swing.JLabel();
@@ -64,6 +66,8 @@ public class FormGestionarMarca extends javax.swing.JDialog {
 
         lblId.setText("id");
 
+        jLabel2.setText("Codigo :");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -71,24 +75,32 @@ public class FormGestionarMarca extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNombre))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblId)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jLabel1)
+                    .addComponent(lblId)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombre)
+                    .addComponent(txtCodigo))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lblId)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblId)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         listado.setModel(new javax.swing.table.DefaultTableModel(
@@ -180,8 +192,8 @@ public class FormGestionarMarca extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
@@ -195,7 +207,7 @@ public class FormGestionarMarca extends javax.swing.JDialog {
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar)
                     .addComponent(btnEliminar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -203,37 +215,39 @@ public class FormGestionarMarca extends javax.swing.JDialog {
 
     private void limpiar() {
         lblId.setText("id");
-        txtNombre.setText(""); 
+        txtCodigo.setText("");
+        txtNombre.setText("");        
         txtNombre.requestFocus();
         txtBuscar.setText("");
     }
-
+    
     private void botones(boolean btn) {
-        txtNombre.setEnabled(btn); 
+        txtCodigo.setEnabled(btn);
+        txtNombre.setEnabled(btn);        
         btnGuardar.setEnabled(btn);
         btnCancelar.setEnabled(btn);
         btnNuevo.setEnabled(!btn);
         btnEliminar.setEnabled(btn);
     }
-
+    
     private void mostrar() {
         try {
             gu = new GestionarMarcaServicio();
-            marcas = gu.listarMarca();
+            marcas = gu.listar();
             gu.llenarLista(listado, marcas);
             lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e);
         }
     }
-
+    
     private boolean buscarMarcaList(String nombre) {
         boolean flag = false;
         gu = new GestionarMarcaServicio();
         try {
-            marcas = gu.listarMarca();
+            marcas = gu.listar();
             flag = (gu.buscarMarcaList(marcas, nombre)) ? true : false;
-
+            
         } catch (Exception e) {
         }
         return flag;
@@ -242,41 +256,49 @@ public class FormGestionarMarca extends javax.swing.JDialog {
         if (!txtNombre.getText().equals("")) {
             try {
                 marca = new Marca();
-                gu = new GestionarMarcaServicio(); 
-                marca.setMarca(txtNombre.getText().toLowerCase().trim()); 
-                marca.setEstado(1);
-
+                gu = new GestionarMarcaServicio();                
+                marca.setCodigo(txtCodigo.getText().toUpperCase().trim());
+                marca.setDescripcion(txtNombre.getText().toLowerCase().trim());                
+                marca.setEstado(1);                
                 if (flag.equals("Guardar")) {
-                    if (!buscarMarcaList(txtNombre.getText().toLowerCase().trim())) { 
-                        if (gu.insertarMarca(marca)) {
+                    if (!buscarMarcaList(txtNombre.getText().toLowerCase().trim())) {                        
+                        if (gu.insertar(marca)) {
                             JOptionPane.showMessageDialog(null, "Guardado correctamente");
                             mostrar();
                             limpiar();
                             botones(false);
+                            btnGuardar.setText("Guardar");
+                            flag = "Guardar";
                         } else {
                             JOptionPane.showMessageDialog(null, "NO se pudo guardar");
                             mostrar();
                             limpiar();
                             botones(false);
+                            btnGuardar.setText("Guardar");
+                            flag = "Guardar";
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "la unidad ya existe");
                         txtNombre.requestFocus();
                     }
                 } else {
-                    marca.setIdmarca(Integer.parseInt(lblId.getText()));
-                    if (gu.editarMarca(marca)) {
+                    marca.setId(Integer.parseInt(lblId.getText()));
+                    if (gu.editar(marca)) {
                         JOptionPane.showMessageDialog(null, "Se Actualizo correctamente");
                         mostrar();
                         limpiar();
                         botones(false);
+                        btnGuardar.setText("Guardar");
+                        flag = "Guardar";
                     } else {
                         JOptionPane.showMessageDialog(null, "no se pudo actualizar");
                         mostrar();
                         limpiar();
                         botones(false);
+                        btnGuardar.setText("Guardar");
+                        flag = "Guardar";
                     }
-
+                    
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
@@ -300,13 +322,15 @@ public class FormGestionarMarca extends javax.swing.JDialog {
         limpiar();
         botones(true);
         btnEliminar.setEnabled(false);
+        btnGuardar.setText("Guardar");
+        flag = "Guardar";
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void listadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoMouseClicked
         int fila = listado.rowAtPoint(evt.getPoint());
         lblId.setText(listado.getValueAt(fila, 0).toString());
-        txtNombre.setText(listado.getValueAt(fila, 1).toString()); 
-
+        txtCodigo.setText(listado.getValueAt(fila, 1).toString());        
+        txtNombre.setText(listado.getValueAt(fila, 2).toString()); 
         flag = "Editar";
         botones(true);
         btnGuardar.setText("Editar");
@@ -319,21 +343,21 @@ public class FormGestionarMarca extends javax.swing.JDialog {
                 try {
                     gu = new GestionarMarcaServicio();
                     marca = new Marca();
-                    marca.setIdmarca(Integer.parseInt(lblId.getText()));
+                    marca.setId(Integer.parseInt(lblId.getText()));
                     if (gu.eliminar(marca)) {
                         JOptionPane.showMessageDialog(this, "Eliminado correctamente");
                         mostrar();
                         limpiar();
                         botones(false);
-                         btnGuardar.setText("Guardar");
-                flag = "Guardar";
+                        btnGuardar.setText("Guardar");
+                        flag = "Guardar";
                     } else {
                         JOptionPane.showMessageDialog(this, "No se pudo eliminar", "Aviso", 2);
                         mostrar();
                         limpiar();
                         botones(false);
-                         btnGuardar.setText("Guardar");
-                flag = "Guardar";
+                        btnGuardar.setText("Guardar");
+                        flag = "Guardar";
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, e);
@@ -342,7 +366,7 @@ public class FormGestionarMarca extends javax.swing.JDialog {
                 mostrar();
                 limpiar();
                 botones(false);
-                 btnGuardar.setText("Guardar");
+                btnGuardar.setText("Guardar");
                 flag = "Guardar";
             }
         } else {
@@ -353,13 +377,13 @@ public class FormGestionarMarca extends javax.swing.JDialog {
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         gu = new GestionarMarcaServicio();
         marca = new Marca();
-        try { 
+        try {
             //unidad.setUnidad(String.valueOf(evt.getKeyChar()));
-            marca.setMarca(txtBuscar.getText());
+            marca.setDescripcion(txtBuscar.getText());
             marcas = gu.buscarNombre(marca);
             gu.llenarLista(listado, marcas);
             lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
-
+            
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
@@ -374,6 +398,7 @@ public class FormGestionarMarca extends javax.swing.JDialog {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -381,6 +406,7 @@ public class FormGestionarMarca extends javax.swing.JDialog {
     private javax.swing.JLabel lblNumRegistro;
     private javax.swing.JTable listado;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

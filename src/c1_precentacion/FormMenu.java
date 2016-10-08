@@ -47,6 +47,7 @@ public class FormMenu extends javax.swing.JFrame {
         miPersonal = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,6 +139,14 @@ public class FormMenu extends javax.swing.JFrame {
         });
         miTipoPersonal.add(jMenuItem3);
 
+        jMenuItem4.setText("Producto");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        miTipoPersonal.add(jMenuItem4);
+
         jMenuBar1.add(miTipoPersonal);
 
         setJMenuBar(jMenuBar1);
@@ -183,8 +192,8 @@ public class FormMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void miAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAreaActionPerformed
-//         FormGestionarArea form = new FormGestionarArea(this, false);
-//       form.setVisible(true);
+         FormGestionarArea form = new FormGestionarArea(this, false);
+      form.setVisible(true);
     }//GEN-LAST:event_miAreaActionPerformed
 
     private void miAlamcenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlamcenActionPerformed
@@ -213,6 +222,11 @@ public class FormMenu extends javax.swing.JFrame {
        form.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+       FormGestionarProducto form = new FormGestionarProducto(this, false);
+       form.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
       */
@@ -223,6 +237,7 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     public static javax.swing.JLabel lblNombre;
     private javax.swing.JMenuItem miAlamcen;
     private javax.swing.JMenuItem miArea;

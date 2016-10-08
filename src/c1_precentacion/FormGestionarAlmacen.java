@@ -45,6 +45,8 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         lblId = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         listado = new javax.swing.JTable();
         lblNumRegistro = new javax.swing.JLabel();
@@ -58,11 +60,13 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administrador de Unidades");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidad"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Almacen"));
 
         jLabel1.setText("Nombre : ");
 
         lblId.setText("id");
+
+        jLabel2.setText("Codigo :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -73,22 +77,30 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(txtNombre))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblId)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(27, 27, 27)
+                        .addComponent(txtCodigo)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(lblId)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         listado.setModel(new javax.swing.table.DefaultTableModel(
@@ -195,7 +207,7 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar)
                     .addComponent(btnEliminar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
@@ -203,12 +215,14 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
 
     private void limpiar() {
         lblId.setText("id");
+        txtCodigo.setText("");
         txtNombre.setText("");
         txtNombre.requestFocus();
         txtBuscar.setText("");
     }
 
     private void botones(boolean btn) {
+        txtCodigo.setEnabled(btn);
         txtNombre.setEnabled(btn);
         btnGuardar.setEnabled(btn);
         btnCancelar.setEnabled(btn);
@@ -219,7 +233,7 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
     private void mostrar() {
         try {
             gu = new GestionarAlmacenServicio();
-            almacens = gu.listarAlmacen();
+            almacens = gu.listar();
             gu.llenarLista(listado, almacens);
             lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
         } catch (Exception e) {
@@ -231,7 +245,7 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
         boolean flag = false;
         gu = new GestionarAlmacenServicio();
         try {
-            almacens = gu.listarAlmacen();
+            almacens = gu.listar();
             flag = (gu.buscarAlmacenList(almacens, nombre)) ? true : false;
 
         } catch (Exception e) {
@@ -243,12 +257,13 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
             try {
                 almacen = new Almacen();
                 gu = new GestionarAlmacenServicio();
-                almacen.setAlmacen(txtNombre.getText().toLowerCase().trim());
+                almacen.setCodigo(txtCodigo.getText().toUpperCase().trim());
+                almacen.setDescripcion(txtNombre.getText().toLowerCase().trim());
                 almacen.setEstado(1);
 
                 if (flag.equals("Guardar")) {
                     if (!buscarMarcaList(txtNombre.getText().toLowerCase().trim())) {
-                        if (gu.insertarAlmacen(almacen)) {
+                        if (gu.insertar(almacen)) {
                             JOptionPane.showMessageDialog(null, "Guardado correctamente");
                             mostrar();
                             limpiar();
@@ -264,8 +279,8 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
                         txtNombre.requestFocus();
                     }
                 } else {
-                    almacen.setIdalmacen(Integer.parseInt(lblId.getText()));
-                    if (gu.editarAlmacen(almacen)) {
+                    almacen.setId(Integer.parseInt(lblId.getText()));
+                    if (gu.editar(almacen)) {
                         JOptionPane.showMessageDialog(null, "Se Actualizo correctamente");
                         mostrar();
                         limpiar();
@@ -305,7 +320,8 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
     private void listadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoMouseClicked
         int fila = listado.rowAtPoint(evt.getPoint());
         lblId.setText(listado.getValueAt(fila, 0).toString());
-        txtNombre.setText(listado.getValueAt(fila, 1).toString());
+        txtCodigo.setText(listado.getValueAt(fila, 1).toString());
+        txtNombre.setText(listado.getValueAt(fila, 2).toString());
 
         flag = "Editar";
         botones(true);
@@ -319,7 +335,7 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
                 try {
                     gu = new GestionarAlmacenServicio();
                     almacen = new Almacen();
-                    almacen.setIdalmacen(Integer.parseInt(lblId.getText()));
+                    almacen.setId(Integer.parseInt(lblId.getText()));
                     if (gu.eliminar(almacen)) {
                         JOptionPane.showMessageDialog(this, "Eliminado correctamente");
                         mostrar();
@@ -355,7 +371,7 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
         almacen = new Almacen();
         try {
             //unidad.setUnidad(String.valueOf(evt.getKeyChar()));
-            almacen.setAlmacen(txtBuscar.getText());
+            almacen.setDescripcion(txtBuscar.getText());
             almacens = gu.buscarNombre(almacen);
             gu.llenarLista(listado, almacens);
             lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
@@ -374,6 +390,7 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -381,6 +398,7 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
     private javax.swing.JLabel lblNumRegistro;
     private javax.swing.JTable listado;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

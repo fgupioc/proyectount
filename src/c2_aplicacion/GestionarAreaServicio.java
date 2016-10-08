@@ -28,10 +28,10 @@ public class GestionarAreaServicio {
     public GestionarAreaServicio() {
         FabricaAbstractaDAO fabricaAbstractaDAO = FabricaAbstractaDAO.getInstancia();
         gestorJDBC = fabricaAbstractaDAO.crearGestorJDBC();
-        areaDAO = fabricaAbstractaDAO.crearArea(gestorJDBC);
+        areaDAO = fabricaAbstractaDAO.crearAreaDAO(gestorJDBC);
     }
     
-    public boolean insertarArea(Area area) throws Exception{
+    public boolean insertar(Area area) throws Exception{
         boolean flag = false;
         gestorJDBC.abrirConexion();
         try {
@@ -45,7 +45,7 @@ public class GestionarAreaServicio {
         gestorJDBC.cerrarConexion();
         return flag;
     }
-    public List<Area> listarArea()throws Exception{
+    public List<Area> listar()throws Exception{
         areas = new ArrayList();
         gestorJDBC.abrirConexion();
         try {
@@ -59,7 +59,7 @@ public class GestionarAreaServicio {
         gestorJDBC.cerrarConexion();
         return areas;
     }
-    public boolean editarArea(Area area)throws Exception{
+    public boolean editar(Area area)throws Exception{
         boolean flag = false;
         gestorJDBC.abrirConexion();
         try {
@@ -107,15 +107,17 @@ public class GestionarAreaServicio {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);
         model.addColumn("id");
+        model.addColumn("codigo");
         model.addColumn("Nombre"); 
         model.addColumn("estado"); 
         
         model.setNumRows(areaes.size());
         int i =0;
         for(Area dts:areaes){            
-            model.setValueAt(dts.getIdarea(), i, 0);
-            model.setValueAt(dts.getArea(), i, 1); 
-            model.setValueAt(dts.getEstado(), i, 2);
+            model.setValueAt(dts.getId(), i, 0);
+            model.setValueAt(dts.getCodigo(), i, 1);
+            model.setValueAt(dts.getDescripcion(), i, 2); 
+            model.setValueAt(dts.getEstado(), i, 3);
             i++;
         }       
          listado.setModel(model);
@@ -126,15 +128,18 @@ public class GestionarAreaServicio {
         listado.getColumnModel().getColumn(0).setMaxWidth(0);
         listado.getColumnModel().getColumn(0).setMinWidth(0);
         listado.getColumnModel().getColumn(0).setPreferredWidth(0);
-        listado.getColumnModel().getColumn(2).setMaxWidth(0);
-        listado.getColumnModel().getColumn(2).setMinWidth(0);
-        listado.getColumnModel().getColumn(2).setPreferredWidth(0);
+        listado.getColumnModel().getColumn(1).setMaxWidth(80);
+        listado.getColumnModel().getColumn(1).setMinWidth(80);
+        listado.getColumnModel().getColumn(1).setPreferredWidth(80);
+        listado.getColumnModel().getColumn(3).setMaxWidth(0);
+        listado.getColumnModel().getColumn(3).setMinWidth(0);
+        listado.getColumnModel().getColumn(3).setPreferredWidth(0);
     }
     
     public boolean buscarAreaList(List<Area> areas, String nombre){
         boolean flag = false; 
         for(Area dt:areas){           
-           if(dt.getArea().equals(nombre)){ 
+           if(dt.getDescripcion().equals(nombre)){ 
                flag = true;
                break;
            }else{ 

@@ -32,7 +32,7 @@ public class GestionarAlmacenServicio {
         almacenDAO = fabricaAbstractaDAO.crearAlmacenDAO(gestorJDBC);
     }
     
-     public boolean insertarAlmacen(Almacen almacen) throws Exception{
+     public boolean insertar(Almacen almacen) throws Exception{
         boolean flag = false;
         gestorJDBC.abrirConexion();
         try {
@@ -46,7 +46,7 @@ public class GestionarAlmacenServicio {
         gestorJDBC.cerrarConexion();
         return flag;
     }
-    public List<Almacen> listarAlmacen()throws Exception{
+    public List<Almacen> listar()throws Exception{
         almacenes = new ArrayList();
         gestorJDBC.abrirConexion();
         try {
@@ -60,7 +60,7 @@ public class GestionarAlmacenServicio {
         gestorJDBC.cerrarConexion();
         return almacenes;
     }
-    public boolean editarAlmacen(Almacen almacen)throws Exception{
+    public boolean editar(Almacen almacen)throws Exception{
         boolean flag = false;
         gestorJDBC.abrirConexion();
         try {
@@ -108,15 +108,17 @@ public class GestionarAlmacenServicio {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);
         model.addColumn("id");
+        model.addColumn("codigo");
         model.addColumn("Nombre"); 
         model.addColumn("estado"); 
         
         model.setNumRows(almacenes.size());
         int i =0;
         for(Almacen dts:almacenes){            
-            model.setValueAt(dts.getIdalmacen(), i, 0);
-            model.setValueAt(dts.getAlmacen(), i, 1); 
-            model.setValueAt(dts.getEstado(), i, 2);
+            model.setValueAt(dts.getId(), i, 0);
+            model.setValueAt(dts.getCodigo(), i, 1); 
+            model.setValueAt(dts.getDescripcion(), i, 2);
+             model.setValueAt(dts.getEstado(), i, 3);
             i++;
         }       
          listado.setModel(model);
@@ -127,15 +129,18 @@ public class GestionarAlmacenServicio {
         listado.getColumnModel().getColumn(0).setMaxWidth(0);
         listado.getColumnModel().getColumn(0).setMinWidth(0);
         listado.getColumnModel().getColumn(0).setPreferredWidth(0);
-        listado.getColumnModel().getColumn(2).setMaxWidth(0);
-        listado.getColumnModel().getColumn(2).setMinWidth(0);
-        listado.getColumnModel().getColumn(2).setPreferredWidth(0);
+        listado.getColumnModel().getColumn(1).setMaxWidth(80);
+        listado.getColumnModel().getColumn(1).setMinWidth(80);
+        listado.getColumnModel().getColumn(1).setPreferredWidth(80);
+        listado.getColumnModel().getColumn(3).setMaxWidth(0);
+        listado.getColumnModel().getColumn(3).setMinWidth(0);
+        listado.getColumnModel().getColumn(3).setPreferredWidth(0);
     }
     
     public boolean buscarAlmacenList(List<Almacen> almacens, String nombre){
         boolean flag = false; 
         for(Almacen dt:almacens){           
-           if(dt.getAlmacen().equals(nombre)){ 
+           if(dt.getDescripcion().equals(nombre)){ 
                flag = true;
                break;
            }else{ 
