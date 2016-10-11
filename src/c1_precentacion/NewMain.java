@@ -11,7 +11,10 @@ import c2_aplicacion.GestionarProductoServicio;
 import c3_dominio.Configuracion;
 import c3_dominio.Personal;
 import c3_dominio.LoginUser;
+import c3_dominio.Producto;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,8 +27,8 @@ public class NewMain {
      * @param args the command line arguments
      * @throws java.lang.Exception
      */
-    public static void main(String[] args) throws Exception {         
-       iniciar();
+    public static void main(String[] args) throws Exception {     
+        iniciar();
     }
 
     public static void iniciar() throws Exception {

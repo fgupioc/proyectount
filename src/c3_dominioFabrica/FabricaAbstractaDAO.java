@@ -50,5 +50,7 @@ public abstract class FabricaAbstractaDAO {
     public abstract IPersonalDAO crearPersonalDAO(GestorJDBC gestorJDBC);
     
     public abstract IProductoDAO crearProductoDAO(GestorJDBC gestorJDBC);
+    
+    public abstract IMovimientoDAO crearMovimientoDAO(GestorJDBC gestorJDBC);
    
 }

@@ -101,6 +101,17 @@ public class GestionarCategoriaServicio {
         gestorJDBC.cerrarConexion();
         return categorias;
     }
+        public Categoria obtenerId(List<Categoria> categorias, String nombre) {
+        categoria = new Categoria();
+        int id = 0;
+        for (Categoria tipo : categorias) {
+            if (tipo.getDescripcion().equals(nombre)) {
+                categoria.setId(tipo.getId());
+                categoria.setDescripcion(tipo.getDescripcion());
+            }
+        }
+        return categoria;
+        }
     public void llenarLista(JTable listado, List<Categoria> unidades) throws Exception {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);

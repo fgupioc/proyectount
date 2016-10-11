@@ -9,6 +9,7 @@ import c3_dominioFabrica.ISolicitanteDAO;
 import c3_dominioFabrica.ITipoPersonalDAO;
 import c3_dominioFabrica.ITipoProductoDAO;
 import c3_dominioFabrica.IAlmacenDAO;
+import c3_dominioFabrica.IMovimientoDAO;
 import c3_dominioFabrica.IPersonalDAO;
 import c3_dominioFabrica.IProductoDAO;
 import c3_dominioFabrica.IUnidadDAO;
@@ -80,6 +81,11 @@ public class FabricaDAOmysql extends FabricaAbstractaDAO {
     @Override
     public IProductoDAO crearProductoDAO(GestorJDBC gestorJDBC) {
         return new ProductoDAO(gestorJDBC);
+    }
+
+    @Override
+    public IMovimientoDAO crearMovimientoDAO(GestorJDBC gestorJDBC) {
+        return new MovimientoDAO(gestorJDBC);
     }
 
     

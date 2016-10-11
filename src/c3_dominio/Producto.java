@@ -5,7 +5,7 @@
  */
 package c3_dominio;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
  
 
@@ -14,10 +14,9 @@ import java.sql.Date;
  * @author Franz
  */
 public class Producto {
-    private int idproducto,cantidad,estado;
-    private String codigo,producto,descripcion;
-    private Date fechaRegistro;
-    private Unidad unidad;
+    private int id,cantidad,estado;
+    private String codigo,articulo,descripcion;
+    private Timestamp fechaRegistro; 
     private Categoria categoria;
     private TipoProducto tipoProducto;
     private Marca marca;
@@ -26,27 +25,26 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int idproducto, int cantidad, int estado, String codigo, String producto, String descripcion, Date fechaRegistro, Unidad unidad, Categoria categoria, TipoProducto tipoProducto, Marca marca, Almacen almacen) {
-        this.idproducto = idproducto;
+    public Producto(int id, int cantidad, int estado, String codigo, String articulo, String descripcion, Timestamp fechaRegistro, Categoria categoria, TipoProducto tipoProducto, Marca marca, Almacen almacen) {
+        this.id = id;
         this.cantidad = cantidad;
         this.estado = estado;
         this.codigo = codigo;
-        this.producto = producto;
+        this.articulo = articulo;
         this.descripcion = descripcion;
-        this.fechaRegistro = fechaRegistro;
-        this.unidad = unidad;
+        this.fechaRegistro = fechaRegistro; 
         this.categoria = categoria;
         this.tipoProducto = tipoProducto;
         this.marca = marca;
         this.almacen = almacen;
     }
 
-    public int getIdproducto() {
-        return idproducto;
+    public int getId() {
+        return id;
     }
 
-    public void setIdproducto(int idproducto) {
-        this.idproducto = idproducto;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getCantidad() {
@@ -73,12 +71,12 @@ public class Producto {
         this.codigo = codigo;
     }
 
-    public String getProducto() {
-        return producto;
+    public String getArticulo() {
+        return articulo;
     }
 
-    public void setProducto(String producto) {
-        this.producto = producto;
+    public void setArticulo(String articulo) {
+        this.articulo = articulo;
     }
 
     public String getDescripcion() {
@@ -89,21 +87,13 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public Date getFechaRegistro() {
+    public Timestamp getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Date fechaRegistro) {
+    public void setFechaRegistro(Timestamp fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
-    }
-
-    public Unidad getUnidad() {
-        return unidad;
-    }
-
-    public void setUnidad(Unidad unidad) {
-        this.unidad = unidad;
-    }
+    } 
 
     public Categoria getCategoria() {
         return categoria;
@@ -136,8 +126,6 @@ public class Producto {
     public void setAlmacen(Almacen almacen) {
         this.almacen = almacen;
     }
-    
-    
+
      
-    
 }

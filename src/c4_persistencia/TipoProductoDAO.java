@@ -32,10 +32,11 @@ public class TipoProductoDAO implements ITipoProductoDAO{
 
       @Override
     public boolean ingresar(TipoProducto dts) throws SQLException { 
-        mysql= "{Call spTipo_ProductoInsertar (?,?)}";
+        mysql= "{Call spTipo_ProductoInsertar (?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql); 
-        cst.setString(1, dts.getDescripcion());
-        cst.setInt(2, dts.getEstado());           
+        cst.setString(1, dts.getCodigo());
+        cst.setString(2, dts.getDescripcion());
+        cst.setInt(3, dts.getEstado());           
         return (cst.executeUpdate()==1)?true:false;  
     }
 
@@ -46,7 +47,8 @@ public class TipoProductoDAO implements ITipoProductoDAO{
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             tipoProducto = new TipoProducto();
-            tipoProducto.setIdtipoproducto(rs.getInt("id")); 
+            tipoProducto.setId(rs.getInt("id")); 
+            tipoProducto.setCodigo(rs.getString("codigo"));
             tipoProducto.setDescripcion(rs.getString("descripcion"));
             tipoProducto.setEstado(rs.getInt("estado"));            
             tipoProductos.add(tipoProducto);
@@ -59,9 +61,9 @@ public class TipoProductoDAO implements ITipoProductoDAO{
     public boolean editar(TipoProducto dts) throws SQLException {  
        mysql ="{call spTipo_ProductoEditar(?,?,?)}";
        cst = gestorJDBC.procedimientoAlmacenado(mysql);       
-       cst.setInt(1,dts.getIdtipoproducto()); 
-       cst.setString(2, dts.getDescripcion());
-       cst.setInt(3,dts.getEstado());       
+       cst.setInt(1,dts.getId()); 
+       cst.setString(2, dts.getCodigo()); 
+       cst.setString(3, dts.getDescripcion()); 
        return (cst.executeUpdate()==1)?true:false;        
     } 
 
@@ -69,7 +71,7 @@ public class TipoProductoDAO implements ITipoProductoDAO{
     public boolean eliminar(TipoProducto dts) throws SQLException {
        mysql = "{call spTipo_ProductoEliminar(?)}";
        cst = gestorJDBC.procedimientoAlmacenado(mysql);       
-       cst.setInt(1,dts.getIdtipoproducto());       
+       cst.setInt(1,dts.getId());       
        return (cst.executeUpdate()==1)?true:false;
     }
 
@@ -82,7 +84,8 @@ public class TipoProductoDAO implements ITipoProductoDAO{
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             tipoProducto = new TipoProducto();
-            tipoProducto.setIdtipoproducto(rs.getInt("id")); 
+            tipoProducto.setId(rs.getInt("id")); 
+            tipoProducto.setCodigo(rs.getString("codigo"));
             tipoProducto.setDescripcion(rs.getString("descripcion"));
             tipoProducto.setEstado(rs.getInt("estado"));            
             tipoProductos.add(tipoProducto);

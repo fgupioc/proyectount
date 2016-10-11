@@ -5,10 +5,28 @@
  */
 package c1_precentacion;
 
+import c2_aplicacion.GestionarAlmacenServicio;
+import c2_aplicacion.GestionarCategoriaServicio;
+import c2_aplicacion.GestionarMarcaServicio;
 import c2_aplicacion.GestionarProductoServicio;
+import c2_aplicacion.GestionarTipoProductoServicio;
+import c2_aplicacion.GestionarUnidadServicio;
+import c3_dominio.Almacen;
+import c3_dominio.Categoria;
+import c3_dominio.Marca;
 import c3_dominio.Producto;
+import c3_dominio.TipoPersonal;
+import c3_dominio.TipoProducto;
+import c3_dominio.Unidad;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
+import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
@@ -21,6 +39,7 @@ public class FormGestionarProducto extends javax.swing.JDialog {
      */
     private String flag = "Guardar";
     Producto producto;
+    public Producto tempProducto;
     private GestionarProductoServicio gu;
     private List<Producto> productos;
 
@@ -28,8 +47,10 @@ public class FormGestionarProducto extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         mostrar();
+        carga();
         botones(false);
         lblId.setVisible(false);
+        tempProducto = new Producto();
     }
 
     /**
@@ -45,6 +66,23 @@ public class FormGestionarProducto extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         lblId = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblCantidad = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        cboCategoria = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        cboTipoProducto = new javax.swing.JComboBox();
+        jLabel10 = new javax.swing.JLabel();
+        cboMarca = new javax.swing.JComboBox();
+        jLabel11 = new javax.swing.JLabel();
+        cboAlmacen = new javax.swing.JComboBox();
+        jdcFecha = new com.toedter.calendar.JDateChooser();
         jScrollPane2 = new javax.swing.JScrollPane();
         listado = new javax.swing.JTable();
         lblNumRegistro = new javax.swing.JLabel();
@@ -58,11 +96,35 @@ public class FormGestionarProducto extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administrador de Unidades");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidad"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Producto"));
 
-        jLabel1.setText("Nombre : ");
+        jLabel1.setText("Articulo :");
 
         lblId.setText("id");
+
+        jLabel2.setText("Codigo : ");
+
+        jLabel3.setText("Descripcion : ");
+
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane1.setViewportView(txtDescripcion);
+
+        jLabel5.setText("Fecha :");
+
+        jLabel6.setText("Cantidad : ");
+
+        lblCantidad.setText("0");
+
+        jLabel8.setText("Categoria : ");
+
+        jLabel9.setText("Tipo  :");
+
+        jLabel10.setText("Marca :");
+
+        jLabel11.setText("Almacen :");
+
+        jdcFecha.setDateFormatString("yyyy-MM-dd hh:mm:ss");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -72,11 +134,41 @@ public class FormGestionarProducto extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(lblId)
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCodigo)
+                            .addComponent(txtNombre)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblId)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblCantidad))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cboMarca, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cboTipoProducto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cboCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cboAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(37, 37, 37)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -86,9 +178,43 @@ public class FormGestionarProducto extends javax.swing.JDialog {
                 .addComponent(lblId)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lblCantidad))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(cboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(cboTipoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(cboAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         listado.setModel(new javax.swing.table.DefaultTableModel(
@@ -105,6 +231,9 @@ public class FormGestionarProducto extends javax.swing.JDialog {
         listado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listadoMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listadoMousePressed(evt);
             }
         });
         jScrollPane2.setViewportView(listado);
@@ -178,23 +307,23 @@ public class FormGestionarProducto extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblNumRegistro)))
-                .addGap(89, 89, 89)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNumRegistro))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo)
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar)
                     .addComponent(btnEliminar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -202,17 +331,83 @@ public class FormGestionarProducto extends javax.swing.JDialog {
 
     private void limpiar() {
         lblId.setText("id");
+        txtCodigo.setText("");
         txtNombre.setText("");
-        txtNombre.requestFocus();
+        txtDescripcion.setText("");
+        lblCantidad.setText("0");
+        cboCategoria.setSelectedIndex(0);
+        cboTipoProducto.setSelectedIndex(0);
+        cboMarca.setSelectedIndex(0);
+        cboAlmacen.setSelectedIndex(0);
+        txtCodigo.requestFocus();
         txtBuscar.setText("");
+        jdcFecha.setCalendar(null);
     }
 
     private void botones(boolean btn) {
+        txtCodigo.setEnabled(btn);
         txtNombre.setEnabled(btn);
+        txtDescripcion.setEnabled(btn);
+        cboCategoria.setEnabled(btn);
+        cboTipoProducto.setEnabled(btn);
+        cboMarca.setEnabled(btn);
+        cboAlmacen.setEnabled(btn);
         btnGuardar.setEnabled(btn);
         btnCancelar.setEnabled(btn);
         btnNuevo.setEnabled(!btn);
         btnEliminar.setEnabled(btn);
+        jdcFecha.setEnabled(btn);
+    }
+
+    private void carga() {
+        cargarCategoria();
+        cargarTipo();
+        cargarMarca();
+        cargarAlmacen();
+    }
+
+    private void cargarCategoria() {
+        GestionarCategoriaServicio guc = new GestionarCategoriaServicio();
+        try {
+            for (Categoria cat : guc.listar()) {
+                cboCategoria.addItem(cat.getDescripcion());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }
+
+    private void cargarTipo() {
+        GestionarTipoProductoServicio guc = new GestionarTipoProductoServicio();
+        try {
+            for (TipoProducto cat : guc.listar()) {
+                cboTipoProducto.addItem(cat.getDescripcion());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }
+
+    private void cargarMarca() {
+        GestionarMarcaServicio guc = new GestionarMarcaServicio();
+        try {
+            for (Marca cat : guc.listar()) {
+                cboMarca.addItem(cat.getDescripcion());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }
+
+    private void cargarAlmacen() {
+        GestionarAlmacenServicio guc = new GestionarAlmacenServicio();
+        try {
+            for (Almacen cat : guc.listar()) {
+                cboAlmacen.addItem(cat.getDescripcion());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
     }
 
     private void mostrar() {
@@ -226,7 +421,7 @@ public class FormGestionarProducto extends javax.swing.JDialog {
         }
     }
 
-    private boolean buscarMarcaList(String nombre) {
+    private boolean buscarProdutoList(String nombre) {
         boolean flag = false;
         gu = new GestionarProductoServicio();
         try {
@@ -242,11 +437,26 @@ public class FormGestionarProducto extends javax.swing.JDialog {
             try {
                 producto = new Producto();
                 gu = new GestionarProductoServicio();
-                producto.setProducto(txtNombre.getText().toLowerCase().trim());
+                producto.setCodigo(txtCodigo.getText().toUpperCase().trim());
+                producto.setArticulo(txtNombre.getText().toLowerCase().trim());
+                producto.setDescripcion(txtDescripcion.getText().trim());
+                Calendar calendar = Calendar.getInstance();
+                calendar = jdcFecha.getCalendar();
+                Timestamp fecha = new Timestamp(calendar.getTime().getTime());
+                producto.setFechaRegistro(fecha);
+                producto.setCantidad(Integer.parseInt(lblCantidad.getText()));
                 producto.setEstado(1);
 
+                GestionarCategoriaServicio gcs = new GestionarCategoriaServicio();
+                producto.setCategoria(gcs.obtenerId(gcs.listar(), cboCategoria.getSelectedItem().toString()));
+                GestionarTipoProductoServicio tp = new GestionarTipoProductoServicio();
+                producto.setTipoProducto(tp.obtenerId(tp.listar(), cboTipoProducto.getSelectedItem().toString()));
+                GestionarMarcaServicio gms = new GestionarMarcaServicio();
+                producto.setMarca(gms.obtenerId(gms.listar(), cboMarca.getSelectedItem().toString()));
+                GestionarAlmacenServicio gas = new GestionarAlmacenServicio();
+                producto.setAlmacen(gas.obtenerId(gas.listar(), cboAlmacen.getSelectedItem().toString()));
                 if (flag.equals("Guardar")) {
-                    if (!buscarMarcaList(txtNombre.getText().toLowerCase().trim())) {
+                    if (!buscarProdutoList(txtNombre.getText().toLowerCase().trim())) {
                         if (gu.insertar(producto)) {
                             JOptionPane.showMessageDialog(null, "Guardado correctamente");
                             mostrar();
@@ -263,7 +473,7 @@ public class FormGestionarProducto extends javax.swing.JDialog {
                         txtNombre.requestFocus();
                     }
                 } else {
-                    producto.setIdproducto(Integer.parseInt(lblId.getText()));
+                    producto.setId(Integer.parseInt(lblId.getText()));
                     if (gu.editar(producto)) {
                         JOptionPane.showMessageDialog(null, "Se Actualizo correctamente");
                         mostrar();
@@ -275,7 +485,6 @@ public class FormGestionarProducto extends javax.swing.JDialog {
                         limpiar();
                         botones(false);
                     }
-
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
@@ -304,7 +513,15 @@ public class FormGestionarProducto extends javax.swing.JDialog {
     private void listadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoMouseClicked
         int fila = listado.rowAtPoint(evt.getPoint());
         lblId.setText(listado.getValueAt(fila, 0).toString());
-        txtNombre.setText(listado.getValueAt(fila, 1).toString());
+        txtCodigo.setText(listado.getValueAt(fila, 1).toString());
+        txtNombre.setText(listado.getValueAt(fila, 2).toString());
+        txtDescripcion.setText(listado.getValueAt(fila, 3).toString());
+        jdcFecha.setDate(Timestamp.valueOf(listado.getValueAt(fila, 4).toString()));
+        lblCantidad.setText(listado.getValueAt(fila, 5).toString());
+        cboCategoria.setSelectedItem(listado.getValueAt(fila, 7).toString());
+        cboTipoProducto.setSelectedItem(listado.getValueAt(fila, 8).toString());
+        cboMarca.setSelectedItem(listado.getValueAt(fila, 9).toString());
+        cboAlmacen.setSelectedItem(listado.getValueAt(fila, 10).toString());
 
         flag = "Editar";
         botones(true);
@@ -318,7 +535,7 @@ public class FormGestionarProducto extends javax.swing.JDialog {
                 try {
                     gu = new GestionarProductoServicio();
                     producto = new Producto();
-                    producto.setIdproducto(Integer.parseInt(lblId.getText()));
+                    producto.setId(Integer.parseInt(lblId.getText()));
                     if (gu.eliminar(producto)) {
                         JOptionPane.showMessageDialog(this, "Eliminado correctamente");
                         mostrar();
@@ -354,7 +571,7 @@ public class FormGestionarProducto extends javax.swing.JDialog {
         producto = new Producto();
         try {
             //unidad.setUnidad(String.valueOf(evt.getKeyChar()));
-            producto.setProducto(txtBuscar.getText());
+            producto.setArticulo(txtBuscar.getText());
             productos = gu.buscarNombre(producto);
             gu.llenarLista(listado, productos);
             lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
@@ -362,6 +579,23 @@ public class FormGestionarProducto extends javax.swing.JDialog {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
+   
+    private void listadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoMousePressed
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            int fila = listado.getSelectedRow();
+            
+            tempProducto.setId(Integer.parseInt(listado.getValueAt(fila, 0).toString()));
+            tempProducto.setCodigo(listado.getValueAt(fila, 1).toString());
+            tempProducto.setArticulo(listado.getValueAt(fila, 2).toString());  
+            tempProducto.setCantidad(Integer.parseInt(listado.getValueAt(fila, 5).toString()));              
+            FormGestionarIngresoArticulo.lblCodigoProducto.setText(listado.getValueAt(fila, 1).toString());
+            FormGestionarIngresoArticulo.lblArticulo.setText(listado.getValueAt(fila, 2).toString());
+            FormGestionarIngresoArticulo.tempProducto = tempProducto; 
+            
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_listadoMousePressed
 
     /**
      * @param args the command line arguments
@@ -372,14 +606,31 @@ public class FormGestionarProducto extends javax.swing.JDialog {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JComboBox cboAlmacen;
+    private javax.swing.JComboBox cboCategoria;
+    private javax.swing.JComboBox cboMarca;
+    private javax.swing.JComboBox cboTipoProducto;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private com.toedter.calendar.JDateChooser jdcFecha;
+    private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblNumRegistro;
     private javax.swing.JTable listado;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

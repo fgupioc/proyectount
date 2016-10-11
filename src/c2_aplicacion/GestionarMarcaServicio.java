@@ -101,7 +101,17 @@ public class GestionarMarcaServicio {
         gestorJDBC.cerrarConexion();
         return marcas;
     }
-    
+      public Marca obtenerId(List<Marca> marcas, String nombre) {
+        marca = new Marca();
+        int id = 0;
+        for (Marca tipo : marcas) {
+            if (tipo.getDescripcion().equals(nombre)) {
+                marca.setId(tipo.getId());
+                marca.setDescripcion(tipo.getDescripcion());
+            }
+        }
+        return marca;
+        }
     public void llenarLista(JTable listado, List<Marca> marcas) throws Exception {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);

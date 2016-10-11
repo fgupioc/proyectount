@@ -103,7 +103,17 @@ public class GestionarAlmacenServicio {
         gestorJDBC.cerrarConexion();
         return almacenes;
     }
-    
+      public Almacen obtenerId(List<Almacen> almacens, String nombre) {
+        almacen = new Almacen();
+        int id = 0;
+        for (Almacen tipo : almacens) {
+            if (tipo.getDescripcion().equals(nombre)) {
+                almacen.setId(tipo.getId());
+                almacen.setDescripcion(tipo.getDescripcion());
+            }
+        }
+        return almacen;
+        }
     public void llenarLista(JTable listado, List<Almacen> almacenes) throws Exception {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);
