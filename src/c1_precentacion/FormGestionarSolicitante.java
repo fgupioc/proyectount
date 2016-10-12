@@ -23,12 +23,14 @@ public class FormGestionarSolicitante extends javax.swing.JDialog {
     Solicitante solicitante;
     private GestionarSolicitanteServicio gu;
     private List<Solicitante> solicitantes;
+    public Solicitante tempSolicitante;
 
     public FormGestionarSolicitante(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         mostrar();
         botones(false);
+        tempSolicitante = new Solicitante();
         lblId.setVisible(false);
     }
 
@@ -125,6 +127,9 @@ public class FormGestionarSolicitante extends javax.swing.JDialog {
         listado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listadoMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listadoMousePressed(evt);
             }
         });
         jScrollPane2.setViewportView(listado);
@@ -373,6 +378,19 @@ public class FormGestionarSolicitante extends javax.swing.JDialog {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
+
+    private void listadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoMousePressed
+       if(evt.getClickCount() == 2){  
+           int fila = listado.getSelectedRow();
+           tempSolicitante.setIdsolicitante(Integer.parseInt(listado.getValueAt(fila, 0).toString()));
+           tempSolicitante.setNombre(listado.getValueAt(fila, 1).toString());
+           tempSolicitante.setPaterno(listado.getValueAt(fila, 2).toString());
+           tempSolicitante.setMaterno(listado.getValueAt(fila, 3).toString());
+           FormGestionarSalidaArticulo.lblSolicitante.setText(listado.getValueAt(fila, 1).toString()+" "+listado.getValueAt(fila, 2).toString()+" "+listado.getValueAt(fila, 3).toString());
+           FormGestionarSalidaArticulo.tempSolicitante = tempSolicitante;
+           this.setVisible(false);
+       }
+    }//GEN-LAST:event_listadoMousePressed
 
     /**
      * @param args the command line arguments

@@ -21,6 +21,7 @@ public class FormGestionarArea extends javax.swing.JDialog {
      */
     private String flag = "Guardar";
     Area area;
+    public Area tempArea;
     private GestionarAreaServicio gu;
     private List<Area> areas;
 
@@ -29,6 +30,7 @@ public class FormGestionarArea extends javax.swing.JDialog {
         initComponents();
         mostrar();
         botones(false);
+        tempArea = new Area();
         lblId.setVisible(false);
     }
 
@@ -60,7 +62,7 @@ public class FormGestionarArea extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administrador de Unidades");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidad"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Area"));
 
         jLabel1.setText("Nombre : ");
 
@@ -117,6 +119,9 @@ public class FormGestionarArea extends javax.swing.JDialog {
         listado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listadoMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listadoMousePressed(evt);
             }
         });
         jScrollPane2.setViewportView(listado);
@@ -380,6 +385,18 @@ public class FormGestionarArea extends javax.swing.JDialog {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
+
+    private void listadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoMousePressed
+      if(evt.getClickCount() == 2){
+          int fila = listado.getSelectedRow();
+          tempArea.setId(Integer.parseInt(listado.getValueAt(fila, 0).toString()));
+          tempArea.setCodigo(listado.getValueAt(fila, 1).toString());
+          tempArea.setDescripcion(listado.getValueAt(fila, 2).toString());
+          FormGestionarSalidaArticulo.lblArea.setText(listado.getValueAt(fila, 2).toString());
+          FormGestionarSalidaArticulo.tempArea= tempArea;
+          this.dispose();
+      }
+    }//GEN-LAST:event_listadoMousePressed
 
     /**
      * @param args the command line arguments

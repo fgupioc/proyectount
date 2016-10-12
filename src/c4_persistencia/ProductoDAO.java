@@ -259,7 +259,7 @@ public class ProductoDAO implements IProductoDAO {
             productos.add(producto);
         }
         rs.close();
-        
+
         return productos;
     }
 
@@ -267,7 +267,7 @@ public class ProductoDAO implements IProductoDAO {
     public List<Producto> buscarArticuloNombre(String location, String value) throws Exception {
         productos = new ArrayList();
         ResultSet rs2, rs3, rs4, rs5, rs6;
-        
+
         mysql = "{call spBuscarArticuloLocationNombre('" + value + "','" + idAlmacen(location) + "')}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
@@ -318,7 +318,9 @@ public class ProductoDAO implements IProductoDAO {
             productos.add(producto);
         }
         rs.close();
-        
+
         return productos;
     }
+
+    
 }

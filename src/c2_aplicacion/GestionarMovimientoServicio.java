@@ -6,6 +6,7 @@
 package c2_aplicacion;
 
 import c3_dominio.Movimiento;
+import c3_dominio.Producto;
 import c3_dominioFabrica.FabricaAbstractaDAO;
 import c3_dominioFabrica.IMovimientoDAO;
 import c4_persistenciaConexion.GestorJDBC; 
@@ -31,12 +32,26 @@ public class GestionarMovimientoServicio {
         movimientoDAO = fabricaAbstractaDAO.crearMovimientoDAO(gestorJDBC);
     }
     
-    public boolean insertar(Movimiento movimiento) throws Exception{
+    public boolean insertarIngreso(Movimiento movimiento) throws Exception{
         boolean flag = false;
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            flag = movimientoDAO.ingresar(movimiento);
+            flag = movimientoDAO.ingreso(movimiento);
+            gestorJDBC.terminarTransaccion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            gestorJDBC.cancelarTransaccion();
+        }
+        gestorJDBC.cerrarConexion();
+        return flag;
+    }
+     public boolean insertarSalida(Movimiento movimiento) throws Exception{
+        boolean flag = false;
+        gestorJDBC.abrirConexion();
+        try {
+            gestorJDBC.iniciarTransaccion();
+            flag = movimientoDAO.salida(movimiento);
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -161,7 +176,34 @@ public class GestionarMovimientoServicio {
         listado.getColumnModel().getColumn(8).setMinWidth(0);
         listado.getColumnModel().getColumn(8).setPreferredWidth(0);
     }
-    
+    public boolean addCantidad(Movimiento movimiento) throws Exception {
+        boolean flag = false;
+        gestorJDBC.abrirConexion();
+        try {
+            gestorJDBC.iniciarTransaccion();
+            flag = movimientoDAO.addCantidaProducto(movimiento);
+            gestorJDBC.terminarTransaccion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            gestorJDBC.cancelarTransaccion();
+        }
+        gestorJDBC.cerrarConexion();
+        return flag;
+    }
+      public boolean removeCantidad(Movimiento movimiento) throws Exception {
+        boolean flag = false;
+        gestorJDBC.abrirConexion();
+        try {
+            gestorJDBC.iniciarTransaccion();
+            flag = movimientoDAO.removeCantidaProducto(movimiento);
+            gestorJDBC.terminarTransaccion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            gestorJDBC.cancelarTransaccion();
+        }
+        gestorJDBC.cerrarConexion();
+        return flag;
+    }
     
 //    public boolean buscarMovimientoList(List<Movimiento> movimientos, String nombre){
 //        boolean flag = false; 

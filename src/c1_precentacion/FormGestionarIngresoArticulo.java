@@ -436,8 +436,9 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
             gu = new GestionarMovimientoServicio();
             if (flag.equals("Guardar")) {
                 // if (!buscarMarcaList(txtNombre.getText().toLowerCase().trim())) {
-                for (Movimiento dts : templist) {
-                    if (gu.insertar(dts)) {
+                for (Movimiento dts : templist) {                    
+                     gu.addCantidad(dts);
+                    if (gu.insertarIngreso(dts)) {
                         JOptionPane.showMessageDialog(null, "Guardado correctamente");
 
                     } else {
@@ -550,7 +551,7 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
         Timestamp fecha = new Timestamp(calendar.getTime().getTime());
         movimiento.setFechaRegistro(fecha);
         movimiento.setNumIngreso(txtNumIngreso.getText().toUpperCase().trim());
-        movimiento.setReferencia(txtReferencia.getText().trim());
+        movimiento.setReferencia(txtReferencia.getText().trim()); 
         movimiento.setCantidad(Integer.parseInt(jspCantidad.getValue().toString()));
         movimiento.setUnidad(txtUnidad.getText());
         movimiento.setMedida(txtMedida.getText());

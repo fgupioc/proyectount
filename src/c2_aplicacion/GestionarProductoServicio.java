@@ -91,6 +91,7 @@ public class GestionarProductoServicio {
         gestorJDBC.cerrarConexion();
         return flag;
     }
+     
 
     public List<Producto> buscarNombre(Producto producto) throws Exception {
         productos = new ArrayList();

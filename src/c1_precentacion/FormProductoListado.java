@@ -234,8 +234,8 @@ public class FormProductoListado extends javax.swing.JDialog {
                 gu.llenarLista(listado, productos);
                 lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
             }
-
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e);
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
 
@@ -255,6 +255,7 @@ public class FormProductoListado extends javax.swing.JDialog {
             } else if (tipoForm.equals("salida")) {
                 FormGestionarSalidaArticulo.lblCodigoProducto.setText(listado.getValueAt(fila, 1).toString());
                 FormGestionarSalidaArticulo.lblArticulo.setText(listado.getValueAt(fila, 2).toString());
+                FormGestionarSalidaArticulo.lblProductoCantidad.setText(listado.getValueAt(fila, 5).toString());
                 FormGestionarSalidaArticulo.tempProducto = tempProducto;
                  this.setVisible(false);
             } else {
