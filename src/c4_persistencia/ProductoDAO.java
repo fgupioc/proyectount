@@ -47,7 +47,7 @@ public class ProductoDAO implements IProductoDAO {
         cst.setString(2, dts.getArticulo());
         cst.setString(3, dts.getDescripcion());
         cst.setTimestamp(4, dts.getFechaRegistro());
-        cst.setInt(5, dts.getCantidad()); 
+        cst.setInt(5, dts.getCantidad());
         cst.setInt(6, dts.getCategoria().getId());
         cst.setInt(7, dts.getTipoProducto().getId());
         cst.setInt(8, dts.getMarca().getId());
@@ -69,7 +69,7 @@ public class ProductoDAO implements IProductoDAO {
             producto.setDescripcion(rs.getString("descripcion"));
             producto.setFechaRegistro(rs.getTimestamp("fechaRegistro"));
             producto.setCantidad(rs.getInt("cantidad"));
-            producto.setEstado(rs.getInt("estado"));    
+            producto.setEstado(rs.getInt("estado"));
             rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
             while (rs3.next()) {
                 Categoria categoria = new Categoria();
@@ -121,7 +121,7 @@ public class ProductoDAO implements IProductoDAO {
         cst.setString(3, dts.getArticulo());
         cst.setString(4, dts.getDescripcion());
         cst.setTimestamp(5, dts.getFechaRegistro());
-        cst.setInt(6, dts.getCantidad()); 
+        cst.setInt(6, dts.getCantidad());
         cst.setInt(7, dts.getCategoria().getId());
         cst.setInt(8, dts.getTipoProducto().getId());
         cst.setInt(9, dts.getMarca().getId());
@@ -151,7 +151,7 @@ public class ProductoDAO implements IProductoDAO {
             producto.setDescripcion(rs.getString("descripcion"));
             producto.setFechaRegistro(rs.getTimestamp("fechaRegistro"));
             producto.setCantidad(rs.getInt("cantidad"));
-            producto.setEstado(rs.getInt("estado")); 
+            producto.setEstado(rs.getInt("estado"));
             rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
             while (rs3.next()) {
                 Categoria categoria = new Categoria();
@@ -194,4 +194,131 @@ public class ProductoDAO implements IProductoDAO {
         return productos;
     }
 
+    public int idAlmacen(String value) throws Exception {
+        int res = 0;
+        mysql = "{call spAlmacenBuscarNombre('" + value + "')}";
+        rs = gestorJDBC.ejecutarProcedimiento(mysql);
+        while (rs.next()) {
+            res = rs.getInt("id");
+        }
+        rs.close();
+        return res;
+    }
+
+    @Override
+    public List<Producto> buscarArticuloCodigo(String location, String value) throws Exception {
+        productos = new ArrayList();
+        ResultSet rs2, rs3, rs4, rs5, rs6;
+        mysql = "{call spBuscarArticuloLocationCodigo('" + value + "','" + idAlmacen(location) + "')}";
+        rs = gestorJDBC.ejecutarProcedimiento(mysql);
+        while (rs.next()) {
+            producto = new Producto();
+            producto.setId(rs.getInt("id"));
+            producto.setCodigo(rs.getString("codigo"));
+            producto.setArticulo(rs.getString("articulo"));
+            producto.setDescripcion(rs.getString("descripcion"));
+            producto.setFechaRegistro(rs.getTimestamp("fechaRegistro"));
+            producto.setCantidad(rs.getInt("cantidad"));
+            producto.setEstado(rs.getInt("estado"));
+            rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
+            while (rs3.next()) {
+                Categoria categoria = new Categoria();
+                categoria.setId(rs3.getInt("id"));
+                categoria.setDescripcion(rs3.getString("descripcion"));
+                categoria.setEstado(rs3.getInt("estado"));
+                producto.setCategoria(categoria);
+            }
+            rs3.close();
+            rs4 = gestorJDBC.ejecutarProcedimiento("call spTipo_ProductoId('" + rs.getInt("tipo_producto_id") + "')");
+            while (rs4.next()) {
+                TipoProducto tipoProducto = new TipoProducto();
+                tipoProducto.setId(rs4.getInt("id"));
+                tipoProducto.setDescripcion(rs4.getString("descripcion"));
+                tipoProducto.setEstado(rs4.getInt("estado"));
+                producto.setTipoProducto(tipoProducto);
+            }
+            rs4.close();
+            rs5 = gestorJDBC.ejecutarProcedimiento("call spMarcaId('" + rs.getInt("marca_id") + "')");
+            while (rs5.next()) {
+                Marca marca = new Marca();
+                marca.setId(rs5.getInt("id"));
+                marca.setDescripcion(rs5.getString("descripcion"));
+                marca.setEstado(rs5.getInt("estado"));
+                producto.setMarca(marca);
+            }
+            rs5.close();
+            rs6 = gestorJDBC.ejecutarProcedimiento("call spAlmacenId('" + rs.getInt("almacen_id") + "')");
+            while (rs6.next()) {
+                Almacen almacen = new Almacen();
+                almacen.setId(rs6.getInt("id"));
+                almacen.setDescripcion(rs6.getString("descripcion"));
+                almacen.setEstado(rs6.getInt("estado"));
+                producto.setAlmacen(almacen);
+            }
+            rs6.close();
+            productos.add(producto);
+        }
+        rs.close();
+        
+        return productos;
+    }
+
+    @Override
+    public List<Producto> buscarArticuloNombre(String location, String value) throws Exception {
+        productos = new ArrayList();
+        ResultSet rs2, rs3, rs4, rs5, rs6;
+        
+        mysql = "{call spBuscarArticuloLocationNombre('" + value + "','" + idAlmacen(location) + "')}";
+        rs = gestorJDBC.ejecutarProcedimiento(mysql);
+        while (rs.next()) {
+            producto = new Producto();
+            producto.setId(rs.getInt("id"));
+            producto.setCodigo(rs.getString("codigo"));
+            producto.setArticulo(rs.getString("articulo"));
+            producto.setDescripcion(rs.getString("descripcion"));
+            producto.setFechaRegistro(rs.getTimestamp("fechaRegistro"));
+            producto.setCantidad(rs.getInt("cantidad"));
+            producto.setEstado(rs.getInt("estado"));
+            rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
+            while (rs3.next()) {
+                Categoria categoria = new Categoria();
+                categoria.setId(rs3.getInt("id"));
+                categoria.setDescripcion(rs3.getString("descripcion"));
+                categoria.setEstado(rs3.getInt("estado"));
+                producto.setCategoria(categoria);
+            }
+            rs3.close();
+            rs4 = gestorJDBC.ejecutarProcedimiento("call spTipo_ProductoId('" + rs.getInt("tipo_producto_id") + "')");
+            while (rs4.next()) {
+                TipoProducto tipoProducto = new TipoProducto();
+                tipoProducto.setId(rs4.getInt("id"));
+                tipoProducto.setDescripcion(rs4.getString("descripcion"));
+                tipoProducto.setEstado(rs4.getInt("estado"));
+                producto.setTipoProducto(tipoProducto);
+            }
+            rs4.close();
+            rs5 = gestorJDBC.ejecutarProcedimiento("call spMarcaId('" + rs.getInt("marca_id") + "')");
+            while (rs5.next()) {
+                Marca marca = new Marca();
+                marca.setId(rs5.getInt("id"));
+                marca.setDescripcion(rs5.getString("descripcion"));
+                marca.setEstado(rs5.getInt("estado"));
+                producto.setMarca(marca);
+            }
+            rs5.close();
+            rs6 = gestorJDBC.ejecutarProcedimiento("call spAlmacenId('" + rs.getInt("almacen_id") + "')");
+            while (rs6.next()) {
+                Almacen almacen = new Almacen();
+                almacen.setId(rs6.getInt("id"));
+                almacen.setDescripcion(rs6.getString("descripcion"));
+                almacen.setEstado(rs6.getInt("estado"));
+                producto.setAlmacen(almacen);
+            }
+            rs6.close();
+            productos.add(producto);
+        }
+        rs.close();
+        
+        return productos;
+    }
 }

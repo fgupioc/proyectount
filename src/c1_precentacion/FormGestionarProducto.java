@@ -582,19 +582,19 @@ public class FormGestionarProducto extends javax.swing.JDialog {
    
     private void listadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoMousePressed
         // TODO add your handling code here:
-        if (evt.getClickCount() == 2) {
-            int fila = listado.getSelectedRow();
-            
-            tempProducto.setId(Integer.parseInt(listado.getValueAt(fila, 0).toString()));
-            tempProducto.setCodigo(listado.getValueAt(fila, 1).toString());
-            tempProducto.setArticulo(listado.getValueAt(fila, 2).toString());  
-            tempProducto.setCantidad(Integer.parseInt(listado.getValueAt(fila, 5).toString()));              
-            FormGestionarIngresoArticulo.lblCodigoProducto.setText(listado.getValueAt(fila, 1).toString());
-            FormGestionarIngresoArticulo.lblArticulo.setText(listado.getValueAt(fila, 2).toString());
-            FormGestionarIngresoArticulo.tempProducto = tempProducto; 
-            
-            this.setVisible(false);
-        }
+//        if (evt.getClickCount() == 2) {
+//            int fila = listado.getSelectedRow();
+//            
+//            tempProducto.setId(Integer.parseInt(listado.getValueAt(fila, 0).toString()));
+//            tempProducto.setCodigo(listado.getValueAt(fila, 1).toString());
+//            tempProducto.setArticulo(listado.getValueAt(fila, 2).toString());  
+//            tempProducto.setCantidad(Integer.parseInt(listado.getValueAt(fila, 5).toString()));              
+//            FormGestionarIngresoArticulo.lblCodigoProducto.setText(listado.getValueAt(fila, 1).toString());
+//            FormGestionarIngresoArticulo.lblArticulo.setText(listado.getValueAt(fila, 2).toString());
+//            FormGestionarIngresoArticulo.tempProducto = tempProducto; 
+//            
+//            this.setVisible(false);
+//        }
     }//GEN-LAST:event_listadoMousePressed
 
     /**

@@ -106,7 +106,23 @@ public class GestionarProductoServicio {
         gestorJDBC.cerrarConexion();
         return productos;
     }
-
+public List<Producto> searchItems(String location,String value,String tipo)throws Exception{
+        productos = new ArrayList();
+         gestorJDBC.abrirConexion();
+        try {
+            gestorJDBC.iniciarTransaccion();
+            if(tipo.equals("Codigo")){ 
+                productos = productoDAO.buscarArticuloCodigo(location,value);
+            }else{ 
+                productos = productoDAO.buscarArticuloNombre(location,value);
+            }
+            gestorJDBC.terminarTransaccion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            gestorJDBC.cancelarTransaccion();
+        }
+        return productos;
+    }
     public void llenarLista(JTable listado, List<Producto> productos) throws Exception {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);
@@ -141,11 +157,23 @@ public class GestionarProductoServicio {
         listado.setModel(model);
         ocultar(listado);
     }
-
+    
+    public List<Producto> listLocation(List<Producto> listProductos ,String location)throws Exception{
+        productos = new ArrayList();
+        for(Producto dts:listProductos){
+            if(dts.getAlmacen().getDescripcion().equals(location)){
+                productos.add(dts);
+            }
+        }
+        return productos;
+    }  
     private void ocultar(JTable listado) throws Exception {
         listado.getColumnModel().getColumn(0).setMaxWidth(0);
         listado.getColumnModel().getColumn(0).setMinWidth(0);
         listado.getColumnModel().getColumn(0).setPreferredWidth(0);
+        listado.getColumnModel().getColumn(2).setMaxWidth(350);
+        listado.getColumnModel().getColumn(2).setMinWidth(350);
+        listado.getColumnModel().getColumn(2).setPreferredWidth(350);
         
         listado.getColumnModel().getColumn(3).setMaxWidth(0);
         listado.getColumnModel().getColumn(3).setMinWidth(0);
@@ -154,6 +182,10 @@ public class GestionarProductoServicio {
         listado.getColumnModel().getColumn(4).setMaxWidth(0);
         listado.getColumnModel().getColumn(4).setMinWidth(0);
         listado.getColumnModel().getColumn(4).setPreferredWidth(0);
+        
+        listado.getColumnModel().getColumn(5).setMaxWidth(50);
+        listado.getColumnModel().getColumn(5).setMinWidth(50);
+        listado.getColumnModel().getColumn(5).setPreferredWidth(50);
         
         listado.getColumnModel().getColumn(6).setMaxWidth(0);
         listado.getColumnModel().getColumn(6).setMinWidth(0);
@@ -170,6 +202,10 @@ public class GestionarProductoServicio {
         listado.getColumnModel().getColumn(9).setMaxWidth(0);
         listado.getColumnModel().getColumn(9).setMinWidth(0);
         listado.getColumnModel().getColumn(9).setPreferredWidth(0);
+        
+        listado.getColumnModel().getColumn(10).setMaxWidth(0);
+        listado.getColumnModel().getColumn(10).setMinWidth(0);
+        listado.getColumnModel().getColumn(10).setPreferredWidth(0);
     }
 
     public boolean buscarProductoList(List<Producto> productos, String nombre) {

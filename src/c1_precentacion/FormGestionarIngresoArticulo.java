@@ -564,10 +564,10 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAddArticuloActionPerformed
 
     private void btnBuscarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarArticuloActionPerformed
-        FormGestionarProducto form = new FormGestionarProducto(null, false);
+        FormProductoListado form = new FormProductoListado(null, false,"ingreso");
         form.toFront();
         tempProducto = new Producto();
-        form.tempProducto = tempProducto;
+        form.tempProducto = tempProducto;   
         form.setVisible(true);
     }//GEN-LAST:event_btnBuscarArticuloActionPerformed
 
@@ -576,9 +576,9 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
     }//GEN-LAST:event_listadoMousePressed
 
     private void btnRemoveArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveArticuloActionPerformed
-
         templist.remove(Integer.parseInt(lblindiceselect.getText()));
         mostrar(templist);
+        limpiaradd();
 
     }//GEN-LAST:event_btnRemoveArticuloActionPerformed
 

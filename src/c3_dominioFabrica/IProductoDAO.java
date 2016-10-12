@@ -19,4 +19,6 @@ public interface IProductoDAO {
     public boolean editar(Producto producto) throws SQLException;
     public boolean eliminar(Producto producto) throws SQLException;
     public List<Producto> buscarNombre(Producto producto) throws Exception;   
+    public List<Producto> buscarArticuloCodigo(String location , String value) throws Exception ;
+    public List<Producto> buscarArticuloNombre(String location , String value) throws Exception ;
 }
