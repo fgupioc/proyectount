@@ -207,7 +207,7 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar)
                     .addComponent(btnEliminar))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

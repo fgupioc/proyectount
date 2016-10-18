@@ -32,22 +32,22 @@ public class FormPrincipal extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         miArchivo = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        miArea = new javax.swing.JMenuItem();
+        jmiSalidaProducto = new javax.swing.JMenu();
+        jmiIngresoArticulos = new javax.swing.JMenuItem();
+        jmiSalidaArticulo = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         miProductos = new javax.swing.JMenuItem();
-        miProductos4 = new javax.swing.JMenuItem();
-        miProductos1 = new javax.swing.JMenuItem();
-        miProductos2 = new javax.swing.JMenuItem();
-        miProductos3 = new javax.swing.JMenuItem();
+        miAlmacen = new javax.swing.JMenuItem();
+        miCategoria = new javax.swing.JMenuItem();
+        miMarca = new javax.swing.JMenuItem();
+        miUnidad = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        smiPersonal = new javax.swing.JMenuItem();
-        smiCargos = new javax.swing.JMenuItem();
+        miPersonal = new javax.swing.JMenuItem();
+        miCargos = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        miSolicitante = new javax.swing.JMenuItem();
+        miArea = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
@@ -71,23 +71,28 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         menuBar.add(miArchivo);
 
-        jMenu1.setText("Movimiento");
-        jMenu1.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
+        jmiSalidaProducto.setText("Movimiento");
+        jmiSalidaProducto.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jMenuItem1.setText("Ingreso de Producto");
-        jMenu1.add(jMenuItem1);
-
-        miArea.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        miArea.setText("Salida de Producto");
-        miArea.addActionListener(new java.awt.event.ActionListener() {
+        jmiIngresoArticulos.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jmiIngresoArticulos.setText("Ingreso de Producto");
+        jmiIngresoArticulos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miAreaActionPerformed(evt);
+                jmiIngresoArticulosActionPerformed(evt);
             }
         });
-        jMenu1.add(miArea);
+        jmiSalidaProducto.add(jmiIngresoArticulos);
 
-        menuBar.add(jMenu1);
+        jmiSalidaArticulo.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jmiSalidaArticulo.setText("Salida de Producto");
+        jmiSalidaArticulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSalidaArticuloActionPerformed(evt);
+            }
+        });
+        jmiSalidaProducto.add(jmiSalidaArticulo);
+
+        menuBar.add(jmiSalidaProducto);
 
         jMenu2.setText("Mantenimiento");
         jMenu2.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
@@ -97,59 +102,94 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         miProductos.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         miProductos.setText("Producto");
+        miProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miProductosActionPerformed(evt);
+            }
+        });
         jMenu6.add(miProductos);
 
-        miProductos4.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        miProductos4.setText("Almacen");
-        jMenu6.add(miProductos4);
+        miAlmacen.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        miAlmacen.setText("Almacen");
+        miAlmacen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAlmacenActionPerformed(evt);
+            }
+        });
+        jMenu6.add(miAlmacen);
 
-        miProductos1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        miProductos1.setText("Categoria");
-        jMenu6.add(miProductos1);
+        miCategoria.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        miCategoria.setText("Categoria");
+        miCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCategoriaActionPerformed(evt);
+            }
+        });
+        jMenu6.add(miCategoria);
 
-        miProductos2.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        miProductos2.setText("Marca");
-        jMenu6.add(miProductos2);
+        miMarca.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        miMarca.setText("Marca");
+        miMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miMarcaActionPerformed(evt);
+            }
+        });
+        jMenu6.add(miMarca);
 
-        miProductos3.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        miProductos3.setText("Unidad");
-        jMenu6.add(miProductos3);
+        miUnidad.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        miUnidad.setText("Unidad");
+        miUnidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miUnidadActionPerformed(evt);
+            }
+        });
+        jMenu6.add(miUnidad);
 
         jMenu2.add(jMenu6);
 
         jMenu5.setText("Personal");
         jMenu5.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
 
-        smiPersonal.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        smiPersonal.setText("Personal");
-        smiPersonal.addActionListener(new java.awt.event.ActionListener() {
+        miPersonal.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        miPersonal.setText("Personal");
+        miPersonal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                smiPersonalActionPerformed(evt);
+                miPersonalActionPerformed(evt);
             }
         });
-        jMenu5.add(smiPersonal);
+        jMenu5.add(miPersonal);
 
-        smiCargos.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        smiCargos.setText("Cargos");
-        smiCargos.addActionListener(new java.awt.event.ActionListener() {
+        miCargos.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        miCargos.setText("Cargos");
+        miCargos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                smiCargosActionPerformed(evt);
+                miCargosActionPerformed(evt);
             }
         });
-        jMenu5.add(smiCargos);
+        jMenu5.add(miCargos);
 
         jMenu2.add(jMenu5);
 
         jMenu7.setText("Solicitantes");
         jMenu7.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
 
-        jMenuItem2.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jMenuItem2.setText("Solicitante");
-        jMenu7.add(jMenuItem2);
+        miSolicitante.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        miSolicitante.setText("Solicitante");
+        miSolicitante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSolicitanteActionPerformed(evt);
+            }
+        });
+        jMenu7.add(miSolicitante);
 
-        jMenuItem3.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jMenuItem3.setText("Area");
-        jMenu7.add(jMenuItem3);
+        miArea.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        miArea.setText("Area");
+        miArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAreaActionPerformed(evt);
+            }
+        });
+        jMenu7.add(miArea);
 
         jMenu2.add(jMenu7);
 
@@ -183,20 +223,60 @@ public class FormPrincipal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
-    private void miAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAreaActionPerformed
-       FormGestionarArea area = new FormGestionarArea(this,true); 
-       area.show();
-    }//GEN-LAST:event_miAreaActionPerformed
+    private void jmiSalidaArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSalidaArticuloActionPerformed
+       FormGestionarSalidaArticulo form = new FormGestionarSalidaArticulo(this,true); 
+       form.setVisible(true);
+    }//GEN-LAST:event_jmiSalidaArticuloActionPerformed
 
-    private void smiPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_smiPersonalActionPerformed
+    private void miPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPersonalActionPerformed
         FormGestionarPersonal form = new FormGestionarPersonal(this, true);
         form.setVisible(true);
-    }//GEN-LAST:event_smiPersonalActionPerformed
+    }//GEN-LAST:event_miPersonalActionPerformed
 
-    private void smiCargosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_smiCargosActionPerformed
+    private void miCargosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCargosActionPerformed
         FormGestionarTipoPersonal form = new FormGestionarTipoPersonal(this,true);
         form.setVisible(true);
-    }//GEN-LAST:event_smiCargosActionPerformed
+    }//GEN-LAST:event_miCargosActionPerformed
+
+    private void jmiIngresoArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiIngresoArticulosActionPerformed
+       FormGestionarIngresoArticulo form = new FormGestionarIngresoArticulo(this,true);
+       form.setVisible(true);
+    }//GEN-LAST:event_jmiIngresoArticulosActionPerformed
+
+    private void miProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miProductosActionPerformed
+       FormGestionarProducto form = new FormGestionarProducto(this, true);
+       form.setVisible(true);
+    }//GEN-LAST:event_miProductosActionPerformed
+
+    private void miAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlmacenActionPerformed
+        FormGestionarAlmacen form = new FormGestionarAlmacen(this,true);
+        form.setVisible(true);
+    }//GEN-LAST:event_miAlmacenActionPerformed
+
+    private void miCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCategoriaActionPerformed
+        FormGestionarCategoria form = new FormGestionarCategoria(this, true);
+        form.setVisible(true);
+    }//GEN-LAST:event_miCategoriaActionPerformed
+
+    private void miMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miMarcaActionPerformed
+        FormGestionarMarca form = new FormGestionarMarca(this, true);
+        form.setVisible(true);
+    }//GEN-LAST:event_miMarcaActionPerformed
+
+    private void miUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miUnidadActionPerformed
+        FormGestionarUnidad form = new FormGestionarUnidad(this, true);
+        form.setVisible(true);
+    }//GEN-LAST:event_miUnidadActionPerformed
+
+    private void miSolicitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSolicitanteActionPerformed
+       FormGestionarSolicitante form = new FormGestionarSolicitante(this, true);
+       form.setVisible(true);
+    }//GEN-LAST:event_miSolicitanteActionPerformed
+
+    private void miAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAreaActionPerformed
+        FormGestionarArea form = new FormGestionarArea(this,true);
+        form.setVisible(true);
+    }//GEN-LAST:event_miAreaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,26 +316,26 @@ public class FormPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuItem exitMenuItem;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jmiIngresoArticulos;
+    private javax.swing.JMenuItem jmiSalidaArticulo;
+    private javax.swing.JMenu jmiSalidaProducto;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem miAlmacen;
     private javax.swing.JMenu miArchivo;
     private javax.swing.JMenuItem miArea;
+    private javax.swing.JMenuItem miCargos;
+    private javax.swing.JMenuItem miCategoria;
+    private javax.swing.JMenuItem miMarca;
+    private javax.swing.JMenuItem miPersonal;
     private javax.swing.JMenuItem miProductos;
-    private javax.swing.JMenuItem miProductos1;
-    private javax.swing.JMenuItem miProductos2;
-    private javax.swing.JMenuItem miProductos3;
-    private javax.swing.JMenuItem miProductos4;
-    private javax.swing.JMenuItem smiCargos;
-    private javax.swing.JMenuItem smiPersonal;
+    private javax.swing.JMenuItem miSolicitante;
+    private javax.swing.JMenuItem miUnidad;
     // End of variables declaration//GEN-END:variables
 
 }

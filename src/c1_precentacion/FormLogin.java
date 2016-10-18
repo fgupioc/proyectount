@@ -172,7 +172,8 @@ public class FormLogin extends javax.swing.JFrame {
                     //user.setPersonal(gu.loginPersonal(txtUser.getText(), user.encryptPass(txtPass.getText().trim())));
                     user.setPersonal(gu.loginPersonal(txtUser.getText(), txtPass.getText().trim()));
                     if (user.getPersonal() != null) {
-                        FormMenu form = new FormMenu();                          
+                       // FormMenu form = new FormMenu();                          
+                        FormPrincipal form = new FormPrincipal();
                         this.dispose();
                         form.setVisible(true);
                     } else {

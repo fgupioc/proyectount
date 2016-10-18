@@ -27,13 +27,14 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
      * Creates new form FormGestionarUnidad
      */
     private String flag = "Guardar";
+    private boolean rem = false;
     Movimiento movimiento;
     Producto producto;
     public static Producto tempProducto;
     private GestionarMovimientoServicio gu;
     private List<Movimiento> movimientos;
     private List<Movimiento> templist = new ArrayList();
-    private LoginUser user = LoginUser.getInstancia();
+    private final LoginUser user = LoginUser.getInstancia();
 
     public FormGestionarIngresoArticulo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -87,7 +88,6 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         listado = new javax.swing.JTable();
         lblNumRegistro = new javax.swing.JLabel();
-        btnEliminar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
@@ -304,13 +304,6 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
 
         lblNumRegistro.setText("Nº Registros");
 
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -340,16 +333,15 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNumRegistro)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(139, 139, 139)
                         .addComponent(btnNuevo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblNumRegistro)
-                    .addComponent(jScrollPane2))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -361,13 +353,12 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblNumRegistro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo)
                     .addComponent(btnGuardar)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnEliminar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCancelar))
+                .addContainerGap())
         );
 
         pack();
@@ -378,15 +369,16 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
         lblIdArticulo.setText("idarticulo");
         lblindiceselect.setText("indiceselect");
         txtReferencia.setText("");
-       limpiaradd();
+        limpiaradd();
         txtNumIngreso.setText("");
         txtNumIngreso.requestFocus();
-       templist = new ArrayList();
-       mostrar(templist);
-       
+        templist = new ArrayList();
+        mostrar(templist);
+
     }
-    private void limpiaradd(){
-         lblCodigoProducto.setText("000");
+
+    private void limpiaradd() {
+        lblCodigoProducto.setText("000");
         lblArticulo.setText("Producto");
         txtObservacion.setText("");
         txtUnidad.setText("");
@@ -394,6 +386,7 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
         txtColor.setText("");
         jspCantidad.setValue(0);
     }
+
     private void botones(boolean btn) {
         txtNumIngreso.setEnabled(btn);
         txtReferencia.setEnabled(btn);
@@ -404,12 +397,11 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
         jspCantidad.setEnabled(btn);
         btnCancelar.setEnabled(btn);
         btnNuevo.setEnabled(!btn);
-        btnEliminar.setEnabled(btn);
         btnBuscarArticulo.setEnabled(btn);
         btnAddArticulo.setEnabled(btn);
         btnRemoveArticulo.setEnabled(btn);
         btnGuardar.setEnabled(btn);
-        
+
     }
 
     private void mostrar(List<Movimiento> movimientos) {
@@ -422,63 +414,34 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
         }
     }
 
-//    private boolean buscarMarcaList(String nombre) {
-//        boolean flag = false;
-//        gu = new GestionarMovimientoServicio();
-//        try {
-//            movimientos = gu.listar();
-//            flag = (gu.buscarMovimientoList(movimientos, nombre)) ? true : false;
-//
-//        } catch (Exception e) {
-//        }
-//        return flag;
-//    }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // if (!txtNombre.getText().equals("")) {
-        try {
-            gu = new GestionarMovimientoServicio();
-            if (flag.equals("Guardar")) {
-                // if (!buscarMarcaList(txtNombre.getText().toLowerCase().trim())) {
-                for (Movimiento dts : templist) {                    
-                     gu.addCantidad(dts);
-                    if (gu.insertarIngreso(dts)) {
-                        JOptionPane.showMessageDialog(null, "Guardado correctamente");
-
-                    } else {
-                        JOptionPane.showMessageDialog(null, "NO se pudo guardar");
-
+        if (!txtNumIngreso.getText().equals("")) {
+            if (templist.size() >= 1) {
+                try {
+                    gu = new GestionarMovimientoServicio();
+                    if (flag.equals("Guardar")) {
+                        for (Movimiento dts : templist) {
+                            gu.addCantidad(dts);
+                            if (gu.insertarIngreso(dts)) {
+                                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "No se pudo guardar");
+                            }
+                        }
                     }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e);
                 }
-//                    } else {
-//                        JOptionPane.showMessageDialog(this, "la unidad ya existe");
-//                        txtNombre.requestFocus();
-//                    }
             } else {
-                movimiento.setId(Integer.parseInt(lblId.getText()));
-                if (gu.editar(movimiento)) {
-                    JOptionPane.showMessageDialog(null, "Se Actualizo correctamente");
-                    //mostrar();
-                    limpiar();
-                    botones(false);
-                } else {
-                    JOptionPane.showMessageDialog(null, "no se pudo actualizar");
-                    //mostrar();
-                    limpiar();
-                    botones(false);
-                }
-
+                JOptionPane.showMessageDialog(this, "Debe agregar almenos un articulo", "Aviso", 0);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese un numero de documento", "Aviso", 0);
+            txtNumIngreso.requestFocus();
         }
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Debe llenar el nombre", "Aviso", 0);
-////            txtNombre.requestFocus();
-//        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        //mostrar();
         limpiar();
         botones(false);
         btnGuardar.setText("Guardar");
@@ -491,7 +454,6 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
         botones(true);
         btnGuardar.setText("Guardar");
         flag = "Guardar";
-        btnEliminar.setEnabled(false);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void listadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoMouseClicked
@@ -506,35 +468,43 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
         txtMedida.setText(listado.getValueAt(fila, 7).toString());
         txtColor.setText(listado.getValueAt(fila, 8).toString());
         lblindiceselect.setText(String.valueOf(listado.getSelectedRow()));
-        
+        this.rem = true;
     }//GEN-LAST:event_listadoMouseClicked
 
     private void btnAddArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddArticuloActionPerformed
-        movimiento = new Movimiento();
-        movimiento.setOperacion("ingreso");
-        Calendar calendar = Calendar.getInstance();
-        Timestamp fecha = new Timestamp(calendar.getTime().getTime());
-        movimiento.setFechaRegistro(fecha);
-        Configuracion conf = new Configuracion();
-        movimiento.setNumIngreso(conf.generarCodigo(txtNumIngreso.getText().toUpperCase().trim()));
-        movimiento.setReferencia(txtReferencia.getText().trim()); 
-        movimiento.setCantidad(Integer.parseInt(jspCantidad.getValue().toString()));
-        movimiento.setUnidad(txtUnidad.getText().trim());
-        movimiento.setMedida(txtMedida.getText().trim());
-        movimiento.setColor(txtColor.getText().trim());
-        movimiento.setObservacion(txtObservacion.getText().trim());
-        movimiento.setPersonal(user.getPersonal());
-        movimiento.setProducto(tempProducto);
-        templist.add(movimiento);
-        mostrar(templist);
-        limpiaradd();
+        if (!lblCodigoProducto.getText().equals("000")) {
+            if (Integer.parseInt(jspCantidad.getValue().toString()) >= 1) {
+                movimiento = new Movimiento();
+                movimiento.setOperacion("ingreso");
+                Calendar calendar = Calendar.getInstance();
+                Timestamp fecha = new Timestamp(calendar.getTime().getTime());
+                movimiento.setFechaRegistro(fecha);
+                Configuracion conf = new Configuracion();
+                movimiento.setNumIngreso(conf.generarCodigo(txtNumIngreso.getText().toUpperCase().trim()));
+                movimiento.setReferencia(txtReferencia.getText().trim());
+                movimiento.setCantidad(Integer.parseInt(jspCantidad.getValue().toString()));
+                movimiento.setUnidad(txtUnidad.getText().trim());
+                movimiento.setMedida(txtMedida.getText().trim());
+                movimiento.setColor(txtColor.getText().trim());
+                movimiento.setObservacion(txtObservacion.getText().trim());
+                movimiento.setPersonal(user.getPersonal());
+                movimiento.setProducto(tempProducto);
+                templist.add(movimiento);
+                mostrar(templist);
+                limpiaradd();
+            } else {
+                JOptionPane.showMessageDialog(null, "La cantidad debe de ser almenos 1");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar almenos un Articulo");
+        }
     }//GEN-LAST:event_btnAddArticuloActionPerformed
 
     private void btnBuscarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarArticuloActionPerformed
-        FormProductoListado form = new FormProductoListado(null, false,"ingreso");
+        FormProductoListado form = new FormProductoListado(null, false, "ingreso");
         form.toFront();
         tempProducto = new Producto();
-        form.tempProducto = tempProducto;   
+        form.tempProducto = tempProducto;
         form.setVisible(true);
     }//GEN-LAST:event_btnBuscarArticuloActionPerformed
 
@@ -543,53 +513,19 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
     }//GEN-LAST:event_listadoMousePressed
 
     private void btnRemoveArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveArticuloActionPerformed
-        templist.remove(Integer.parseInt(lblindiceselect.getText()));
-        mostrar(templist);
-        limpiaradd();
-
+        if (this.rem) {
+            templist.remove(Integer.parseInt(lblindiceselect.getText()));
+            mostrar(templist);
+            limpiaradd();
+            this.rem = false;
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe selecionar un articulo de la lista");
+        }
     }//GEN-LAST:event_btnRemoveArticuloActionPerformed
 
     private void txtNumIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumIngresoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumIngresoActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        if (!lblId.getText().equals("id")) {
-            int res = JOptionPane.showConfirmDialog(this, "¿Esta Seguro De Eliminar?", "Eliminar", 0, 3);
-            if (res == 0) {
-                try {
-                    gu = new GestionarMovimientoServicio();
-                    movimiento = new Movimiento();
-                    movimiento.setId(Integer.parseInt(lblId.getText()));
-                    if (gu.eliminar(movimiento)) {
-                        JOptionPane.showMessageDialog(this, "Eliminado correctamente");
-                        // mostrar();
-                        limpiar();
-                        botones(false);
-                        btnGuardar.setText("Guardar");
-                        flag = "Guardar";
-                    } else {
-                        JOptionPane.showMessageDialog(this, "No se pudo eliminar", "Aviso", 2);
-                        //mostrar();
-                        limpiar();
-                        botones(false);
-                        btnGuardar.setText("Guardar");
-                        flag = "Guardar";
-                    }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, e);
-                }
-            } else {
-                //mostrar();
-                limpiar();
-                botones(false);
-                btnGuardar.setText("Guardar");
-                flag = "Guardar";
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Debe de selecionar una Unidad para eliminar", "Aviso", 2);
-        }
-    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -599,7 +535,6 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
     private javax.swing.JButton btnAddArticulo;
     private javax.swing.JButton btnBuscarArticulo;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnRemoveArticulo;
