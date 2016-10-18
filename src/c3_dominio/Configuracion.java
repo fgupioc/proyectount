@@ -1,8 +1,8 @@
- 
 package c3_dominio;
- 
+
 public class Configuracion {
-    private String host,db,user,pass,puerto,directorio;     
+
+    private String host, db, user, pass, puerto, directorio;
 
     public Configuracion() {
     }
@@ -62,8 +62,33 @@ public class Configuracion {
     public void setPuerto(String puerto) {
         this.puerto = puerto;
     }
-    
-    public  String directorioUrl(){
-        return this.directorio="C://Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/Config.xml";
+
+    public String directorioUrl() {
+        return this.directorio = "C://Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/Config.xml";
+    }
+
+    public String generarCodigo(String num) {
+        String res = "";
+         
+        if (num.length()== 1) {
+            res = "00000" + num;
+        }
+        if (num.length() == 2) {
+            res = "0000" + num;
+        }
+        if (num.length() == 3) {
+            res = "000" + num;
+        }
+        if (num.length() == 4) {
+            res = "00" + num;
+        }
+        if (num.length() == 5) {
+            res = "0" + num;
+        }
+         if (num.length() >= 6) {
+            res = "" + num;
+        }
+         
+        return res;
     }
 }

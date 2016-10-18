@@ -7,6 +7,7 @@ package c1_precentacion;
 
 import c2_aplicacion.GestionarMovimientoServicio;
 import c3_dominio.Area;
+import c3_dominio.Configuracion;
 import c3_dominio.LoginUser;
 import c3_dominio.Movimiento;
 import c3_dominio.Producto;
@@ -623,8 +624,8 @@ public class FormGestionarSalidaArticulo extends javax.swing.JDialog {
             gu = new GestionarMovimientoServicio();
             if (flag.equals("Guardar")) {
                 // if (!buscarMarcaList(txtNombre.getText().toLowerCase().trim())) {
-                for (Movimiento dts : templist) {                    
-                     gu.removeCantidad(dts);
+                for (Movimiento dts : templist) {
+                    gu.removeCantidad(dts);
                     if (gu.insertarSalida(dts)) {
                         JOptionPane.showMessageDialog(null, "Guardado correctamente");
 
@@ -733,39 +734,44 @@ public class FormGestionarSalidaArticulo extends javax.swing.JDialog {
 
     private void btnAddArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddArticuloActionPerformed
         movimiento = new Movimiento();
-        if(Integer.parseInt(jspCantidad.getValue().toString())>0){
-            if (Integer.parseInt(jspCantidad.getValue().toString())<= tempProducto.getCantidad()) {
-            movimiento.setOperacion("salida");
-            Calendar calendar = Calendar.getInstance();
-            Timestamp fecha = new Timestamp(calendar.getTime().getTime());
-            movimiento.setFechaRegistro(fecha);
-            movimiento.setNumSalida(txtNumSalida.getText().toUpperCase().trim());
-            movimiento.setNumExpediente(txtNumExpediente.getText().trim());
-            movimiento.setNumDocumento(txtNumDocumento.getText().trim());
-            movimiento.setAsunto(txtAsunto.getText().trim());
-            movimiento.setAutoriza(txtAutoriza.getText().trim());
-            movimiento.setReferencia(txtReferencia.getText().trim());
-            movimiento.setCantidad(Integer.parseInt(jspCantidad.getValue().toString()));
-            movimiento.setModelo(txtModelo.getText().trim());
-            movimiento.setUnidad(txtUnidad.getText().trim());
-            movimiento.setMedida(txtMedida.getText().trim());
-            movimiento.setColor(txtColor.getText().trim());
-            movimiento.setNumSerie(txtSerie.getText().trim());
-            movimiento.setCodigoUnt(txtCodUnt.getText().trim());
-            movimiento.setCodigoSaneamiento(txtCodSaneamiento.getText().trim());
-            movimiento.setObservacion(txtObservacion.getText().trim());
-            movimiento.setArea(tempArea);
-            movimiento.setSolicitamte(tempSolicitante);
-            movimiento.setPersonal(user.getPersonal());
-            movimiento.setProducto(tempProducto);
-            templist.add(movimiento);
-            mostrar(templist);
-            limpiaradd();
+        if (tempProducto.getCantidad() > 0) {
+            if (Integer.parseInt(jspCantidad.getValue().toString()) > 0) {
+                if (Integer.parseInt(jspCantidad.getValue().toString()) <= tempProducto.getCantidad()) {
+                    movimiento.setOperacion("salida");
+                    Calendar calendar = Calendar.getInstance();
+                    Timestamp fecha = new Timestamp(calendar.getTime().getTime());
+                    movimiento.setFechaRegistro(fecha);
+                    Configuracion conf = new Configuracion();
+                    movimiento.setNumSalida(conf.generarCodigo(txtNumSalida.getText().toUpperCase().trim()));
+                    movimiento.setNumExpediente(txtNumExpediente.getText().trim());
+                    movimiento.setNumDocumento(txtNumDocumento.getText().trim());
+                    movimiento.setAsunto(txtAsunto.getText().trim());
+                    movimiento.setAutoriza(txtAutoriza.getText().trim());
+                    movimiento.setReferencia(txtReferencia.getText().trim());
+                    movimiento.setCantidad(Integer.parseInt(jspCantidad.getValue().toString()));
+                    movimiento.setModelo(txtModelo.getText().trim());
+                    movimiento.setUnidad(txtUnidad.getText().trim());
+                    movimiento.setMedida(txtMedida.getText().trim());
+                    movimiento.setColor(txtColor.getText().trim());
+                    movimiento.setNumSerie(txtSerie.getText().trim());
+                    movimiento.setCodigoUnt(txtCodUnt.getText().trim());
+                    movimiento.setCodigoSaneamiento(txtCodSaneamiento.getText().trim());
+                    movimiento.setObservacion(txtObservacion.getText().trim());
+                    movimiento.setArea(tempArea);
+                    movimiento.setSolicitamte(tempSolicitante);
+                    movimiento.setPersonal(user.getPersonal());
+                    movimiento.setProducto(tempProducto);
+                    templist.add(movimiento);
+                    mostrar(templist);
+                    limpiaradd();
+                } else {
+                    JOptionPane.showMessageDialog(null, "La cantidad supera al stock actual del producto", "aviso", 2);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "la cantidad minima debe ser 1", "aviso", 2);
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "La cantidad supera al stock actual del producto","aviso",2);
-        }
-        }else{
-            JOptionPane.showMessageDialog(null, "la cantidad minima debe ser 1","aviso",2);
+            JOptionPane.showMessageDialog(null, "El producto no cuenta con stock", "aviso", 2);
         }
     }//GEN-LAST:event_btnAddArticuloActionPerformed
 
