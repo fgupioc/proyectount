@@ -1,11 +1,10 @@
 package c4_persistencia;
 
-import c3_dominioFabrica.FabricaAbstractaDAO;
-import c3_dominioFabrica.IAreaDAO;
+import c3_dominioFabrica.FabricaAbstractaDAO; 
 import c3_dominioFabrica.ICategoriaDAO;
 import c3_dominioFabrica.IMarcaDAO; 
 import c3_dominioFabrica.IPresentacionDAO;
-import c3_dominioFabrica.ISolicitanteDAO;
+import c3_dominioFabrica.IAutorizanteDAO;
 import c3_dominioFabrica.ITipoPersonalDAO;
 import c3_dominioFabrica.ITipoProductoDAO;
 import c3_dominioFabrica.IAlmacenDAO;
@@ -61,16 +60,11 @@ public class FabricaDAOmysql extends FabricaAbstractaDAO {
     @Override
     public ITipoPersonalDAO crearTipoPersonalDAO(GestorJDBC gestorJDBC) {
          return new TipoPersonalDAO(gestorJDBC);
-    }
+    } 
 
     @Override
-    public IAreaDAO crearAreaDAO(GestorJDBC gestorJDBC) {
-         return new AreaDAO(gestorJDBC);
-    }
-
-    @Override
-    public ISolicitanteDAO crearSolicitanteDAO(GestorJDBC gestorJDBC) {
-         return new SolicitanteDAO(gestorJDBC);
+    public IAutorizanteDAO crearAutorizanteDAO(GestorJDBC gestorJDBC) {
+         return new AutorizanteDAO(gestorJDBC);
     }
 
     @Override

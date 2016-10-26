@@ -219,8 +219,8 @@ public class FormMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void miAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAreaActionPerformed
-         FormGestionarArea form = new FormGestionarArea(this, false);
-      form.setVisible(true);
+//         FormGestionarArea form = new FormGestionarArea(this, false);
+//      form.setVisible(true);
     }//GEN-LAST:event_miAreaActionPerformed
 
     private void miAlamcenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlamcenActionPerformed
@@ -240,7 +240,7 @@ public class FormMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_miSalirActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-       FormGestionarSolicitante form = new FormGestionarSolicitante(this,false);
+       FormGestionarAutorizante form = new FormGestionarAutorizante(this,false);
        form.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 

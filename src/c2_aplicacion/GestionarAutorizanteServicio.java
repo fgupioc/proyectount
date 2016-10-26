@@ -5,9 +5,9 @@
  */
 package c2_aplicacion;
 
-import c3_dominio.Solicitante;
+import c3_dominio.Autorizante;
 import c3_dominioFabrica.FabricaAbstractaDAO;
-import c3_dominioFabrica.ISolicitanteDAO;
+import c3_dominioFabrica.IAutorizanteDAO;
 import c4_persistenciaConexion.GestorJDBC;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,25 +19,25 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Franz
  */
-public class GestionarSolicitanteServicio {
+public class GestionarAutorizanteServicio {
 
     private GestorJDBC gestorJDBC;
-    private ISolicitanteDAO solicitanteDAO;
-    private Solicitante solicitante;
-    List<Solicitante> solicitantes;
+    private IAutorizanteDAO autorizanteDAO;
+    private Autorizante autorizante;
+    List<Autorizante> autorizantes;
 
-    public GestionarSolicitanteServicio() {
+    public GestionarAutorizanteServicio() {
         FabricaAbstractaDAO fabricaAbstractaDAO = FabricaAbstractaDAO.getInstancia();
         gestorJDBC = fabricaAbstractaDAO.crearGestorJDBC();
-        solicitanteDAO = fabricaAbstractaDAO.crearSolicitanteDAO(gestorJDBC);
+        autorizanteDAO = fabricaAbstractaDAO.crearAutorizanteDAO(gestorJDBC);
     }
 
-    public boolean insertar(Solicitante solicitante) throws Exception {
+    public boolean insertar(Autorizante autorizante) throws Exception {
         boolean flag = false;
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            flag = solicitanteDAO.ingresar(solicitante);
+            flag = autorizanteDAO.ingresar(autorizante);
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
             gestorJDBC.cancelarTransaccion();
@@ -47,27 +47,27 @@ public class GestionarSolicitanteServicio {
         return flag;
     }
 
-    public List<Solicitante> listar() throws Exception {
-        solicitantes = new ArrayList();
+    public List<Autorizante> listar() throws Exception {
+        autorizantes = new ArrayList();
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            solicitantes = solicitanteDAO.Listar();
+            autorizantes = autorizanteDAO.Listar();
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
             gestorJDBC.cancelarTransaccion();
             JOptionPane.showMessageDialog(null, e);
         }
         gestorJDBC.cerrarConexion();
-        return solicitantes;
+        return autorizantes;
     }
 
-    public boolean editar(Solicitante solicitante) throws Exception {
+    public boolean editar(Autorizante autorizante) throws Exception {
         boolean flag = false;
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            flag = solicitanteDAO.editar(solicitante);
+            flag = autorizanteDAO.editar(autorizante);
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
             gestorJDBC.cancelarTransaccion();
@@ -77,12 +77,12 @@ public class GestionarSolicitanteServicio {
         return flag;
     }
 
-    public boolean eliminar(Solicitante solicitante) throws Exception {
+    public boolean eliminar(Autorizante autorizante) throws Exception {
         boolean flag = false;
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            flag = solicitanteDAO.eliminar(solicitante);
+            flag = autorizanteDAO.eliminar(autorizante);
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
             gestorJDBC.cancelarTransaccion();
@@ -92,37 +92,37 @@ public class GestionarSolicitanteServicio {
         return flag;
     }
 
-    public List<Solicitante> buscarNombre(Solicitante solicitante) throws Exception {
-        solicitantes = new ArrayList();
+    public List<Autorizante> buscarNombre(Autorizante autorizante) throws Exception {
+        autorizantes = new ArrayList();
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            solicitantes = solicitanteDAO.buscarNombre(solicitante);
+            autorizantes = autorizanteDAO.buscarNombre(autorizante);
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             gestorJDBC.cancelarTransaccion();
         }
         gestorJDBC.cerrarConexion();
-        return solicitantes;
+        return autorizantes;
     }
 
-    public void llenarLista(JTable listado, List<Solicitante> solicitantes) throws Exception {
+    public void llenarLista(JTable listado, List<Autorizante> autorizantes) throws Exception {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);
         model.addColumn("id");
         model.addColumn("Nombre");
-        model.addColumn("paterno");
-        model.addColumn("materno");
+        model.addColumn("Especialidad");
+        model.addColumn("Cargo");
         model.addColumn("estado");
 
-        model.setNumRows(solicitantes.size());
+        model.setNumRows(autorizantes.size());
         int i = 0;
-        for (Solicitante dts : solicitantes) {
-            model.setValueAt(dts.getIdsolicitante(), i, 0);
-            model.setValueAt(dts.getNombre(), i, 1);
-            model.setValueAt(dts.getPaterno(), i, 2);
-            model.setValueAt(dts.getMaterno(), i, 3);
+        for (Autorizante dts : autorizantes) {
+            model.setValueAt(dts.getId(), i, 0);
+            model.setValueAt(dts.getDescripcion(), i, 1);
+            model.setValueAt(dts.getEspecialidad(), i, 2);
+            model.setValueAt(dts.getCargo(), i, 3);
             model.setValueAt(dts.getEstado(), i, 4);
             i++;
         }

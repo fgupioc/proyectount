@@ -21,22 +21,24 @@ public class Producto {
     private TipoProducto tipoProducto;
     private Marca marca;
     private Almacen almacen;
+    private Unidad unidad;
 
     public Producto() {
     }
 
-    public Producto(int id, int cantidad, int estado, String codigo, String articulo, String descripcion, Timestamp fechaRegistro, Categoria categoria, TipoProducto tipoProducto, Marca marca, Almacen almacen) {
+    public Producto(int id, int cantidad, int estado, String codigo, String articulo, String descripcion, Timestamp fechaRegistro, Categoria categoria, TipoProducto tipoProducto, Marca marca, Almacen almacen, Unidad unidad) {
         this.id = id;
         this.cantidad = cantidad;
         this.estado = estado;
         this.codigo = codigo;
         this.articulo = articulo;
         this.descripcion = descripcion;
-        this.fechaRegistro = fechaRegistro; 
+        this.fechaRegistro = fechaRegistro;
         this.categoria = categoria;
         this.tipoProducto = tipoProducto;
         this.marca = marca;
         this.almacen = almacen;
+        this.unidad = unidad;
     }
 
     public int getId() {
@@ -93,7 +95,7 @@ public class Producto {
 
     public void setFechaRegistro(Timestamp fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
-    } 
+    }
 
     public Categoria getCategoria() {
         return categoria;
@@ -127,5 +129,13 @@ public class Producto {
         this.almacen = almacen;
     }
 
-     
+    public Unidad getUnidad() {
+        return unidad;
+    }
+
+    public void setUnidad(Unidad unidad) {
+        this.unidad = unidad;
+    }
+
+    
 }

@@ -5,13 +5,12 @@
  */
 package c1_precentacion;
 
-import c2_aplicacion.GestionarMovimientoServicio;
-import c3_dominio.Area;
+import c2_aplicacion.GestionarMovimientoServicio; 
 import c3_dominio.Configuracion;
 import c3_dominio.LoginUser;
 import c3_dominio.Movimiento;
 import c3_dominio.Producto;
-import c3_dominio.Solicitante;
+import c3_dominio.Autorizante;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,9 +30,8 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
     private boolean rem = false;
     Movimiento movimiento;
     Producto producto;
-    public static Producto tempProducto;
-    public static Area tempArea;
-    public static Solicitante tempSolicitante;
+    public static Producto tempProducto; 
+    public static Autorizante tempAutorizante;
     private GestionarMovimientoServicio gu;
     private List<Movimiento> movimientos;
     private List<Movimiento> templist = new ArrayList();
@@ -678,9 +676,8 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                         movimiento.setNumSerie(txtSerie.getText().trim());
                         movimiento.setCodigoUnt(txtCodUnt.getText().trim());
                         movimiento.setCodigoSaneamiento(txtCodSaneamiento.getText().trim());
-                        movimiento.setObservacion(txtObservacion.getText().trim());
-                        movimiento.setArea(tempArea);
-                        movimiento.setSolicitamte(tempSolicitante);
+                        movimiento.setObservacion(txtObservacion.getText().trim());                       
+                        movimiento.setAutorizante(tempAutorizante);
                         movimiento.setPersonal(user.getPersonal());
                         movimiento.setProducto(tempProducto);
                         templist.add(movimiento);
@@ -724,18 +721,18 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRemoveArticuloActionPerformed
 
     private void btnSolicitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitanteActionPerformed
-        FormGestionarSolicitante form = new FormGestionarSolicitante(null, false);
+        FormGestionarAutorizante form = new FormGestionarAutorizante(null, false);
         form.toFront();
-        tempSolicitante = new Solicitante();
-        form.tempSolicitante = tempSolicitante;
+        tempAutorizante = new Autorizante();
+        form.tempAutorizante = tempAutorizante;
         form.setVisible(true);
     }//GEN-LAST:event_btnSolicitanteActionPerformed
 
     private void btnAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAreaActionPerformed
-        FormGestionarArea form = new FormGestionarArea(null, false);
-        form.toFront();
-        tempArea = new Area(); 
-        form.setVisible(true);
+//        FormGestionarArea form = new FormGestionarArea(null, false);
+//        form.toFront();
+//        tempArea = new Area(); 
+//        form.setVisible(true);
     }//GEN-LAST:event_btnAreaActionPerformed
 
     /**

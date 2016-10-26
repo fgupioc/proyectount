@@ -41,34 +41,31 @@ public class ProductoDAO implements IProductoDAO {
 
     @Override
     public boolean ingresar(Producto dts) throws SQLException {
-        mysql = "{Call spProductoInsertar (?,?,?,?,?,?,?,?,?)}";
+        mysql = "{Call spProductoInsertar (?,?,?,?,?,?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
         cst.setString(1, dts.getCodigo());
-        cst.setString(2, dts.getArticulo());
-        cst.setString(3, dts.getDescripcion());
-        cst.setTimestamp(4, dts.getFechaRegistro());
-        cst.setInt(5, dts.getCantidad());
-        cst.setInt(6, dts.getCategoria().getId());
-        cst.setInt(7, dts.getTipoProducto().getId());
-        cst.setInt(8, dts.getMarca().getId());
-        cst.setInt(9, dts.getAlmacen().getId());
+        cst.setString(2, dts.getArticulo()); 
+        cst.setTimestamp(3, dts.getFechaRegistro()); 
+        cst.setInt(4, dts.getCategoria().getId());
+        cst.setInt(5, dts.getTipoProducto().getId());
+        cst.setInt(6, dts.getMarca().getId());
+        cst.setInt(7, dts.getAlmacen().getId());
+        cst.setInt(8, dts.getUnidad().getId());
         return (cst.executeUpdate() == 1) ? true : false;
     }
 
     @Override
     public List<Producto> Listar() throws SQLException {
         productos = new ArrayList();
-        ResultSet rs2, rs3, rs4, rs5, rs6;
+        ResultSet rs2, rs3, rs4, rs5, rs6,rs7;
         mysql = "{call spProductoListado}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             producto = new Producto();
             producto.setId(rs.getInt("id"));
             producto.setCodigo(rs.getString("codigo"));
-            producto.setArticulo(rs.getString("articulo"));
-            producto.setDescripcion(rs.getString("descripcion"));
-            producto.setFechaRegistro(rs.getTimestamp("fechaRegistro"));
-            producto.setCantidad(rs.getInt("cantidad"));
+            producto.setArticulo(rs.getString("articulo")); 
+            producto.setFechaRegistro(rs.getTimestamp("fechaRegistro")); 
             producto.setEstado(rs.getInt("estado"));
             rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
             while (rs3.next()) {
@@ -106,6 +103,15 @@ public class ProductoDAO implements IProductoDAO {
                 producto.setAlmacen(almacen);
             }
             rs6.close();
+             rs7 = gestorJDBC.ejecutarProcedimiento("call spUnidadId('" + rs.getInt("unidad_id") + "')");
+            while (rs7.next()) {
+                Unidad unidad = new Unidad();
+                unidad.setId(rs7.getInt("id"));
+                unidad.setDescripcion(rs7.getString("descripcion"));
+                unidad.setEstado(rs7.getInt("estado"));
+                producto.setUnidad(unidad);
+            }
+            rs7.close();
             productos.add(producto);
         }
         rs.close();
@@ -114,18 +120,17 @@ public class ProductoDAO implements IProductoDAO {
 
     @Override
     public boolean editar(Producto dts) throws SQLException {
-        mysql = "{call spProductoEditar(?,?,?,?,?,?,?,?,?,?)}";
+        mysql = "{call spProductoEditar(?,?,?,?,?,?,?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
         cst.setInt(1, dts.getId());
         cst.setString(2, dts.getCodigo());
-        cst.setString(3, dts.getArticulo());
-        cst.setString(4, dts.getDescripcion());
-        cst.setTimestamp(5, dts.getFechaRegistro());
-        cst.setInt(6, dts.getCantidad());
-        cst.setInt(7, dts.getCategoria().getId());
-        cst.setInt(8, dts.getTipoProducto().getId());
-        cst.setInt(9, dts.getMarca().getId());
-        cst.setInt(10, dts.getAlmacen().getId());
+        cst.setString(3, dts.getArticulo()); 
+        cst.setTimestamp(4, dts.getFechaRegistro()); 
+        cst.setInt(5, dts.getCategoria().getId());
+        cst.setInt(6, dts.getTipoProducto().getId());
+        cst.setInt(7, dts.getMarca().getId());
+        cst.setInt(8, dts.getAlmacen().getId());
+        cst.setInt(9, dts.getUnidad().getId());
         return (cst.executeUpdate() == 1) ? true : false;
     }
 
@@ -140,17 +145,15 @@ public class ProductoDAO implements IProductoDAO {
     @Override
     public List<Producto> buscarNombre(Producto dts) throws Exception {
         productos = new ArrayList();
-        ResultSet rs2, rs3, rs4, rs5, rs6;
+        ResultSet rs2, rs3, rs4, rs5, rs6,rs7;
         mysql = "{call spProductoBuscarNombre('" + dts.getArticulo() + "')}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             producto = new Producto();
             producto.setId(rs.getInt("id"));
             producto.setCodigo(rs.getString("codigo"));
-            producto.setArticulo(rs.getString("articulo"));
-            producto.setDescripcion(rs.getString("descripcion"));
-            producto.setFechaRegistro(rs.getTimestamp("fechaRegistro"));
-            producto.setCantidad(rs.getInt("cantidad"));
+            producto.setArticulo(rs.getString("articulo")); 
+            producto.setFechaRegistro(rs.getTimestamp("fechaRegistro")); 
             producto.setEstado(rs.getInt("estado"));
             rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
             while (rs3.next()) {
@@ -188,6 +191,15 @@ public class ProductoDAO implements IProductoDAO {
                 producto.setAlmacen(almacen);
             }
             rs6.close();
+             rs7 = gestorJDBC.ejecutarProcedimiento("call spUnidadId('" + rs.getInt("unidad_id") + "')");
+            while (rs7.next()) {
+                Unidad unidad = new Unidad();
+                unidad.setId(rs7.getInt("id"));
+                unidad.setDescripcion(rs7.getString("descripcion"));
+                unidad.setEstado(rs7.getInt("estado"));
+                producto.setUnidad(unidad);
+            }
+            rs7.close();
             productos.add(producto);
         }
         rs.close();
@@ -208,17 +220,15 @@ public class ProductoDAO implements IProductoDAO {
     @Override
     public List<Producto> buscarArticuloCodigo(String location, String value) throws Exception {
         productos = new ArrayList();
-        ResultSet rs2, rs3, rs4, rs5, rs6;
+        ResultSet rs2, rs3, rs4, rs5, rs6,rs7;
         mysql = "{call spBuscarArticuloLocationCodigo('" + value + "','" + idAlmacen(location) + "')}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
         while (rs.next()) {
             producto = new Producto();
             producto.setId(rs.getInt("id"));
             producto.setCodigo(rs.getString("codigo"));
-            producto.setArticulo(rs.getString("articulo"));
-            producto.setDescripcion(rs.getString("descripcion"));
-            producto.setFechaRegistro(rs.getTimestamp("fechaRegistro"));
-            producto.setCantidad(rs.getInt("cantidad"));
+            producto.setArticulo(rs.getString("articulo")); 
+            producto.setFechaRegistro(rs.getTimestamp("fechaRegistro")); 
             producto.setEstado(rs.getInt("estado"));
             rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
             while (rs3.next()) {
@@ -256,6 +266,15 @@ public class ProductoDAO implements IProductoDAO {
                 producto.setAlmacen(almacen);
             }
             rs6.close();
+             rs7 = gestorJDBC.ejecutarProcedimiento("call spUnidadId('" + rs.getInt("unidad_id") + "')");
+            while (rs7.next()) {
+                Unidad unidad = new Unidad();
+                unidad.setId(rs7.getInt("id"));
+                unidad.setDescripcion(rs7.getString("descripcion"));
+                unidad.setEstado(rs7.getInt("estado"));
+                producto.setUnidad(unidad);
+            }
+            rs7.close();
             productos.add(producto);
         }
         rs.close();
@@ -266,7 +285,7 @@ public class ProductoDAO implements IProductoDAO {
     @Override
     public List<Producto> buscarArticuloNombre(String location, String value) throws Exception {
         productos = new ArrayList();
-        ResultSet rs2, rs3, rs4, rs5, rs6;
+        ResultSet rs2, rs3, rs4, rs5, rs6,rs7;
 
         mysql = "{call spBuscarArticuloLocationNombre('" + value + "','" + idAlmacen(location) + "')}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);
@@ -274,10 +293,8 @@ public class ProductoDAO implements IProductoDAO {
             producto = new Producto();
             producto.setId(rs.getInt("id"));
             producto.setCodigo(rs.getString("codigo"));
-            producto.setArticulo(rs.getString("articulo"));
-            producto.setDescripcion(rs.getString("descripcion"));
-            producto.setFechaRegistro(rs.getTimestamp("fechaRegistro"));
-            producto.setCantidad(rs.getInt("cantidad"));
+            producto.setArticulo(rs.getString("articulo")); 
+            producto.setFechaRegistro(rs.getTimestamp("fechaRegistro")); 
             producto.setEstado(rs.getInt("estado"));
             rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
             while (rs3.next()) {
@@ -315,6 +332,15 @@ public class ProductoDAO implements IProductoDAO {
                 producto.setAlmacen(almacen);
             }
             rs6.close();
+             rs7 = gestorJDBC.ejecutarProcedimiento("call spUnidadId('" + rs.getInt("unidad_id") + "')");
+            while (rs7.next()) {
+                Unidad unidad = new Unidad();
+                unidad.setId(rs7.getInt("id"));
+                unidad.setDescripcion(rs7.getString("descripcion"));
+                unidad.setEstado(rs7.getInt("estado"));
+                producto.setUnidad(unidad);
+            }
+            rs7.close();
             productos.add(producto);
         }
         rs.close();

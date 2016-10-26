@@ -41,11 +41,9 @@ public abstract class FabricaAbstractaDAO {
     
     public abstract IAlmacenDAO crearAlmacenDAO(GestorJDBC gestorJDBC);
     
-    public abstract ITipoPersonalDAO crearTipoPersonalDAO(GestorJDBC gestorJDBC);
+    public abstract ITipoPersonalDAO crearTipoPersonalDAO(GestorJDBC gestorJDBC); 
     
-    public abstract IAreaDAO crearAreaDAO(GestorJDBC gestorJDBC);
-    
-    public abstract ISolicitanteDAO crearSolicitanteDAO(GestorJDBC gestorJDBC);
+    public abstract IAutorizanteDAO crearAutorizanteDAO(GestorJDBC gestorJDBC);
     
     public abstract IPersonalDAO crearPersonalDAO(GestorJDBC gestorJDBC);
     

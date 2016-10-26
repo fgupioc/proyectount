@@ -6,16 +6,15 @@ import java.sql.Timestamp;
 public class Movimiento {
 private int id,estado,cantidad;;
 private String unidad ,autoriza,referencia,modelo,medida,color,numSerie,codigo,operacion,numIngreso,numSalida,numExpediente,numDocumento,asunto,codigoUnt,codigoSaneamiento,observacion;
-private Timestamp fechaRegistro;
-private Area area;
-private Solicitante solicitamte;
+private Timestamp fechaRegistro; 
+private Autorizante autorizante;
 private Personal personal;
 private Producto producto;
 
     public Movimiento() {
     }
 
-    public Movimiento(int id, int estado, int cantidad, String unidad,String autoriza, String referencia, String modelo, String medida, String color, String numSerie, String codigo, String operacion, String numIngreso, String numSalida, String numExpediente, String numDocumento, String asunto, String codigoUnt, String codigoSaneamiento, String observacion, Timestamp fechaRegistro, Area area, Solicitante solicitamte, Personal personal, Producto producto) {
+    public Movimiento(int id, int estado, int cantidad, String unidad,String autoriza, String referencia, String modelo, String medida, String color, String numSerie, String codigo, String operacion, String numIngreso, String numSalida, String numExpediente, String numDocumento, String asunto, String codigoUnt, String codigoSaneamiento, String observacion, Timestamp fechaRegistro,Autorizante autorizante, Personal personal, Producto producto) {
         this.id = id;
         this.estado = estado;
         this.cantidad = cantidad;
@@ -36,9 +35,8 @@ private Producto producto;
         this.codigoUnt = codigoUnt;
         this.codigoSaneamiento = codigoSaneamiento;
         this.observacion = observacion;
-        this.fechaRegistro = fechaRegistro;
-        this.area = area;
-        this.solicitamte = solicitamte;
+        this.fechaRegistro = fechaRegistro; 
+        this.autorizante = autorizante;
         this.personal = personal;
         this.producto = producto;
     }
@@ -210,22 +208,14 @@ private Producto producto;
 
     public void setFechaRegistro(Timestamp fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    } 
+
+    public Autorizante getAutorizante() {
+        return autorizante;
     }
 
-    public Area getArea() {
-        return area;
-    }
-
-    public void setArea(Area area) {
-        this.area = area;
-    }
-
-    public Solicitante getSolicitamte() {
-        return solicitamte;
-    }
-
-    public void setSolicitamte(Solicitante solicitamte) {
-        this.solicitamte = solicitamte;
+    public void setAutorizante(Autorizante autorizante) {
+        this.autorizante = autorizante;
     }
 
     public Personal getPersonal() {

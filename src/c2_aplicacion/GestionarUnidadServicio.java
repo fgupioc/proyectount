@@ -109,10 +109,10 @@ public class GestionarUnidadServicio {
      public Unidad obtenerId(List<Unidad> unidades, String nombre) {
         unidad = new Unidad();
         int id = 0;
-        for (Unidad tipo : unidades) {
+        for (Unidad tipo : unidades) { 
             if (tipo.getDescripcion().equals(nombre)) {
                 unidad.setId(tipo.getId());
-                unidad.setDescripcion(tipo.getDescripcion());
+                unidad.setDescripcion(tipo.getDescripcion()); 
             }
         }
         return unidad;

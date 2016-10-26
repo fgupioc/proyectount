@@ -46,8 +46,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         miPersonal = new javax.swing.JMenuItem();
         miCargos = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
-        miSolicitante = new javax.swing.JMenuItem();
-        miArea = new javax.swing.JMenuItem();
+        miAutorizante = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
@@ -170,26 +169,17 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jMenu2.add(jMenu5);
 
-        jMenu7.setText("Solicitantes");
+        jMenu7.setText("Autorizante");
         jMenu7.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
 
-        miSolicitante.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        miSolicitante.setText("Solicitante");
-        miSolicitante.addActionListener(new java.awt.event.ActionListener() {
+        miAutorizante.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        miAutorizante.setText("Autorizante");
+        miAutorizante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miSolicitanteActionPerformed(evt);
+                miAutorizanteActionPerformed(evt);
             }
         });
-        jMenu7.add(miSolicitante);
-
-        miArea.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        miArea.setText("Area");
-        miArea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miAreaActionPerformed(evt);
-            }
-        });
-        jMenu7.add(miArea);
+        jMenu7.add(miAutorizante);
 
         jMenu2.add(jMenu7);
 
@@ -287,19 +277,12 @@ public class FormPrincipal extends javax.swing.JFrame {
         form.setVisible(true);
     }//GEN-LAST:event_miUnidadActionPerformed
 
-    private void miSolicitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSolicitanteActionPerformed
-        FormGestionarSolicitante form = new FormGestionarSolicitante(this, true);
+    private void miAutorizanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAutorizanteActionPerformed
+        FormGestionarAutorizante form = new FormGestionarAutorizante(this, true);
         escritorio.add(form);
         form.toFront();
         form.setVisible(true);
-    }//GEN-LAST:event_miSolicitanteActionPerformed
-
-    private void miAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAreaActionPerformed
-        FormGestionarArea form = new FormGestionarArea(this, true);
-        escritorio.add(form);
-        form.toFront();
-        form.setVisible(true);
-    }//GEN-LAST:event_miAreaActionPerformed
+    }//GEN-LAST:event_miAutorizanteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -351,13 +334,12 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem miAlmacen;
     private javax.swing.JMenu miArchivo;
-    private javax.swing.JMenuItem miArea;
+    private javax.swing.JMenuItem miAutorizante;
     private javax.swing.JMenuItem miCargos;
     private javax.swing.JMenuItem miCategoria;
     private javax.swing.JMenuItem miMarca;
     private javax.swing.JMenuItem miPersonal;
     private javax.swing.JMenuItem miProductos;
-    private javax.swing.JMenuItem miSolicitante;
     private javax.swing.JMenuItem miUnidad;
     // End of variables declaration//GEN-END:variables
 
