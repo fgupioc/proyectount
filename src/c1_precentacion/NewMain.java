@@ -29,7 +29,7 @@ public class NewMain {
      * @throws java.lang.Exception
      */
     public static void main(String[] args) throws Exception {     
-        iniciar(); 
+        iniciar();    
     } 
     public static void iniciar() throws Exception {
         GestionarConfiguracionServicio conf = new GestionarConfiguracionServicio();

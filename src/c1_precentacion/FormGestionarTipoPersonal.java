@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author Franz
  */
-public class FormGestionarTipoPersonal extends javax.swing.JDialog {
+public class FormGestionarTipoPersonal extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FormGestionarUnidad
@@ -24,8 +24,7 @@ public class FormGestionarTipoPersonal extends javax.swing.JDialog {
     private GestionarTipoPersonalServicio gu;
     private List<TipoPersonal> marcas;
 
-    public FormGestionarTipoPersonal(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public FormGestionarTipoPersonal(java.awt.Frame parent, boolean modal) { 
         initComponents();
         mostrar();
         botones(false);

@@ -75,7 +75,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmiSalidaProducto.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
 
         jmiIngresoArticulos.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jmiIngresoArticulos.setText("Ingreso de Producto");
+        jmiIngresoArticulos.setText("Ingreso (PECOSA)");
         jmiIngresoArticulos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiIngresoArticulosActionPerformed(evt);
@@ -84,7 +84,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmiSalidaProducto.add(jmiIngresoArticulos);
 
         jmiSalidaArticulo.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jmiSalidaArticulo.setText("Salida de Producto");
+        jmiSalidaArticulo.setText("Salida (MEMO)");
         jmiSalidaArticulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiSalidaArticuloActionPerformed(evt);
@@ -224,57 +224,80 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void jmiSalidaArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSalidaArticuloActionPerformed
-       FormGestionarSalidaArticulo form = new FormGestionarSalidaArticulo(this,true); 
-       form.setVisible(true);
+        FormGestionarSalidaArticulo form = new FormGestionarSalidaArticulo(this, true);
+        escritorio.add(form);
+        form.toFront();
+        form.setVisible(true);
     }//GEN-LAST:event_jmiSalidaArticuloActionPerformed
 
     private void miPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPersonalActionPerformed
         FormGestionarPersonal form = new FormGestionarPersonal(this, true);
+        escritorio.add(form);
+        form.toFront();
         form.setVisible(true);
     }//GEN-LAST:event_miPersonalActionPerformed
 
     private void miCargosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCargosActionPerformed
-        FormGestionarTipoPersonal form = new FormGestionarTipoPersonal(this,true);
+        FormGestionarTipoPersonal form = new FormGestionarTipoPersonal(this, true);
+        escritorio.add(form);
+        form.toFront();
         form.setVisible(true);
     }//GEN-LAST:event_miCargosActionPerformed
 
     private void jmiIngresoArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiIngresoArticulosActionPerformed
-       FormGestionarIngresoArticulo form = new FormGestionarIngresoArticulo(this,true);
-       form.setVisible(true);
+        FormGestionarIngresoArticulo form = new FormGestionarIngresoArticulo(this, true);
+        escritorio.add(form);
+        form.toFront();
+        form.setVisible(true);
+
     }//GEN-LAST:event_jmiIngresoArticulosActionPerformed
 
     private void miProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miProductosActionPerformed
-       FormGestionarProducto form = new FormGestionarProducto(this, true);
-       form.setVisible(true);
+        FormGestionarProducto form = new FormGestionarProducto(this, true);
+        escritorio.add(form);
+        form.toFront();
+        form.setVisible(true);
     }//GEN-LAST:event_miProductosActionPerformed
 
     private void miAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlmacenActionPerformed
-        FormGestionarAlmacen form = new FormGestionarAlmacen(this,true);
+        FormGestionarAlmacen form = new FormGestionarAlmacen(this, true);
+        escritorio.add(form);
+        form.toFront();
         form.setVisible(true);
     }//GEN-LAST:event_miAlmacenActionPerformed
 
     private void miCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCategoriaActionPerformed
         FormGestionarCategoria form = new FormGestionarCategoria(this, true);
+        escritorio.add(form);
+        form.toFront();
         form.setVisible(true);
     }//GEN-LAST:event_miCategoriaActionPerformed
 
     private void miMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miMarcaActionPerformed
         FormGestionarMarca form = new FormGestionarMarca(this, true);
+        escritorio.add(form);
+        form.toFront();
         form.setVisible(true);
     }//GEN-LAST:event_miMarcaActionPerformed
 
     private void miUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miUnidadActionPerformed
         FormGestionarUnidad form = new FormGestionarUnidad(this, true);
+        escritorio.add(form);
+        form.toFront();
         form.setVisible(true);
     }//GEN-LAST:event_miUnidadActionPerformed
 
     private void miSolicitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSolicitanteActionPerformed
-       FormGestionarSolicitante form = new FormGestionarSolicitante(this, true);
-       form.setVisible(true);
+        FormGestionarSolicitante form = new FormGestionarSolicitante(this, true);
+        escritorio.add(form);
+        form.toFront();
+        form.setVisible(true);
     }//GEN-LAST:event_miSolicitanteActionPerformed
 
     private void miAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAreaActionPerformed
-        FormGestionarArea form = new FormGestionarArea(this,true);
+        FormGestionarArea form = new FormGestionarArea(this, true);
+        escritorio.add(form);
+        form.toFront();
         form.setVisible(true);
     }//GEN-LAST:event_miAreaActionPerformed
 

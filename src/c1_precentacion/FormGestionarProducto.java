@@ -32,7 +32,7 @@ import java.util.Calendar;
  *
  * @author Franz
  */
-public class FormGestionarProducto extends javax.swing.JDialog {
+public class FormGestionarProducto extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FormGestionarUnidad
@@ -43,8 +43,7 @@ public class FormGestionarProducto extends javax.swing.JDialog {
     private GestionarProductoServicio gu;
     private List<Producto> productos;
 
-    public FormGestionarProducto(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public FormGestionarProducto(java.awt.Frame parent, boolean modal) { 
         initComponents();
         mostrar();
         carga();
@@ -93,7 +92,9 @@ public class FormGestionarProducto extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
         setTitle("Administrador de Unidades");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Producto"));

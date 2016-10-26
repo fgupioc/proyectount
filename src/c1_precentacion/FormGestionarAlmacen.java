@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author Franz
  */
-public class FormGestionarAlmacen extends javax.swing.JDialog {
+public class FormGestionarAlmacen extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FormGestionarUnidad
@@ -24,8 +24,7 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
     private GestionarAlmacenServicio gu;
     private List<Almacen> almacens;
 
-    public FormGestionarAlmacen(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public FormGestionarAlmacen(java.awt.Frame parent, boolean modal) { 
         initComponents();
         mostrar();
         botones(false);
@@ -57,7 +56,9 @@ public class FormGestionarAlmacen extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
         setTitle("Administrador de Unidades");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Almacen"));

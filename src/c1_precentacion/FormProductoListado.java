@@ -44,8 +44,7 @@ public class FormProductoListado extends javax.swing.JDialog {
     private List<Producto> productos;
     private String tipoForm;
 
-    public FormProductoListado(java.awt.Frame parent, boolean modal, String tipo) {
-        super(parent, modal);
+    public FormProductoListado(String tipo) {       
         initComponents();
         mostrar("principal");
         tempProducto = new Producto();

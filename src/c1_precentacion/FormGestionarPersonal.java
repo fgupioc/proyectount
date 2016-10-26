@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  *
  * @author Franz
  */
-public class FormGestionarPersonal extends javax.swing.JDialog {
+public class FormGestionarPersonal extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FormGestionarPersonal
@@ -31,8 +31,7 @@ public class FormGestionarPersonal extends javax.swing.JDialog {
     private List<Personal> personales;
     private List<TipoPersonal> tipoPersonales;
 
-    public FormGestionarPersonal(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public FormGestionarPersonal(java.awt.Frame parent, boolean modal) { 
         initComponents();
         mostrar();
         cargarCargos();
@@ -77,7 +76,9 @@ public class FormGestionarPersonal extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
         setTitle("Administrador de Unidades");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidad"));

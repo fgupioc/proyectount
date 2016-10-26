@@ -33,19 +33,14 @@ public class MovimientoDAO implements IMovimientoDAO {
 
     @Override
     public boolean ingreso(Movimiento dts) throws SQLException {
-        mysql = "{call spIngresoArticulo(?,?,?,?,?,?,?,?,?,?,?)}";
+        mysql = "{call spIngresoArticulo(?,?,?,?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
         cst.setString(1, dts.getOperacion());
         cst.setTimestamp(2, dts.getFechaRegistro());
-        cst.setString(3, dts.getNumIngreso());
-        cst.setString(4, dts.getReferencia());
-        cst.setInt(5, dts.getCantidad());
-        cst.setString(6, dts.getUnidad());
-        cst.setString(7, dts.getMedida());
-        cst.setString(8, dts.getColor());
-        cst.setString(9, dts.getObservacion());
-        cst.setInt(10, dts.getPersonal().getIdpersonal());
-        cst.setInt(11, dts.getProducto().getId());
+        cst.setString(3, dts.getNumIngreso());         
+        cst.setInt(4, dts.getCantidad());          
+        cst.setInt(5, dts.getPersonal().getIdpersonal());
+        cst.setInt(6, dts.getProducto().getId());
         return (cst.executeUpdate() == 1) ? true : false;    
     }
 

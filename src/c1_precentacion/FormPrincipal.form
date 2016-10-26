@@ -40,7 +40,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Comic Sans MS" size="18" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Ingreso de Producto"/>
+                <Property name="text" type="java.lang.String" value="Ingreso (PECOSA)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiIngresoArticulosActionPerformed"/>
@@ -51,7 +51,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Comic Sans MS" size="18" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Salida de Producto"/>
+                <Property name="text" type="java.lang.String" value="Salida (MEMO)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiSalidaArticuloActionPerformed"/>

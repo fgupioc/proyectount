@@ -8,8 +8,7 @@ package c1_precentacion;
 import c2_aplicacion.GestionarMovimientoServicio;
 import c3_dominio.Configuracion;
 import c3_dominio.LoginUser;
-import c3_dominio.Movimiento;
-import c3_dominio.Personal;
+import c3_dominio.Movimiento; 
 import c3_dominio.Producto;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ import javax.swing.JOptionPane;
  *
  * @author Franz
  */
-public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
+public class FormGestionarIngresoArticulo extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FormGestionarUnidad
@@ -36,8 +35,7 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
     private List<Movimiento> templist = new ArrayList();
     private final LoginUser user = LoginUser.getInstancia();
 
-    public FormGestionarIngresoArticulo(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public FormGestionarIngresoArticulo(java.awt.Frame parent, boolean modal) {       
         initComponents();
         lblPersonal.setText(user.getPersonal().getNombre() + " " + user.getPersonal().getApellidoPaterno() + " " + user.getPersonal().getApellidoMaterno());
         mostrar(templist);
@@ -70,21 +68,10 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
         jspCantidad = new javax.swing.JSpinner();
         jLabel7 = new javax.swing.JLabel();
         lblPersonal = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        txtUnidad = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        txtMedida = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        txtColor = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
         btnAddArticulo = new javax.swing.JButton();
         btnRemoveArticulo = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        txtObservacion = new javax.swing.JTextArea();
         lblIdArticulo = new javax.swing.JLabel();
         lblindiceselect = new javax.swing.JLabel();
-        txtReferencia = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         listado = new javax.swing.JTable();
         lblNumRegistro = new javax.swing.JLabel();
@@ -92,7 +79,9 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
         setTitle("Administrador de Unidades");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidad"));
@@ -130,14 +119,6 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
 
         lblPersonal.setText("Personal");
 
-        jLabel8.setText("Unidad :");
-
-        jLabel9.setText("Medida :");
-
-        jLabel10.setText("Color :");
-
-        jLabel11.setText("Referencia : ");
-
         btnAddArticulo.setText("Agregar Producto");
         btnAddArticulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,12 +133,6 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
             }
         });
 
-        jLabel12.setText("Observacion :");
-
-        txtObservacion.setColumns(20);
-        txtObservacion.setRows(5);
-        jScrollPane3.setViewportView(txtObservacion);
-
         lblIdArticulo.setText("idarticulo");
 
         lblindiceselect.setText("indiceselect");
@@ -170,88 +145,61 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(362, 362, 362))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscarArticulo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(testoplano)
+                                .addGap(3, 3, 3)
+                                .addComponent(lblCodigoProducto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblArticulo))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(4, 4, 4)
+                                .addComponent(jspCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnAddArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addComponent(btnRemoveArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(114, 114, 114)
+                                .addComponent(lblPersonal)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnBuscarArticulo)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(testoplano)
-                                        .addGap(3, 3, 3)
-                                        .addComponent(lblCodigoProducto)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblArticulo))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(4, 4, 4)
-                                        .addComponent(jspCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnAddArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(40, 40, 40)
-                                        .addComponent(btnRemoveArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel11)
-                                            .addComponent(jLabel12))
-                                        .addGap(36, 36, 36)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblPersonal)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jScrollPane3)
-                                                .addComponent(txtReferencia)))))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lblId)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblIdArticulo)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lblindiceselect))
-                                    .addComponent(jLabel7))
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
+                                .addComponent(lblId)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNumIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(162, 162, 162)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtMedida)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
+                                .addComponent(lblIdArticulo)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblindiceselect))
+                            .addComponent(jLabel7))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNumIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblId)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(txtNumIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblIdArticulo)
-                        .addComponent(lblindiceselect)))
+                        .addComponent(lblindiceselect))
+                    .addComponent(lblId))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(lblPersonal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -260,19 +208,7 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
                     .addComponent(lblArticulo)
                     .addComponent(testoplano)
                     .addComponent(lblCodigoProducto))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(txtMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jspCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAddArticulo)
@@ -333,15 +269,15 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNumRegistro)
-                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(139, 139, 139)
+                        .addComponent(lblNumRegistro)
+                        .addGap(81, 81, 81)
                         .addComponent(btnNuevo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -352,13 +288,13 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNumRegistro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevo)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnCancelar))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNumRegistro)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnNuevo)
+                        .addComponent(btnGuardar)
+                        .addComponent(btnCancelar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -367,8 +303,7 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
     private void limpiar() {
         lblId.setText("id");
         lblIdArticulo.setText("idarticulo");
-        lblindiceselect.setText("indiceselect");
-        txtReferencia.setText("");
+        lblindiceselect.setText("indiceselect"); 
         limpiaradd();
         txtNumIngreso.setText("");
         txtNumIngreso.requestFocus();
@@ -379,21 +314,12 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
 
     private void limpiaradd() {
         lblCodigoProducto.setText("000");
-        lblArticulo.setText("Producto");
-        txtObservacion.setText("");
-        txtUnidad.setText("");
-        txtMedida.setText("");
-        txtColor.setText("");
+        lblArticulo.setText("Producto");  
         jspCantidad.setValue(0);
     }
 
     private void botones(boolean btn) {
-        txtNumIngreso.setEnabled(btn);
-        txtReferencia.setEnabled(btn);
-        txtObservacion.setEnabled(btn);
-        txtUnidad.setEnabled(btn);
-        txtMedida.setEnabled(btn);
-        txtColor.setEnabled(btn);
+        txtNumIngreso.setEnabled(btn); 
         jspCantidad.setEnabled(btn);
         btnCancelar.setEnabled(btn);
         btnNuevo.setEnabled(!btn);
@@ -459,14 +385,9 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
     private void listadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoMouseClicked
         int fila = listado.rowAtPoint(evt.getPoint());
         lblIdArticulo.setText(listado.getValueAt(fila, 0).toString());
-        jspCantidad.setValue(Integer.parseInt(listado.getValueAt(fila, 1).toString()));
-        txtUnidad.setText(listado.getValueAt(fila, 2).toString());
-        lblCodigoProducto.setText(listado.getValueAt(fila, 3).toString());
-        lblArticulo.setText(listado.getValueAt(fila, 4).toString());
-        txtReferencia.setText(listado.getValueAt(fila, 5).toString());
-        txtObservacion.setText(listado.getValueAt(fila, 6).toString());
-        txtMedida.setText(listado.getValueAt(fila, 7).toString());
-        txtColor.setText(listado.getValueAt(fila, 8).toString());
+        jspCantidad.setValue(Integer.parseInt(listado.getValueAt(fila, 1).toString())); 
+        lblCodigoProducto.setText(listado.getValueAt(fila, 2).toString());
+        lblArticulo.setText(listado.getValueAt(fila, 3).toString()); 
         lblindiceselect.setText(String.valueOf(listado.getSelectedRow()));
         this.rem = true;
     }//GEN-LAST:event_listadoMouseClicked
@@ -480,13 +401,8 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
                 Timestamp fecha = new Timestamp(calendar.getTime().getTime());
                 movimiento.setFechaRegistro(fecha);
                 Configuracion conf = new Configuracion();
-                movimiento.setNumIngreso(conf.generarCodigo(txtNumIngreso.getText().toUpperCase().trim()));
-                movimiento.setReferencia(txtReferencia.getText().trim());
-                movimiento.setCantidad(Integer.parseInt(jspCantidad.getValue().toString()));
-                movimiento.setUnidad(txtUnidad.getText().trim());
-                movimiento.setMedida(txtMedida.getText().trim());
-                movimiento.setColor(txtColor.getText().trim());
-                movimiento.setObservacion(txtObservacion.getText().trim());
+                movimiento.setNumIngreso(conf.generarCodigo(txtNumIngreso.getText().toUpperCase().trim())); 
+                movimiento.setCantidad(Integer.parseInt(jspCantidad.getValue().toString())); 
                 movimiento.setPersonal(user.getPersonal());
                 movimiento.setProducto(tempProducto);
                 templist.add(movimiento);
@@ -501,11 +417,13 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAddArticuloActionPerformed
 
     private void btnBuscarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarArticuloActionPerformed
-        FormProductoListado form = new FormProductoListado(null, false, "ingreso");
-        form.toFront();
+        FormProductoListado form = new FormProductoListado("ingreso");      
         tempProducto = new Producto();
         form.tempProducto = tempProducto;
-        form.setVisible(true);
+        form.toFront();
+        form.show();
+        
+         
     }//GEN-LAST:event_btnBuscarArticuloActionPerformed
 
     private void listadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoMousePressed
@@ -539,18 +457,12 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnRemoveArticulo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSpinner jspCantidad;
     public static javax.swing.JLabel lblArticulo;
     public static javax.swing.JLabel lblCodigoProducto;
@@ -561,11 +473,6 @@ public class FormGestionarIngresoArticulo extends javax.swing.JDialog {
     private javax.swing.JLabel lblindiceselect;
     private javax.swing.JTable listado;
     private javax.swing.JLabel testoplano;
-    private javax.swing.JTextField txtColor;
-    private javax.swing.JTextField txtMedida;
     private javax.swing.JTextField txtNumIngreso;
-    private javax.swing.JTextArea txtObservacion;
-    private javax.swing.JTextField txtReferencia;
-    private javax.swing.JTextField txtUnidad;
     // End of variables declaration//GEN-END:variables
 }

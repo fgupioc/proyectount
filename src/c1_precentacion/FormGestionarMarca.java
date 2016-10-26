@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author Franz
  */
-public class FormGestionarMarca extends javax.swing.JDialog {
+public class FormGestionarMarca extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FormGestionarUnidad
@@ -24,8 +24,7 @@ public class FormGestionarMarca extends javax.swing.JDialog {
     private GestionarMarcaServicio gu;
     private List<Marca> marcas;
     
-    public FormGestionarMarca(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public FormGestionarMarca(java.awt.Frame parent, boolean modal) {  
         initComponents();
         mostrar();
         botones(false);
@@ -57,7 +56,9 @@ public class FormGestionarMarca extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
         setTitle("Administrador de Unidades");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidad"));

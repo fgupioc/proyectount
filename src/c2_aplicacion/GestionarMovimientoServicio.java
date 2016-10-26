@@ -122,27 +122,18 @@ public class GestionarMovimientoServicio {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);
         model.addColumn("idArticulo"); 
-        model.addColumn("Cantidad");
-        model.addColumn("Unidad");
+        model.addColumn("Cantidad"); 
         model.addColumn("Codigo"); 
         model.addColumn("Articulo"); 
-        model.addColumn("referencia"); 
-        model.addColumn("obcervacion"); 
-        model.addColumn("medida"); 
-        model.addColumn("Color");  
+        
         
         model.setNumRows(movimientos.size());
         int i =0;
         for(Movimiento dts:movimientos){            
             model.setValueAt(dts.getProducto().getId(), i, 0);
-            model.setValueAt(dts.getCantidad(), i, 1);
-            model.setValueAt(dts.getUnidad(), i, 2); 
-            model.setValueAt(dts.getProducto().getCodigo(), i, 3);
-            model.setValueAt(dts.getProducto().getArticulo(), i, 4);
-            model.setValueAt(dts.getReferencia(), i, 5);
-            model.setValueAt(dts.getObservacion(), i, 6);
-            model.setValueAt(dts.getMedida(), i, 7);
-            model.setValueAt(dts.getColor(), i, 8);
+            model.setValueAt(dts.getCantidad(), i, 1); 
+            model.setValueAt(dts.getProducto().getCodigo(), i, 2);
+            model.setValueAt(dts.getProducto().getArticulo(), i, 3); 
             i++;
         }       
          listado.setModel(model);
@@ -156,25 +147,9 @@ public class GestionarMovimientoServicio {
         listado.getColumnModel().getColumn(1).setMaxWidth(60);
         listado.getColumnModel().getColumn(1).setMinWidth(60);
         listado.getColumnModel().getColumn(1).setPreferredWidth(60);
-        listado.getColumnModel().getColumn(2).setMaxWidth(50);
-        listado.getColumnModel().getColumn(2).setMinWidth(50);
-        listado.getColumnModel().getColumn(2).setPreferredWidth(50);
-        listado.getColumnModel().getColumn(3).setMaxWidth(80);
-        listado.getColumnModel().getColumn(3).setMinWidth(80);
-        listado.getColumnModel().getColumn(3).setPreferredWidth(80);
-        
-        listado.getColumnModel().getColumn(5).setMaxWidth(0);
-        listado.getColumnModel().getColumn(5).setMinWidth(0);
-        listado.getColumnModel().getColumn(5).setPreferredWidth(0);
-        listado.getColumnModel().getColumn(6).setMaxWidth(0);
-        listado.getColumnModel().getColumn(6).setMinWidth(0);
-        listado.getColumnModel().getColumn(6).setPreferredWidth(0);        
-        listado.getColumnModel().getColumn(7).setMaxWidth(0);
-        listado.getColumnModel().getColumn(7).setMinWidth(0);
-        listado.getColumnModel().getColumn(7).setPreferredWidth(0);
-        listado.getColumnModel().getColumn(8).setMaxWidth(0);
-        listado.getColumnModel().getColumn(8).setMinWidth(0);
-        listado.getColumnModel().getColumn(8).setPreferredWidth(0);
+        listado.getColumnModel().getColumn(2).setMaxWidth(60);
+        listado.getColumnModel().getColumn(2).setMinWidth(60);
+        listado.getColumnModel().getColumn(2).setPreferredWidth(60); 
     }
     public boolean addCantidad(Movimiento movimiento) throws Exception {
         boolean flag = false;

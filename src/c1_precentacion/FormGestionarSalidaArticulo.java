@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author Franz
  */
-public class FormGestionarSalidaArticulo extends javax.swing.JDialog {
+public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FormGestionarUnidad
@@ -39,8 +39,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JDialog {
     private List<Movimiento> templist = new ArrayList();
     private final LoginUser user = LoginUser.getInstancia();
 
-    public FormGestionarSalidaArticulo(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public FormGestionarSalidaArticulo(java.awt.Frame parent, boolean modal) { 
         initComponents();
         lblPersonal.setText(user.getPersonal().getNombre() + " " + user.getPersonal().getApellidoPaterno() + " " + user.getPersonal().getApellidoMaterno());
         mostrar(templist);
@@ -118,7 +117,9 @@ public class FormGestionarSalidaArticulo extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
         setTitle("Administrador de Unidades");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidad"));
@@ -700,7 +701,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAddArticuloActionPerformed
 
     private void btnBuscarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarArticuloActionPerformed
-        FormProductoListado form = new FormProductoListado(null, false, "salida");
+        FormProductoListado form = new FormProductoListado("salida");
         form.toFront();
         tempProducto = new Producto();
         form.tempProducto = tempProducto;
