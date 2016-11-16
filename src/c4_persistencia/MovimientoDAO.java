@@ -37,16 +37,16 @@ public class MovimientoDAO implements IMovimientoDAO {
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
         cst.setString(1, dts.getOperacion());
         cst.setTimestamp(2, dts.getFechaRegistro());
-        cst.setString(3, dts.getNumIngreso());         
-        cst.setInt(4, dts.getCantidad());          
+        cst.setString(3, dts.getNumIngreso());
+        cst.setInt(4, dts.getCantidad());
         cst.setInt(5, dts.getPersonal().getIdpersonal());
         cst.setInt(6, dts.getProducto().getId());
-        return (cst.executeUpdate() == 1) ? true : false;    
+        return (cst.executeUpdate() == 1) ? true : false;
     }
 
     @Override
     public boolean salida(Movimiento dts) throws SQLException {
-      mysql = "{call spSalidaProducto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+        mysql = "{call spSalidaProducto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
         cst.setString(1, dts.getOperacion());
         cst.setTimestamp(2, dts.getFechaRegistro());
@@ -54,28 +54,27 @@ public class MovimientoDAO implements IMovimientoDAO {
         cst.setString(4, dts.getNumExpediente());
         cst.setString(5, dts.getNumDocumento());
         cst.setString(6, dts.getAsunto());
-        cst.setString(7, dts.getAutoriza());
+        cst.setString(7, dts.getSolicitante());
         cst.setString(8, dts.getReferencia());
         cst.setInt(9, dts.getCantidad());
         cst.setString(10, dts.getModelo());
-        cst.setString(11, dts.getUnidad());
-        cst.setString(12, dts.getMedida());
-        cst.setString(13, dts.getColor());
-        cst.setString(14, dts.getNumSerie());
-        cst.setString(15, dts.getCodigoUnt());
-        cst.setString(16, dts.getCodigoSaneamiento());
-        cst.setString(17, dts.getObservacion()); 
-        cst.setInt(19, dts.getAutorizante().getId());
-        cst.setInt(20, dts.getPersonal().getIdpersonal());
-        cst.setInt(21, dts.getProducto().getId());
-        return (cst.executeUpdate() == 1) ? true : false;   
+        cst.setString(11, dts.getColor());
+        cst.setString(12, dts.getNumSerie());
+        cst.setString(13, dts.getCodigoUnt());
+        cst.setString(14, dts.getCodigoSaneamiento());
+        cst.setString(15, dts.getObservacion());
+        cst.setInt(16, dts.getAutorizante().getId());
+        cst.setInt(17, dts.getPersonal().getIdpersonal());
+        cst.setInt(18, dts.getProducto().getId());
+        return (cst.executeUpdate() == 1) ? true : false;
     }
+
     @Override
     public boolean addCantidaProducto(Movimiento dts) throws SQLException {
-        mysql = "{call spAddArticulo(?,?,?)}"; 
+        mysql = "{call spAddArticulo(?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
         cst.setInt(1, dts.getProducto().getId());
-        cst.setString(2,dts.getProducto().getCodigo());
+        cst.setString(2, dts.getProducto().getCodigo());
         cst.setInt(3, dts.getCantidad());
         return (cst.executeUpdate() == 1) ? true : false;
     }
@@ -84,11 +83,12 @@ public class MovimientoDAO implements IMovimientoDAO {
     public boolean removeCantidaProducto(Movimiento dts) throws SQLException {
         mysql = "{call spRemoveArticulo(?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
-         cst.setInt(1, dts.getProducto().getId());
-        cst.setString(2,dts.getProducto().getCodigo());
+        cst.setInt(1, dts.getProducto().getId());
+        cst.setString(2, dts.getProducto().getCodigo());
         cst.setInt(3, dts.getCantidad());
         return (cst.executeUpdate() == 1) ? true : false;
     }
+
     @Override
     public List<Movimiento> Listar() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

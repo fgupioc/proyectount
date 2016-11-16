@@ -106,7 +106,17 @@ public class GestionarAutorizanteServicio {
         gestorJDBC.cerrarConexion();
         return autorizantes;
     }
-
+    public Autorizante obtenerId(List<Autorizante> autorizantes, String nombre) {
+        autorizante = new Autorizante();
+        int id = 0;
+        for (Autorizante tipo : autorizantes) { 
+            if (tipo.getDescripcion().equals(nombre)) {
+                autorizante.setId(tipo.getId());
+                autorizante.setDescripcion(tipo.getDescripcion()); 
+            }
+        }
+        return autorizante;
+    }
     public void llenarLista(JTable listado, List<Autorizante> autorizantes) throws Exception {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);

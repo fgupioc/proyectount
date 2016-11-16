@@ -32,7 +32,7 @@ import java.util.Calendar;
  *
  * @author Franz
  */
-public class FormProductoListado extends javax.swing.JDialog {
+public class FormProductoListado extends javax.swing.JInternalFrame  {
 
     /**
      * Creates new form FormGestionarUnidad
@@ -44,7 +44,7 @@ public class FormProductoListado extends javax.swing.JDialog {
     private List<Producto> productos;
     private String tipoForm;
 
-    public FormProductoListado(String tipo) {       
+    public FormProductoListado(java.awt.Frame parent, boolean modal,String tipo) {       
         initComponents();
         mostrar("principal");
         tempProducto = new Producto();
@@ -72,7 +72,9 @@ public class FormProductoListado extends javax.swing.JDialog {
         jRadioButton2 = new javax.swing.JRadioButton();
         jComboBox1 = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
         setTitle("Administrador de Unidades");
 
         listado.setModel(new javax.swing.table.DefaultTableModel(
@@ -165,7 +167,7 @@ public class FormProductoListado extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jRadioButton2))
                             .addComponent(txtBuscar))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,7 +177,7 @@ public class FormProductoListado extends javax.swing.JDialog {
                     .addComponent(jLabel7)
                     .addComponent(rbtPrincipal)
                     .addComponent(jRadioButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -212,7 +214,9 @@ public class FormProductoListado extends javax.swing.JDialog {
 
 
     private void btnAddnewProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddnewProductActionPerformed
-       FormGestionarProducto form = new FormGestionarProducto(null,false);
+       FormGestionarTipoPersonal form = new FormGestionarTipoPersonal(null, true);
+       FormPrincipal.escritorio.add(form);
+       form.toFront();
        form.setVisible(true);
     }//GEN-LAST:event_btnAddnewProductActionPerformed
 
@@ -245,7 +249,7 @@ public class FormProductoListado extends javax.swing.JDialog {
             tempProducto.setId(Integer.parseInt(listado.getValueAt(fila, 0).toString()));
             tempProducto.setCodigo(listado.getValueAt(fila, 1).toString());
             tempProducto.setArticulo(listado.getValueAt(fila, 2).toString());
-            tempProducto.setCantidad(Integer.parseInt(listado.getValueAt(fila, 5).toString()));
+            tempProducto.setCantidad(Integer.parseInt(listado.getValueAt(fila, 4).toString())); 
             if (tipoForm.equals("ingreso")) {
                 FormGestionarIngresoArticulo.lblCodigoProducto.setText(listado.getValueAt(fila, 1).toString());
                 FormGestionarIngresoArticulo.lblArticulo.setText(listado.getValueAt(fila, 2).toString());
@@ -254,7 +258,9 @@ public class FormProductoListado extends javax.swing.JDialog {
             } else if (tipoForm.equals("salida")) {
                 FormGestionarSalidaArticulo.lblCodigoProducto.setText(listado.getValueAt(fila, 1).toString());
                 FormGestionarSalidaArticulo.lblArticulo.setText(listado.getValueAt(fila, 2).toString());
-                FormGestionarSalidaArticulo.lblProductoCantidad.setText(listado.getValueAt(fila, 5).toString());
+                FormGestionarSalidaArticulo.lblProductoCantidad.setText(listado.getValueAt(fila, 4).toString());
+                FormGestionarSalidaArticulo.txtMarca.setText(listado.getValueAt(fila, 8).toString());
+                FormGestionarSalidaArticulo.txtUnidad.setText(listado.getValueAt(fila, 10).toString());
                 FormGestionarSalidaArticulo.tempProducto = tempProducto;
                  this.setVisible(false);
             } else {

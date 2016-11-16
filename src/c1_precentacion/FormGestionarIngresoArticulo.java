@@ -90,7 +90,7 @@ public class FormGestionarIngresoArticulo extends javax.swing.JInternalFrame {
 
         lblId.setText("id");
 
-        jLabel2.setText("Num :");
+        jLabel2.setText("Nº Pecosa :");
 
         txtNumIngreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -417,7 +417,8 @@ public class FormGestionarIngresoArticulo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAddArticuloActionPerformed
 
     private void btnBuscarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarArticuloActionPerformed
-        FormProductoListado form = new FormProductoListado("ingreso");      
+        FormProductoListado form = new FormProductoListado(null,true,"ingreso");  
+        FormPrincipal.escritorio.add(form);
         tempProducto = new Producto();
         form.tempProducto = tempProducto;
         form.toFront();

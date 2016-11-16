@@ -66,6 +66,7 @@ public class ProductoDAO implements IProductoDAO {
             producto.setCodigo(rs.getString("codigo"));
             producto.setArticulo(rs.getString("articulo")); 
             producto.setFechaRegistro(rs.getTimestamp("fechaRegistro")); 
+            producto.setCantidad(rs.getInt("cantidad")); 
             producto.setEstado(rs.getInt("estado"));
             rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
             while (rs3.next()) {
@@ -153,7 +154,8 @@ public class ProductoDAO implements IProductoDAO {
             producto.setId(rs.getInt("id"));
             producto.setCodigo(rs.getString("codigo"));
             producto.setArticulo(rs.getString("articulo")); 
-            producto.setFechaRegistro(rs.getTimestamp("fechaRegistro")); 
+            producto.setFechaRegistro(rs.getTimestamp("fechaRegistro"));
+            producto.setCantidad(rs.getInt("cantidad")); 
             producto.setEstado(rs.getInt("estado"));
             rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
             while (rs3.next()) {
@@ -229,6 +231,7 @@ public class ProductoDAO implements IProductoDAO {
             producto.setCodigo(rs.getString("codigo"));
             producto.setArticulo(rs.getString("articulo")); 
             producto.setFechaRegistro(rs.getTimestamp("fechaRegistro")); 
+            producto.setCantidad(rs.getInt("cantidad")); 
             producto.setEstado(rs.getInt("estado"));
             rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
             while (rs3.next()) {
@@ -294,7 +297,8 @@ public class ProductoDAO implements IProductoDAO {
             producto.setId(rs.getInt("id"));
             producto.setCodigo(rs.getString("codigo"));
             producto.setArticulo(rs.getString("articulo")); 
-            producto.setFechaRegistro(rs.getTimestamp("fechaRegistro")); 
+            producto.setFechaRegistro(rs.getTimestamp("fechaRegistro"));
+            producto.setCantidad(rs.getInt("cantidad")); 
             producto.setEstado(rs.getInt("estado"));
             rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
             while (rs3.next()) {

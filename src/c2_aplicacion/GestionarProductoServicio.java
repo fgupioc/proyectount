@@ -132,6 +132,7 @@ public class GestionarProductoServicio {
         model.addColumn("Codigo");
         model.addColumn("Producto"); 
         model.addColumn("Registro");
+        model.addColumn("Cantidad");
         model.addColumn("estado");
         model.addColumn("Categoria");
         model.addColumn("Tipo");
@@ -146,12 +147,13 @@ public class GestionarProductoServicio {
             model.setValueAt(dts.getCodigo(), i, 1);
             model.setValueAt(dts.getArticulo(), i, 2); 
             model.setValueAt(dts.getFechaRegistro(), i, 3);
-            model.setValueAt(dts.getEstado(), i, 4);
-            model.setValueAt(dts.getCategoria().getDescripcion(), i, 5);
-            model.setValueAt(dts.getTipoProducto().getDescripcion(), i, 6);
-            model.setValueAt(dts.getMarca().getDescripcion(), i, 7);
-            model.setValueAt(dts.getAlmacen().getDescripcion(), i, 8);
-            model.setValueAt(dts.getUnidad().getDescripcion(), i, 9);
+            model.setValueAt(dts.getCantidad(), i, 4);
+            model.setValueAt(dts.getEstado(), i, 5);
+            model.setValueAt(dts.getCategoria().getDescripcion(), i, 6);
+            model.setValueAt(dts.getTipoProducto().getDescripcion(), i, 7);
+            model.setValueAt(dts.getMarca().getDescripcion(), i, 8);
+            model.setValueAt(dts.getAlmacen().getDescripcion(), i, 9);
+            model.setValueAt(dts.getUnidad().getDescripcion(), i, 10);
             i++;
         }
         listado.setModel(model);
@@ -181,11 +183,7 @@ public class GestionarProductoServicio {
 
         listado.getColumnModel().getColumn(3).setMaxWidth(0);
         listado.getColumnModel().getColumn(3).setMinWidth(0);
-        listado.getColumnModel().getColumn(3).setPreferredWidth(0);
-
-        listado.getColumnModel().getColumn(4).setMaxWidth(0);
-        listado.getColumnModel().getColumn(4).setMinWidth(0);
-        listado.getColumnModel().getColumn(4).setPreferredWidth(0);
+        listado.getColumnModel().getColumn(3).setPreferredWidth(0); 
 
         listado.getColumnModel().getColumn(5).setMaxWidth(0);
         listado.getColumnModel().getColumn(5).setMinWidth(0);
@@ -206,6 +204,10 @@ public class GestionarProductoServicio {
         listado.getColumnModel().getColumn(9).setMaxWidth(0);
         listado.getColumnModel().getColumn(9).setMinWidth(0);
         listado.getColumnModel().getColumn(9).setPreferredWidth(0); 
+        
+        listado.getColumnModel().getColumn(10).setMaxWidth(0);
+        listado.getColumnModel().getColumn(10).setMinWidth(0);
+        listado.getColumnModel().getColumn(10).setPreferredWidth(0); 
     }
 
     public boolean buscarProductoList(List<Producto> productos, String nombre) {

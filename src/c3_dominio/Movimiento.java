@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 public class Movimiento {
 private int id,estado,cantidad;;
-private String unidad ,autoriza,referencia,modelo,medida,color,numSerie,codigo,operacion,numIngreso,numSalida,numExpediente,numDocumento,asunto,codigoUnt,codigoSaneamiento,observacion;
+private String unidad ,solicitante,referencia,modelo,medida,color,numSerie,codigo,operacion,numIngreso,numSalida,numExpediente,numDocumento,asunto,codigoUnt,codigoSaneamiento,observacion;
 private Timestamp fechaRegistro; 
 private Autorizante autorizante;
 private Personal personal;
@@ -14,12 +14,12 @@ private Producto producto;
     public Movimiento() {
     }
 
-    public Movimiento(int id, int estado, int cantidad, String unidad,String autoriza, String referencia, String modelo, String medida, String color, String numSerie, String codigo, String operacion, String numIngreso, String numSalida, String numExpediente, String numDocumento, String asunto, String codigoUnt, String codigoSaneamiento, String observacion, Timestamp fechaRegistro,Autorizante autorizante, Personal personal, Producto producto) {
+    public Movimiento(int id, int estado, int cantidad, String unidad,String solicitante, String referencia, String modelo, String medida, String color, String numSerie, String codigo, String operacion, String numIngreso, String numSalida, String numExpediente, String numDocumento, String asunto, String codigoUnt, String codigoSaneamiento, String observacion, Timestamp fechaRegistro,Autorizante autorizante, Personal personal, Producto producto) {
         this.id = id;
         this.estado = estado;
         this.cantidad = cantidad;
         this.unidad = unidad;
-        this.autoriza = autoriza;
+        this.solicitante = solicitante;
         this.referencia = referencia;
         this.modelo = modelo;
         this.medida = medida;
@@ -82,14 +82,14 @@ private Producto producto;
         this.cantidad = cantidad;
     }
 
-    public String getAutoriza() {
-        return autoriza;
+    public String getSolicitante() {
+        return solicitante;
     }
 
-    public void setAutoriza(String autoriza) {
-        this.autoriza = autoriza;
+    public void setSolicitante(String solicitante) {
+        this.solicitante = solicitante;
     }
-
+  
     public String getReferencia() {
         return referencia;
     }
