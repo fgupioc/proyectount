@@ -4,17 +4,18 @@ package c3_dominio;
 import java.sql.Timestamp;
 
 public class Movimiento {
-private int id,estado,cantidad;;
+private int id,estado,cantidad;
 private String unidad ,solicitante,referencia,modelo,medida,color,numSerie,codigo,operacion,numIngreso,numSalida,numExpediente,numDocumento,asunto,codigoUnt,codigoSaneamiento,observacion;
 private Timestamp fechaRegistro; 
 private Autorizante autorizante;
 private Personal personal;
 private Producto producto;
+private Area area;
 
     public Movimiento() {
     }
 
-    public Movimiento(int id, int estado, int cantidad, String unidad,String solicitante, String referencia, String modelo, String medida, String color, String numSerie, String codigo, String operacion, String numIngreso, String numSalida, String numExpediente, String numDocumento, String asunto, String codigoUnt, String codigoSaneamiento, String observacion, Timestamp fechaRegistro,Autorizante autorizante, Personal personal, Producto producto) {
+    public Movimiento(int id, int estado, int cantidad, String unidad,String solicitante, String referencia, String modelo, String medida, String color, String numSerie, String codigo, String operacion, String numIngreso, String numSalida, String numExpediente, String numDocumento, String asunto, String codigoUnt, String codigoSaneamiento, String observacion, Timestamp fechaRegistro,Autorizante autorizante, Personal personal, Producto producto,Area area) {
         this.id = id;
         this.estado = estado;
         this.cantidad = cantidad;
@@ -39,6 +40,7 @@ private Producto producto;
         this.autorizante = autorizante;
         this.personal = personal;
         this.producto = producto;
+        this.area = area;
     }
 
     public String getNumIngreso() {
@@ -232,6 +234,14 @@ private Producto producto;
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
     }
     
     

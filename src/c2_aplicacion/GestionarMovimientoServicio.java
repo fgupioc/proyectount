@@ -60,63 +60,63 @@ public class GestionarMovimientoServicio {
         gestorJDBC.cerrarConexion();
         return flag;
     }
-    public List<Movimiento> listar()throws Exception{
-        movimientos = new ArrayList();
-        gestorJDBC.abrirConexion();
-        try {
-            gestorJDBC.iniciarTransaccion();
-            movimientos = movimientoDAO.Listar();
-            gestorJDBC.terminarTransaccion();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-            gestorJDBC.cancelarTransaccion();
-        }
-        gestorJDBC.cerrarConexion();
-        return movimientos;
-    }
-    public boolean editar(Movimiento movimiento)throws Exception{
-        boolean flag = false;
-        gestorJDBC.abrirConexion();
-        try {
-            gestorJDBC.iniciarTransaccion();
-            flag = movimientoDAO.editar(movimiento);
-            gestorJDBC.terminarTransaccion();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-            gestorJDBC.cancelarTransaccion();
-        }
-        gestorJDBC.cerrarConexion();
-        return flag;  
-    }
-    public boolean eliminar(Movimiento movimiento)throws Exception{
-        boolean flag = false;
-        gestorJDBC.abrirConexion();
-        try {
-            gestorJDBC.iniciarTransaccion();
-            flag = movimientoDAO.eliminar(movimiento);
-            gestorJDBC.terminarTransaccion();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-            gestorJDBC.cancelarTransaccion();
-        }
-        gestorJDBC.cerrarConexion();
-        return flag;
-    }
-    
-    public List<Movimiento> buscarNombre(Movimiento movimiento) throws Exception{
-        movimientos = new ArrayList();
-        gestorJDBC.abrirConexion();
-        try {
-            gestorJDBC.iniciarTransaccion();
-            movimientos = movimientoDAO.buscarNombre(movimiento);
-            gestorJDBC.terminarTransaccion();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-            gestorJDBC.cancelarTransaccion();
-        }
-        gestorJDBC.cerrarConexion();
-        return movimientos;
-    }
+//    public List<Movimiento> listar()throws Exception{
+//        movimientos = new ArrayList();
+//        gestorJDBC.abrirConexion();
+//        try {
+//            gestorJDBC.iniciarTransaccion();
+//            movimientos = movimientoDAO.Listar();
+//            gestorJDBC.terminarTransaccion();
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//            gestorJDBC.cancelarTransaccion();
+//        }
+//        gestorJDBC.cerrarConexion();
+//        return movimientos;
+//    }
+//    public boolean editar(Movimiento movimiento)throws Exception{
+//        boolean flag = false;
+//        gestorJDBC.abrirConexion();
+//        try {
+//            gestorJDBC.iniciarTransaccion();
+//            flag = movimientoDAO.editar(movimiento);
+//            gestorJDBC.terminarTransaccion();
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//            gestorJDBC.cancelarTransaccion();
+//        }
+//        gestorJDBC.cerrarConexion();
+//        return flag;  
+//    }
+//    public boolean eliminar(Movimiento movimiento)throws Exception{
+//        boolean flag = false;
+//        gestorJDBC.abrirConexion();
+//        try {
+//            gestorJDBC.iniciarTransaccion();
+//            flag = movimientoDAO.eliminar(movimiento);
+//            gestorJDBC.terminarTransaccion();
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//            gestorJDBC.cancelarTransaccion();
+//        }
+//        gestorJDBC.cerrarConexion();
+//        return flag;
+//    }
+//    
+//    public List<Movimiento> buscarNombre(Movimiento movimiento) throws Exception{
+//        movimientos = new ArrayList();
+//        gestorJDBC.abrirConexion();
+//        try {
+//            gestorJDBC.iniciarTransaccion();
+//            movimientos = movimientoDAO.buscarNombre(movimiento);
+//            gestorJDBC.terminarTransaccion();
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//            gestorJDBC.cancelarTransaccion();
+//        }
+//        gestorJDBC.cerrarConexion();
+//        return movimientos;
+//    }
     
    public void llenarLista(JTable listado, List<Movimiento> movimientos) throws Exception {
         DefaultTableModel model = new DefaultTableModel();
@@ -179,7 +179,7 @@ public class GestionarMovimientoServicio {
         gestorJDBC.cerrarConexion();
         return flag;
     }
-    
+   
 //    public boolean buscarMovimientoList(List<Movimiento> movimientos, String nombre){
 //        boolean flag = false; 
 //        for(Movimiento dt:movimientos){           
@@ -192,5 +192,32 @@ public class GestionarMovimientoServicio {
 //        }        
 //        return flag;
 //    }
-    
+     public DefaultTableModel consultaArea(String value)throws Exception{
+         DefaultTableModel modelo = new DefaultTableModel(); 
+        gestorJDBC.abrirConexion();
+        try {
+            gestorJDBC.iniciarTransaccion();
+            modelo = movimientoDAO.consultaArea(value);
+            gestorJDBC.terminarTransaccion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            gestorJDBC.cancelarTransaccion();
+        }
+        gestorJDBC.cerrarConexion();
+        return modelo;
+    }
+      public DefaultTableModel consultaProductoMovimiento(String codigo)throws Exception{
+         DefaultTableModel modelo = new DefaultTableModel(); 
+        gestorJDBC.abrirConexion();
+        try {
+            gestorJDBC.iniciarTransaccion();
+            modelo = movimientoDAO.consultaProductoMovimiento(codigo);
+            gestorJDBC.terminarTransaccion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            gestorJDBC.cancelarTransaccion();
+        }
+        gestorJDBC.cerrarConexion();
+        return modelo;
+    }
 }

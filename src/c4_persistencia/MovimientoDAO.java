@@ -12,7 +12,9 @@ import c4_persistenciaConexion.GestorJDBC;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -46,7 +48,7 @@ public class MovimientoDAO implements IMovimientoDAO {
 
     @Override
     public boolean salida(Movimiento dts) throws SQLException {
-        mysql = "{call spSalidaProducto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+        mysql = "{call spSalidaProducto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
         cst.setString(1, dts.getOperacion());
         cst.setTimestamp(2, dts.getFechaRegistro());
@@ -66,6 +68,7 @@ public class MovimientoDAO implements IMovimientoDAO {
         cst.setInt(16, dts.getAutorizante().getId());
         cst.setInt(17, dts.getPersonal().getIdpersonal());
         cst.setInt(18, dts.getProducto().getId());
+        cst.setInt(19, dts.getArea().getId());
         return (cst.executeUpdate() == 1) ? true : false;
     }
 
@@ -87,26 +90,41 @@ public class MovimientoDAO implements IMovimientoDAO {
         cst.setString(2, dts.getProducto().getCodigo());
         cst.setInt(3, dts.getCantidad());
         return (cst.executeUpdate() == 1) ? true : false;
+    } 
+    @Override
+    public DefaultTableModel consultaArea(String value) throws Exception {
+        DefaultTableModel modelo;
+        String[] titulos = {"Memo", "Solicitante"};
+        String[] registros = new String[2];
+        modelo = new DefaultTableModel(null, titulos); 
+        mysql ="{call spConsutaArea('"+value+"')}";
+        rs = gestorJDBC.ejecutarProcedimiento(mysql);
+        while (rs.next()) {
+            registros[0] = rs.getString("numMemo");
+            registros[1] = rs.getString("solicitante");
+            modelo.addRow(registros);
+        }
+        return modelo;
     }
 
     @Override
-    public List<Movimiento> Listar() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean editar(Movimiento movimiento) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean eliminar(Movimiento movimiento) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Movimiento> buscarNombre(Movimiento movimiento) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public DefaultTableModel consultaProductoMovimiento(String codigo) throws Exception {
+        DefaultTableModel modelo; 
+        String[] titulos ={"Codigo","Articulo","Operacion","Cantidad","Fecha","Solicitante"};
+        String[] registros = new String[6];
+        modelo = new DefaultTableModel(null, titulos);
+        mysql ="{call spConsultaProductoMovimiento('"+codigo+"')}";
+        rs = gestorJDBC.ejecutarProcedimiento(mysql);
+        while (rs.next()) {
+            registros[0] = rs.getString("codigo");
+            registros[1] = rs.getString("articulo");
+            registros[2] = rs.getString("operacion");
+            registros[3] = rs.getString("cantidad");
+            registros[4] = rs.getString("fechaRegistro");
+            registros[5] = rs.getString("solicitante");
+            modelo.addRow(registros);
+        }
+        return modelo;
     }
 
 }

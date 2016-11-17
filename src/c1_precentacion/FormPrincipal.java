@@ -47,7 +47,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         miCargos = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         miAutorizante = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        miArea = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -183,10 +187,43 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jMenu2.add(jMenu7);
 
+        jMenu8.setText("Area");
+        jMenu8.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+
+        miArea.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        miArea.setText("Area");
+        miArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAreaActionPerformed(evt);
+            }
+        });
+        jMenu8.add(miArea);
+
+        jMenu2.add(jMenu8);
+
         menuBar.add(jMenu2);
 
         jMenu3.setText("Consultas");
         jMenu3.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
+
+        jMenuItem1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jMenuItem1.setText("Area");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        jMenuItem2.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jMenuItem2.setText("Producto");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem2);
+
         menuBar.add(jMenu3);
 
         jMenu4.setText("Reportes");
@@ -284,6 +321,27 @@ public class FormPrincipal extends javax.swing.JFrame {
         form.setVisible(true);
     }//GEN-LAST:event_miAutorizanteActionPerformed
 
+    private void miAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAreaActionPerformed
+        FormGestionarArea form = new FormGestionarArea(this, true);
+        escritorio.add(form);
+        form.toFront();
+        form.setVisible(true);
+    }//GEN-LAST:event_miAreaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+         FormConsultaPorArea form = new FormConsultaPorArea(this, true);
+        escritorio.add(form);
+        form.toFront();
+        form.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+         FormConsultaPorProducto form = new FormConsultaPorProducto(this, true,"");
+        escritorio.add(form);
+        form.toFront();
+        form.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -328,12 +386,16 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jmiIngresoArticulos;
     private javax.swing.JMenuItem jmiSalidaArticulo;
     private javax.swing.JMenu jmiSalidaProducto;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem miAlmacen;
     private javax.swing.JMenu miArchivo;
+    private javax.swing.JMenuItem miArea;
     private javax.swing.JMenuItem miAutorizante;
     private javax.swing.JMenuItem miCargos;
     private javax.swing.JMenuItem miCategoria;

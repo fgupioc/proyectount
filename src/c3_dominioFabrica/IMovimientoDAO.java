@@ -9,6 +9,7 @@ import c3_dominio.Movimiento;
 import c3_dominio.Producto;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,9 +19,7 @@ public interface IMovimientoDAO {
     public boolean ingreso(Movimiento movimiento) throws SQLException;
     public boolean salida(Movimiento movimiento) throws SQLException;    
     public boolean addCantidaProducto(Movimiento movimiento) throws SQLException;
-    public boolean removeCantidaProducto(Movimiento movimiento) throws SQLException;
-    public List<Movimiento> Listar() throws SQLException; 
-    public boolean editar(Movimiento movimiento) throws SQLException;
-    public boolean eliminar(Movimiento movimiento) throws SQLException;
-    public List<Movimiento> buscarNombre(Movimiento movimiento) throws Exception;  
+    public boolean removeCantidaProducto(Movimiento movimiento) throws SQLException;   
+    public DefaultTableModel consultaArea(String value) throws Exception ;
+    public DefaultTableModel consultaProductoMovimiento(String codigo) throws Exception ;
 }
