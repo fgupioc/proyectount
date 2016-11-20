@@ -10,7 +10,7 @@ package c1_precentacion;
  * @author Franz
  */
 import c2_aplicacion.GestionarConfiguracionServicio;
-import c3_dominio.Configuracion; 
+import c3_dominio.Host; 
 import javax.swing.JOptionPane;
 
 public class FormConfigurarHost extends javax.swing.JFrame {
@@ -152,7 +152,7 @@ public class FormConfigurarHost extends javax.swing.JFrame {
                 if (!txtUsuario.getText().equals("")) {
                     try {
                         GestionarConfiguracionServicio conf = new GestionarConfiguracionServicio();
-                        Configuracion dts = new Configuracion();
+                        Host dts = new Host();
                         dts.setHost(txtHost.getText().trim());
                         dts.setDb(txtDataBase.getText().trim());
                         dts.setUser(txtUsuario.getText().trim());

@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package c1_precentacion;
-
-import c2_aplicacion.GestionarProductoServicio;
+ 
 import c2_aplicacion.GestionarMovimientoServicio;
 import c3_dominio.Producto;
 import java.util.List;

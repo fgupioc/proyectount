@@ -4,15 +4,9 @@
  * and open the template in the editor.
  */
 package c1_precentacion;
-
-import c2_aplicacion.GestionarConfiguracionServicio;
+ 
 import c2_aplicacion.GestionarPersonalServicio;
-import c3_dominio.Configuracion;
-import c3_dominio.Personal;
-import c3_dominio.LoginUser;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import c3_dominio.LoginUser; 
 import javax.swing.JOptionPane;
 
 /**
@@ -25,8 +19,8 @@ public class FormLogin extends javax.swing.JFrame {
      * Creates new form FormLogin
      */
     public FormLogin() {
-        initComponents();
-        setLocationRelativeTo(null);
+        initComponents(); 
+        this.setLocationRelativeTo(null);
     }
 
     /**

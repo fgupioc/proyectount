@@ -8,12 +8,12 @@ package c1_precentacion;
 import c2_aplicacion.GestionarAreaServicio;
 import c2_aplicacion.GestionarAutorizanteServicio;
 import c2_aplicacion.GestionarMovimientoServicio;
-import c3_dominio.Area;
-import c3_dominio.Configuracion;
+import c3_dominio.Area; 
 import c3_dominio.LoginUser;
 import c3_dominio.Movimiento;
 import c3_dominio.Producto;
 import c3_dominio.Autorizante;
+import config.MyConfig;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -119,6 +119,9 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtCabecera = new javax.swing.JTextArea();
+        jLabel19 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -495,6 +498,12 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
             }
         });
 
+        txtCabecera.setColumns(20);
+        txtCabecera.setRows(5);
+        jScrollPane1.setViewportView(txtCabecera);
+
+        jLabel19.setText("Cabecera : ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -510,31 +519,36 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(254, 254, 254)
-                                .addComponent(lblNumRegistro))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblNumRegistro)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19))))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblNumRegistro))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNumRegistro)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo)
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -551,6 +565,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         lblSolicitante.setText("nombre");
         txtAsunto.setText("");
         txtReferencia.setText("");
+        txtCabecera.setText("");
         cboAutorizante.setSelectedIndex(0);
         cboArea.setSelectedIndex(0);
         limpiaradd();
@@ -584,6 +599,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         txtSolicitante.setEnabled(btn);
         txtAsunto.setEnabled(btn);
         txtReferencia.setEnabled(btn);
+        txtCabecera.setEnabled(btn);
         txtObservacion.setEnabled(btn);
         txtUnidad.setEnabled(btn);
         txtMarca.setEnabled(btn);
@@ -640,10 +656,10 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                 try {
                     gu = new GestionarMovimientoServicio();
                     if (flag.equals("Guardar")) {
-                        for (Movimiento dts : templist) { 
-                            gu.removeCantidad(dts);
+                        for (Movimiento dts : templist) {                             
                             if (gu.insertarSalida(dts)) {
-                                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+                                gu.removeCantidad(dts);
+                                JOptionPane.showMessageDialog(null, "Guardado correctamente");                                
                             } else {
                                 JOptionPane.showMessageDialog(null, "No se pudo guardar");
                             }
@@ -700,9 +716,8 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                             movimiento.setOperacion("salida");
                             Calendar calendar = Calendar.getInstance();
                             Timestamp fecha = new Timestamp(calendar.getTime().getTime());
-                            movimiento.setFechaRegistro(fecha);
-                            Configuracion conf = new Configuracion();
-                            movimiento.setNumSalida(conf.generarCodigo(txtNumSalida.getText().toUpperCase().trim()));
+                            movimiento.setFechaRegistro(fecha); 
+                            movimiento.setNumSalida(MyConfig.getGenerarCodigo(txtNumSalida.getText().toUpperCase().trim()));
                             movimiento.setNumExpediente(txtNumExpediente.getText().trim());
                             movimiento.setNumDocumento(txtNumDocumento.getText().trim());
                             movimiento.setAsunto(txtAsunto.getText().trim());
@@ -716,6 +731,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                             movimiento.setNumSerie(txtSerie.getText().trim());
                             movimiento.setCodigoUnt(txtCodUnt.getText().trim());
                             movimiento.setCodigoSaneamiento(txtCodSaneamiento.getText().trim());
+                            movimiento.setCabecera(txtCabecera.getText().trim());
                             movimiento.setObservacion(txtObservacion.getText().trim());
                             GestionarAutorizanteServicio gas = new GestionarAutorizanteServicio();
                             movimiento.setAutorizante(gas.obtenerId(gas.listar(),cboAutorizante.getSelectedItem().toString()));
@@ -788,6 +804,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
@@ -800,6 +817,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSpinner jspCantidad;
@@ -815,6 +833,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
     private javax.swing.JTable listado;
     private javax.swing.JLabel testoplano;
     private javax.swing.JTextField txtAsunto;
+    private javax.swing.JTextArea txtCabecera;
     private javax.swing.JTextField txtCodSaneamiento;
     private javax.swing.JTextField txtCodUnt;
     private javax.swing.JTextField txtColor;

@@ -5,7 +5,8 @@
  */
 package c2_aplicacion;
 
-import c3_dominio.Configuracion;
+import c3_dominio.Host;
+import config.MyConfig;
 import c3_dominioFabrica.FabricaAbstractaDAO;
 import c4_persistenciaConexion.GestorJDBC;
 
@@ -29,15 +30,15 @@ import org.w3c.dom.Element;
 public class GestionarConfiguracionServicio {
 
     private GestorJDBC gestorJDBC;
-    private Configuracion configuracion;
-    Configuracion conf;
+    private Host configuracion;
+    Host conf;
 
     public GestionarConfiguracionServicio() {
         FabricaAbstractaDAO fabricaAbstractaDAO = FabricaAbstractaDAO.getInstancia();
         gestorJDBC = fabricaAbstractaDAO.crearGestorJDBC();
     }
 
-    public boolean guardar(Configuracion conf) {
+    public boolean guardar(Host conf) {
         boolean flag = false;
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -69,9 +70,9 @@ public class GestionarConfiguracionServicio {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            conf = new Configuracion();
-            StreamResult result = new StreamResult(new File(conf.directorioUrl()));
-
+            conf = new Host();
+            //StreamResult result = new StreamResult(new File(conf.directorioUrl()));
+            StreamResult result = new StreamResult(new File(MyConfig.getRutaCredencialDB()));
             transformer.transform(source, result);
             flag = (result != null) ? true : false;
         } catch (Exception e) {

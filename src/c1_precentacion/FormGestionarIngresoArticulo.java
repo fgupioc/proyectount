@@ -5,10 +5,10 @@
  */
 package c1_precentacion;
 
-import c2_aplicacion.GestionarMovimientoServicio;
-import c3_dominio.Configuracion;
+import c2_aplicacion.GestionarMovimientoServicio; 
 import c3_dominio.LoginUser;
 import c3_dominio.Movimiento; 
+import config.MyConfig;
 import c3_dominio.Producto;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -30,8 +30,7 @@ public class FormGestionarIngresoArticulo extends javax.swing.JInternalFrame {
     Movimiento movimiento;
     Producto producto;
     public static Producto tempProducto;
-    private GestionarMovimientoServicio gu;
-    private List<Movimiento> movimientos;
+    private GestionarMovimientoServicio gu; 
     private List<Movimiento> templist = new ArrayList();
     private final LoginUser user = LoginUser.getInstancia();
 
@@ -399,9 +398,8 @@ public class FormGestionarIngresoArticulo extends javax.swing.JInternalFrame {
                 movimiento.setOperacion("ingreso");
                 Calendar calendar = Calendar.getInstance();
                 Timestamp fecha = new Timestamp(calendar.getTime().getTime());
-                movimiento.setFechaRegistro(fecha);
-                Configuracion conf = new Configuracion();
-                movimiento.setNumIngreso(conf.generarCodigo(txtNumIngreso.getText().toUpperCase().trim())); 
+                movimiento.setFechaRegistro(fecha); 
+                movimiento.setNumIngreso(MyConfig.getGenerarCodigo(txtNumIngreso.getText().toUpperCase().trim())); 
                 movimiento.setCantidad(Integer.parseInt(jspCantidad.getValue().toString())); 
                 movimiento.setPersonal(user.getPersonal());
                 movimiento.setProducto(tempProducto);

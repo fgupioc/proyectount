@@ -14,18 +14,12 @@ import c2_aplicacion.GestionarUnidadServicio;
 import c3_dominio.Almacen;
 import c3_dominio.Categoria;
 import c3_dominio.Marca;
-import c3_dominio.Producto;
-import c3_dominio.TipoPersonal;
+import c3_dominio.Producto; 
 import c3_dominio.TipoProducto;
 import c3_dominio.Unidad;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.sql.Timestamp;   
 import java.util.List;
-import javax.swing.JOptionPane;
-import java.util.Date;
+import javax.swing.JOptionPane; 
 import java.util.Calendar;
 
 /**

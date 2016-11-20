@@ -5,28 +5,11 @@
  */
 package c1_precentacion;
 
-import c2_aplicacion.GestionarAlmacenServicio;
-import c2_aplicacion.GestionarCategoriaServicio;
-import c2_aplicacion.GestionarMarcaServicio;
-import c2_aplicacion.GestionarProductoServicio;
-import c2_aplicacion.GestionarTipoProductoServicio;
-import c2_aplicacion.GestionarUnidadServicio;
-import c3_dominio.Almacen;
-import c3_dominio.Categoria;
-import c3_dominio.Marca;
-import c3_dominio.Producto;
-import c3_dominio.TipoPersonal;
-import c3_dominio.TipoProducto;
-import c3_dominio.Unidad;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+ 
+import c2_aplicacion.GestionarProductoServicio; 
+import c3_dominio.Producto;  
 import java.util.List;
-import javax.swing.JOptionPane;
-import java.util.Date;
-import java.util.Calendar;
+import javax.swing.JOptionPane; 
 
 /**
  *
@@ -214,7 +197,7 @@ public class FormProductoListado extends javax.swing.JInternalFrame  {
 
 
     private void btnAddnewProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddnewProductActionPerformed
-       FormGestionarTipoPersonal form = new FormGestionarTipoPersonal(null, true);
+       FormGestionarProducto form = new FormGestionarProducto(null, true);
        FormPrincipal.escritorio.add(form);
        form.toFront();
        form.setVisible(true);

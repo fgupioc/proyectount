@@ -1,6 +1,7 @@
 package c4_persistenciaConexion;
 
-import c3_dominio.Configuracion;
+import c3_dominio.Host;
+import config.MyConfig;
 import java.io.File;
 import java.io.IOException;
 import java.sql.DriverManager;
@@ -22,14 +23,14 @@ public class ConexionMYSQL extends GestorJDBC {
     private String db;
     private String user;
     private String pass;
-    private Configuracion conf;
+    //private Host conf;
 
     public ConexionMYSQL() {
-        conf = new Configuracion();        
-        File fichero = new File(conf.directorioUrl());
+        //conf = new Host();        
+        File fichero = new File(MyConfig.getRutaCredencialDB());
         if (fichero.exists()) {
             SAXBuilder builder = new SAXBuilder();
-            File xmlFile = new File(conf.directorioUrl());
+            File xmlFile = new File(MyConfig.getRutaCredencialDB());
             try {
                 Document document = (Document) builder.build(xmlFile);
                 Element rootNode = document.getRootElement();
@@ -58,8 +59,8 @@ public class ConexionMYSQL extends GestorJDBC {
     public boolean comprobarConexion() {
         boolean flag = false; 
         SAXBuilder builder = new SAXBuilder();
-        conf = new Configuracion();
-        File xmlFile = new File(conf.directorioUrl());
+        //conf = new Host();
+        File xmlFile = new File(MyConfig.getRutaCredencialDB());
         try {
             Document document = (Document) builder.build(xmlFile);
             Element rootNode = document.getRootElement();

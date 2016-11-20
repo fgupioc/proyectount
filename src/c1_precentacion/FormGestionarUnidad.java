@@ -6,9 +6,7 @@
 package c1_precentacion;
 
 import c2_aplicacion.GestionarUnidadServicio;
-import c3_dominio.Unidad;
-import java.util.AbstractList;
-import java.util.ArrayList;
+import c3_dominio.Unidad; 
 import java.util.List;
 import javax.swing.JOptionPane;
 

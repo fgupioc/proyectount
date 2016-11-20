@@ -5,36 +5,22 @@
  */
 package c1_precentacion;
 
-import c2_aplicacion.GestionarConfiguracionServicio;
-import c2_aplicacion.GestionarPersonalServicio;
-import c2_aplicacion.GestionarProductoServicio;
-import c3_dominio.Configuracion;
-import c3_dominio.Personal;
-import c3_dominio.LoginUser;
-import c3_dominio.Producto;
-import java.io.File;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
+import c2_aplicacion.GestionarConfiguracionServicio;  
+import config.MyConfig; 
+import java.io.File; 
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Franz
  */
-public class NewMain {
-
-    /**
-     * @param args the command line arguments
-     * @throws java.lang.Exception
-     */
+public class NewMain { 
     public static void main(String[] args) throws Exception {     
         iniciar();    
     } 
     public static void iniciar() throws Exception {
-        GestionarConfiguracionServicio conf = new GestionarConfiguracionServicio();
-        Configuracion dir = new Configuracion();
-        File fichero = new File(dir.directorioUrl());
+        GestionarConfiguracionServicio conf = new GestionarConfiguracionServicio(); 
+        File fichero = new File(MyConfig.getRutaCredencialDB());
         if (fichero.exists()) {
             if (conf.validarConexion()) {
                 FormLogin form = new FormLogin();

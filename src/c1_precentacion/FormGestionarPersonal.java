@@ -8,11 +8,8 @@ package c1_precentacion;
 import c2_aplicacion.GestionarPersonalServicio;
 import c3_dominio.LoginUser;
 import c3_dominio.Personal;
-import c3_dominio.TipoPersonal;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JComboBox;
+import c3_dominio.TipoPersonal; 
+import java.util.List; 
 import javax.swing.JOptionPane;
 
 /**
