@@ -81,7 +81,7 @@ public class FormGestionarIngresoArticulo extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Administrador de Unidades");
+        setTitle("Ingreso de productos al almacen");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidad"));
 

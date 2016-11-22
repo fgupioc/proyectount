@@ -58,7 +58,7 @@ public class FormConsultaPorProducto extends javax.swing.JInternalFrame  {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Administrador de Unidades");
+        setTitle("Consulta de Productos de Almacen");
 
         listado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

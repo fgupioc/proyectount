@@ -51,7 +51,7 @@ public class FormConsultaProductoMovimiento extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Administrador de Unidades");
+        setTitle("Movimiento de Producto");
 
         listado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

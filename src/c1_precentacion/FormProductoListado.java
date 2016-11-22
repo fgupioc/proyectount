@@ -58,7 +58,7 @@ public class FormProductoListado extends javax.swing.JInternalFrame  {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Administrador de Unidades");
+        setTitle("Listado de Productos");
 
         listado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

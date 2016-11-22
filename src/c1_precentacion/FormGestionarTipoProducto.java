@@ -59,7 +59,7 @@ public class FormGestionarTipoProducto extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Administrador de Unidades");
+        setTitle("Administrador de Tipo de Producto");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidad"));
 

@@ -59,7 +59,7 @@ public class FormGestionarUnidad extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Administrador de Unidades");
+        setTitle("Administrador de Unidad");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidad"));
 

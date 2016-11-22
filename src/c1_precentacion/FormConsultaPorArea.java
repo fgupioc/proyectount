@@ -52,7 +52,7 @@ public class FormConsultaPorArea extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Administrador de Unidades");
+        setTitle("Administrador de Area");
 
         listado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

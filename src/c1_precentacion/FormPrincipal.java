@@ -42,6 +42,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         miCategoria = new javax.swing.JMenuItem();
         miMarca = new javax.swing.JMenuItem();
         miUnidad = new javax.swing.JMenuItem();
+        miUnidad1 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         miPersonal = new javax.swing.JMenuItem();
         miCargos = new javax.swing.JMenuItem();
@@ -147,6 +148,15 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu6.add(miUnidad);
+
+        miUnidad1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        miUnidad1.setText("Tipo Producto");
+        miUnidad1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miUnidad1ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(miUnidad1);
 
         jMenu2.add(jMenu6);
 
@@ -342,6 +352,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         form.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void miUnidad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miUnidad1ActionPerformed
+      FormGestionarTipoProducto form = new FormGestionarTipoProducto(this, true);
+        escritorio.add(form);
+        form.toFront();
+        form.setVisible(true);
+    }//GEN-LAST:event_miUnidad1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -403,6 +420,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miPersonal;
     private javax.swing.JMenuItem miProductos;
     private javax.swing.JMenuItem miUnidad;
+    private javax.swing.JMenuItem miUnidad1;
     // End of variables declaration//GEN-END:variables
 
 }

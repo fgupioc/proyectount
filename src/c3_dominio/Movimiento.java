@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 public class Movimiento {
 private int id,estado,cantidad;
-private String unidad ,solicitante,referencia,modelo,medida,color,numSerie,codigo,operacion,numIngreso,numSalida,numExpediente,numDocumento,asunto,codigoUnt,codigoSaneamiento,observacion,cabecera;
+private String unidad ,solicitante,referencia,modelo,medida,color,numSerie,codigo,operacion,numIngreso,numSalida,numExpediente,numDocumento,asunto,codigoUnt,codigoSaneamiento,observacion;
 private Timestamp fechaRegistro; 
 private Autorizante autorizante;
 private Personal personal;
@@ -15,7 +15,7 @@ private Area area;
     public Movimiento() {
     }
 
-    public Movimiento(int id, int estado, int cantidad, String unidad,String solicitante, String referencia, String modelo, String medida, String color, String numSerie, String codigo, String operacion, String numIngreso, String numSalida, String numExpediente, String numDocumento, String asunto, String codigoUnt, String codigoSaneamiento, String observacion, Timestamp fechaRegistro,Autorizante autorizante, Personal personal, Producto producto,Area area,String cabecera) {
+    public Movimiento(int id, int estado, int cantidad, String unidad,String solicitante, String referencia, String modelo, String medida, String color, String numSerie, String codigo, String operacion, String numIngreso, String numSalida, String numExpediente, String numDocumento, String asunto, String codigoUnt, String codigoSaneamiento, String observacion, Timestamp fechaRegistro,Autorizante autorizante, Personal personal, Producto producto,Area area) {
         this.id = id;
         this.estado = estado;
         this.cantidad = cantidad;
@@ -34,8 +34,7 @@ private Area area;
         this.numDocumento = numDocumento;
         this.asunto = asunto;
         this.codigoUnt = codigoUnt;
-        this.codigoSaneamiento = codigoSaneamiento;
-        this.cabecera = cabecera;
+        this.codigoSaneamiento = codigoSaneamiento; 
         this.observacion = observacion;
         this.fechaRegistro = fechaRegistro; 
         this.autorizante = autorizante;
@@ -195,15 +194,7 @@ private Area area;
 
     public void setCodigoSaneamiento(String codigoSaneamiento) {
         this.codigoSaneamiento = codigoSaneamiento;
-    }
-
-    public String getCabecera() {
-        return cabecera;
-    }
-
-    public void setCabecera(String cabecera) {
-        this.cabecera = cabecera;
-    }
+    } 
     
     public String getObservacion() {
         return observacion;

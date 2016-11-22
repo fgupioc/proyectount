@@ -5,14 +5,13 @@
  */
 package c4_persistencia;
 
-import c3_dominio.Movimiento;
-import c3_dominio.Producto;
+import c3_dominio.Cabecera;
+import c3_dominio.Movimiento; 
 import c3_dominioFabrica.IMovimientoDAO;
 import c4_persistenciaConexion.GestorJDBC;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.SQLException; 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -48,7 +47,7 @@ public class MovimientoDAO implements IMovimientoDAO {
 
     @Override
     public boolean salida(Movimiento dts) throws SQLException {
-        mysql = "{call spSalidaProducto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+        mysql = "{call spSalidaProducto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
         cst.setString(1, dts.getOperacion());
         cst.setTimestamp(2, dts.getFechaRegistro());
@@ -63,13 +62,12 @@ public class MovimientoDAO implements IMovimientoDAO {
         cst.setString(11, dts.getColor());
         cst.setString(12, dts.getNumSerie());
         cst.setString(13, dts.getCodigoUnt());
-        cst.setString(14, dts.getCodigoSaneamiento());
-        cst.setString(15, dts.getCabecera());
-        cst.setString(16, dts.getObservacion());
-        cst.setInt(17, dts.getAutorizante().getId());
-        cst.setInt(18, dts.getPersonal().getIdpersonal());
-        cst.setInt(19, dts.getProducto().getId());
-        cst.setInt(20, dts.getArea().getId());
+        cst.setString(14, dts.getCodigoSaneamiento()); 
+        cst.setString(15, dts.getObservacion());
+        cst.setInt(16, dts.getAutorizante().getId());
+        cst.setInt(17, dts.getPersonal().getIdpersonal());
+        cst.setInt(18, dts.getProducto().getId());
+        cst.setInt(19, dts.getArea().getId());
         return (cst.executeUpdate() == 1) ? true : false;
     }
 
@@ -126,6 +124,15 @@ public class MovimientoDAO implements IMovimientoDAO {
             modelo.addRow(registros);
         }
         return modelo;
+    } 
+    
+    @Override
+    public boolean insertCabecera(Cabecera dts) throws Exception {
+        mysql= "{Call spCabeceraInsertar (?,?)}";
+        cst = gestorJDBC.procedimientoAlmacenado(mysql);
+        cst.setString(1, dts.getDescripcion()); 
+        cst.setString(2, dts.getCodigoMovimiento());  
+        return (cst.executeUpdate()==1);  
     }
 
 }

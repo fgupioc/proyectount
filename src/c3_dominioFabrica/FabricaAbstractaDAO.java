@@ -51,6 +51,6 @@ public abstract class FabricaAbstractaDAO {
     
     public abstract IMovimientoDAO crearMovimientoDAO(GestorJDBC gestorJDBC);
     
-    public abstract IAreaDAO crearAreaDAO(GestorJDBC gestorJDBC);
+    public abstract IAreaDAO crearAreaDAO(GestorJDBC gestorJDBC); 
    
 }

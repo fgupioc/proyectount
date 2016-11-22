@@ -63,7 +63,7 @@ public class FormGestionarAutorizante extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Administrador de Solicitante");
+        setTitle("Administrador de Autorizante");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Autorizante"));
 

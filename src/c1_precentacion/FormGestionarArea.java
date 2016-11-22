@@ -59,7 +59,8 @@ public class FormGestionarArea extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Administrador de Unidades");
+        setTitle("Administrador de Area");
+        setToolTipText("");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidad"));
 
