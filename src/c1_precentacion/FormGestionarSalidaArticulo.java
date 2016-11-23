@@ -42,6 +42,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
     private List<Movimiento> templist = new ArrayList();
     private Cabecera cabecera;
     private final LoginUser user = LoginUser.getInstancia();
+    private boolean reporte = false;
 
     public FormGestionarSalidaArticulo(java.awt.Frame parent, boolean modal) {
         initComponents();
@@ -50,6 +51,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         cargarAutorizante();
         cargarArea();
         botones(false);
+        btnReporte.setEnabled(false);
         lblId.setVisible(false);
         lblIdArticulo.setVisible(false);
         lblindiceselect.setVisible(false);
@@ -128,6 +130,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         txtMarca = new javax.swing.JTextField();
         lblNumRegistro = new javax.swing.JLabel();
+        btnReporte = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -569,21 +572,31 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
 
         table1.addTab("Agregar Productos", panel2);
 
+        btnReporte.setText("Generar Reporte");
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(167, 167, 167)
-                .addComponent(btnNuevo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGuardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(table1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(167, 167, 167)
+                        .addComponent(btnNuevo)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnReporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(table1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -594,7 +607,8 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo)
                     .addComponent(btnGuardar)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnReporte))
                 .addGap(0, 12, Short.MAX_VALUE))
         );
 
@@ -619,7 +633,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         txtNumSalida.setText("");
         txtNumSalida.requestFocus();
         templist = new ArrayList();
-        mostrar(templist);
+        mostrar(templist); 
 
     }
 
@@ -664,6 +678,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         btnAddArticulo.setEnabled(btn);
         btnRemoveArticulo.setEnabled(btn);
         btnGuardar.setEnabled(btn);
+        btnReporte.setEnabled(!btn);
 
     }
 
@@ -711,8 +726,12 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                             if (gu.insertarSalida(dts)) {
                                 i++;
                                 gu.removeCantidad(dts);
-                                if(i==templist.size())
-                                    JOptionPane.showMessageDialog(null, "Guardado correctamente");
+                                if(i==templist.size()){ 
+                                     JOptionPane.showMessageDialog(null, "Guardar");
+                                     botones(false);
+                                     btnReporte.setEnabled(true);
+                                     reporte= true;
+                                }
                             } else {
                                 JOptionPane.showMessageDialog(null, "No se pudo guardar");
                             }
@@ -833,6 +852,14 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnRemoveArticuloActionPerformed
 
+    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+        try {
+            gu.reporteMemo(tempMovimiento_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnReporteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -844,6 +871,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnRemoveArticulo;
+    private javax.swing.JButton btnReporte;
     private javax.swing.JComboBox cboArea;
     private javax.swing.JComboBox cboAutorizante;
     private javax.swing.JLabel jLabel1;

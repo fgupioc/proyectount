@@ -9,6 +9,8 @@ import c2_aplicacion.GestionarAreaServicio;
 import c2_aplicacion.GestionarMovimientoServicio;
 import c3_dominio.Area;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +31,7 @@ public class FormConsultaPorArea extends javax.swing.JInternalFrame {
         cargarArea();
         mostrar("Sin");
         botones(false); 
+        lblCodigo.setVisible(false);
     }
 
     /**
@@ -48,6 +51,7 @@ public class FormConsultaPorArea extends javax.swing.JInternalFrame {
         btnGuardar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         cboArea = new javax.swing.JComboBox();
+        lblCodigo = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -103,20 +107,12 @@ public class FormConsultaPorArea extends javax.swing.JInternalFrame {
             }
         });
 
+        lblCodigo.setText("codigo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboArea, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNumRegistro))
-                .addContainerGap(21, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnNuevo)
@@ -125,6 +121,20 @@ public class FormConsultaPorArea extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(lblCodigo))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cboArea, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblNumRegistro)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,7 +143,9 @@ public class FormConsultaPorArea extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(cboArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCodigo)
+                .addGap(7, 7, 7)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblNumRegistro)
@@ -164,7 +176,8 @@ public class FormConsultaPorArea extends javax.swing.JInternalFrame {
         
         btnGuardar.setEnabled(btn);
         btnCancelar.setEnabled(btn);
-        btnNuevo.setEnabled(!btn); 
+        btnNuevo.setEnabled(!btn);
+        cboArea.setEnabled(btn);
     }
 
     private void mostrar(String value) {
@@ -185,7 +198,14 @@ public class FormConsultaPorArea extends javax.swing.JInternalFrame {
     }
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+        GestionarMovimientoServicio gm = new GestionarMovimientoServicio();
+       if(!lblCodigo.getText().equals("codigo")){
+            try {
+            gm.reporteMemo(lblCodigo.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(FormConsultaPorArea.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -201,7 +221,8 @@ public class FormConsultaPorArea extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void listadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoMouseClicked
-        
+        int fila = listado.rowAtPoint(evt.getPoint());
+        lblCodigo.setText(listado.getValueAt(fila, 0).toString());        
     }//GEN-LAST:event_listadoMouseClicked
 
     private void cboAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboAreaActionPerformed
@@ -219,6 +240,7 @@ public class FormConsultaPorArea extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox cboArea;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblNumRegistro;
     private javax.swing.JTable listado;
     // End of variables declaration//GEN-END:variables

@@ -134,5 +134,15 @@ public class MovimientoDAO implements IMovimientoDAO {
         cst.setString(2, dts.getCodigoMovimiento());  
         return (cst.executeUpdate()==1);  
     }
+    public String consultaCodigo()throws Exception{
+       mysql =  "{call spConsultaCodigo}";
+       String codigo = "";
+        rs = gestorJDBC.ejecutarProcedimiento(mysql);
+        while (rs.next()) { 
+            codigo=rs.getString("numSalida");             
+        }
+        rs.close(); 
+        return codigo ;    
+    }
 
 }

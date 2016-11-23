@@ -11,11 +11,19 @@ import c3_dominio.Producto;
 import c3_dominioFabrica.FabricaAbstractaDAO;
 import c3_dominioFabrica.IMovimientoDAO;
 import c4_persistenciaConexion.GestorJDBC;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -239,5 +247,41 @@ public class GestionarMovimientoServicio {
         }
         gestorJDBC.cerrarConexion();
         return flag;
+    }
+
+    public void reporteMemo(String id) throws Exception {
+        gestorJDBC.abrirConexion();
+        String dir = "C:/Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/src/Reportes/RptSalida.jrxml";
+        Map p = new HashMap();
+        p.put("numSalida", id);
+        JasperReport report;
+        JasperPrint print;
+        try {
+            gestorJDBC.iniciarTransaccion();
+            report = JasperCompileManager.compileReport(dir);
+            print = JasperFillManager.fillReport(report, p, gestorJDBC.cn());
+            JasperViewer view = new JasperViewer(print, false);
+            view.setTitle("reprote");
+            view.setVisible(true);
+            gestorJDBC.terminarTransaccion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            gestorJDBC.cancelarTransaccion();
+        }
+        gestorJDBC.cerrarConexion();
+    }
+    public String consultaCodigo() throws Exception {
+       String codigo="";
+        gestorJDBC.abrirConexion();
+        try {
+            gestorJDBC.iniciarTransaccion();
+            codigo = movimientoDAO.consultaCodigo();
+            gestorJDBC.terminarTransaccion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            gestorJDBC.cancelarTransaccion();
+        }
+        gestorJDBC.cerrarConexion();
+        return codigo;
     }
 }

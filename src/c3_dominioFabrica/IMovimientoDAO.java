@@ -24,4 +24,5 @@ public interface IMovimientoDAO {
     public DefaultTableModel consultaArea(String value) throws Exception ;
     public DefaultTableModel consultaProductoMovimiento(String codigo) throws Exception ;
     public boolean insertCabecera(Cabecera cabecera)throws Exception;
+    public String consultaCodigo()throws Exception;
 }
