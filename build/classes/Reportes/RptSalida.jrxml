@@ -13,7 +13,8 @@ are.descripcion,m.referencia,m.cantidad,un.descripcion as unidad,c.descripcion a
  , a.nombre as autorizante ,a.especialidad,a.cargo,
  concat(pro.articulo,'- Modelo :',m.modelo,' - Marca :',mar.descripcion,' - Color : ',m.color,
  ' - otros : ',m.observacion,' - Nº Serie :',m.numSerie,' - Cod. UNT :',m.codigoUnt,' - Cod. Sane :',m.codigoSaneamiento
- ) as producto
+ ) as producto,
+year(NOW()) as fechaActual
 
 from movimiento as m inner join
 autorizante as a on a.id= autorizante_id
@@ -55,6 +56,7 @@ where m.operacion = 'salida'  and m.numSalida = $P{numSalida}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="producto" class="java.lang.String"/>
+	<field name="fechaActual" class="java.lang.Long"/>
 	<group name="producto">
 		<groupExpression><![CDATA[$F{producto}]]></groupExpression>
 	</group>
@@ -71,19 +73,26 @@ where m.operacion = 'salida'  and m.numSalida = $P{numSalida}]]>
 				<text><![CDATA[MEMORANDO Nº ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="237" y="0" width="53" height="32" uuid="b690ed22-8ac3-40a6-ae4a-a4c9ae958822"/>
+				<reportElement x="237" y="0" width="65" height="32" uuid="b690ed22-8ac3-40a6-ae4a-a4c9ae958822"/>
 				<textElement>
 					<font size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{numMemo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="290" y="0" width="158" height="32" uuid="f71e877a-cbc3-4809-aade-b34c44f9b8b6"/>
+				<reportElement x="345" y="0" width="94" height="32" uuid="f71e877a-cbc3-4809-aade-b34c44f9b8b6"/>
 				<textElement>
 					<font size="16"/>
 				</textElement>
-				<text><![CDATA[- 2016 - FIQ/UNT]]></text>
+				<text><![CDATA[- FIQ/UNT]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="302" y="0" width="43" height="32" uuid="fb137c45-c8c7-4b10-a1e9-8b074430fbe9"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechaActual}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

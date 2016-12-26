@@ -1,4 +1,8 @@
 package config;
+
+import static com.sun.javafx.tk.Toolkit.getToolkit;
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author Franz
@@ -11,6 +15,7 @@ public class MyConfig {
     private static final String ruta_base ="C://Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/";
     private static final String rutaCredencialDB =ruta_base+"Config.xml";  
     private static final int version = 1; 
+    private static final String adrress_report="C:/Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/src/Reportes/RptSalida.jrxml";
     
     public static String getCorreo(){
         return correo;
@@ -29,6 +34,9 @@ public class MyConfig {
     }
     public static String getFaculty(){
         return faculty;
+    }
+    public static String getAddressReport(){
+        return adrress_report;
     }
     public static String getGenerarCodigo(String num) {
         String res = "";
@@ -53,4 +61,36 @@ public class MyConfig {
         }
         return res;
     }
+    public static boolean validarInt(String value) {
+        long num;        
+        try {
+            num = Long.parseLong(value);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean validarTamanio(String value,int i) {
+        try {
+            if (value.length() <= i) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean validarIntString(String cadena) {
+        for (int i = 0; i < cadena.length(); ++i) {
+            char caracter = cadena.charAt(i);
+            if (!Character.isLetterOrDigit(caracter)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
 }

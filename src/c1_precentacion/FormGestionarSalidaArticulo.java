@@ -19,6 +19,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -90,13 +92,13 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         lblSolicitante = new javax.swing.JLabel();
         cboAutorizante = new javax.swing.JComboBox();
         txtNumSalida = new javax.swing.JFormattedTextField();
-        txtNumExpediente = new javax.swing.JFormattedTextField();
-        txtNumDocumento = new javax.swing.JFormattedTextField();
         jLabel18 = new javax.swing.JLabel();
         cboArea = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtCabecera = new javax.swing.JTextArea();
         jLabel19 = new javax.swing.JLabel();
+        txtNumExpediente = new javax.swing.JTextField();
+        txtNumDocumento = new javax.swing.JTextField();
         panel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listado = new javax.swing.JTable();
@@ -190,20 +192,6 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
-        try {
-            txtNumExpediente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###############")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtNumExpediente.setText("     ");
-
-        try {
-            txtNumDocumento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###############")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtNumDocumento.setText("");
-
         jLabel18.setText("Area :");
 
         txtCabecera.setColumns(20);
@@ -212,6 +200,12 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(txtCabecera);
 
         jLabel19.setText("Cabecera : ");
+
+        txtNumExpediente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNumExpedienteKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -256,6 +250,11 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                                     .addComponent(cboAutorizante, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtSolicitante)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addGap(47, 47, 47)
+                                .addComponent(cboArea, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel2))
@@ -264,22 +263,16 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                                         .addGap(10, 10, 10)
                                         .addComponent(txtNumSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel3)
-                                        .addGap(5, 5, 5)
-                                        .addComponent(txtNumExpediente, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(2, 2, 2)
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtNumDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel3))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblPersonal)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addGap(47, 47, 47)
-                                .addComponent(cboArea, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addComponent(lblPersonal)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNumExpediente, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNumDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -486,7 +479,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel8)
                                         .addGap(49, 49, 49)
                                         .addComponent(txtUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jspCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -633,7 +626,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         txtNumSalida.setText("");
         txtNumSalida.requestFocus();
         templist = new ArrayList();
-        mostrar(templist); 
+        mostrar(templist);
 
     }
 
@@ -714,43 +707,88 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         }
     }
 
+
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        String salida = txtNumSalida.getText().trim();
+        String exp = txtNumExpediente.getText().trim();
+        String doc = txtNumDocumento.getText().trim(); 
         int i = 0;
-        if (!txtNumSalida.getText().equals("")) {
-            if (templist.size() >= 1) {
-                try {
-                    gu = new GestionarMovimientoServicio();
-                    if (flag.equals("Guardar")) {
-                        System.out.println("cont "+templist.size());
-                        for (Movimiento dts : templist) {
-                            if (gu.insertarSalida(dts)) {
-                                i++;
-                                gu.removeCantidad(dts);
-                                if(i==templist.size()){ 
-                                     JOptionPane.showMessageDialog(null, "Guardar");
-                                     botones(false);
-                                     btnReporte.setEnabled(true);
-                                     reporte= true;
+        if (!salida.equals("")) {
+            if (MyConfig.validarInt(salida)) {
+                if (MyConfig.validarTamanio(salida, 4)) {
+                    if (!exp.equals("")) {
+                        if (MyConfig.validarTamanio(exp,15)) {
+                            if (MyConfig.validarInt(exp)) {
+                                if (!doc.equals("")) {
+                                    if (MyConfig.validarTamanio(doc,15)) {
+                                        if (MyConfig.validarInt(doc)) {
+                                            if (templist.size() >= 1) {
+                                                try {
+                                                    gu = new GestionarMovimientoServicio();
+                                                    if (flag.equals("Guardar")) {
+                                                        System.out.println("cont " + templist.size());
+                                                        for (Movimiento dts : templist) {
+                                                            if (gu.insertarSalida(dts)) {
+                                                                i++;
+                                                                gu.removeCantidad(dts);
+                                                                if (i == templist.size()) {
+                                                                    JOptionPane.showMessageDialog(null, "Guardar");
+                                                                    botones(false);
+                                                                    btnReporte.setEnabled(true);
+                                                                    reporte = true;
+                                                                }
+                                                            } else {
+                                                                JOptionPane.showMessageDialog(null, "No se pudo guardar");
+                                                            }
+                                                        }
+                                                        cabecera = new Cabecera();
+                                                        cabecera.setDescripcion(txtCabecera.getText());
+                                                        cabecera.setCodigoMovimiento(tempMovimiento_id);
+                                                        gu.insertCabecera(cabecera);
+                                                    }
+                                                } catch (Exception e) {
+                                                    JOptionPane.showMessageDialog(null, e);
+                                                }
+                                            } else {
+                                                JOptionPane.showMessageDialog(this, "Debe Seleccionar almenos un articulo", "Aviso", 0);
+                                            }
+                                        } else {
+                                            JOptionPane.showMessageDialog(this, "Solo se acepta Numeros en Documento", "Aviso", 0);
+                                            txtNumDocumento.requestFocus();
+                                        }
+                                    } else {
+                                        JOptionPane.showMessageDialog(this, "Solo se acepta 15 digitos en Documento", "Aviso", 0);
+                                        txtNumDocumento.requestFocus();
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(this, "Debe ingresar un numero de Documento", "Aviso", 0);
+                                    txtNumDocumento.requestFocus();
                                 }
                             } else {
-                                JOptionPane.showMessageDialog(null, "No se pudo guardar");
+                                JOptionPane.showMessageDialog(this, "Solo Se Acepta Numeros En Expediente", "Aviso", 0);
+                                txtNumExpediente.requestFocus();
                             }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Solo se acepta 15 digitos en Expediente", "Aviso", 0);
+                            txtNumExpediente.requestFocus();
                         }
-                        cabecera = new Cabecera();
-                        cabecera.setDescripcion(txtCabecera.getText());
-                        cabecera.setCodigoMovimiento(tempMovimiento_id); 
-                        gu.insertCabecera(cabecera); 
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Debe ingresar un numero de Expediente", "Aviso", 0);
+                        txtNumExpediente.requestFocus();
                     }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Solo se acepta 4 digitos", "Aviso", 0);
+                    txtNumSalida.requestFocus();
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Debe Seleccionar almenos un articulo", "Aviso", 0);
+                JOptionPane.showMessageDialog(this, "Solo se Acepta Numeros en La Salida", "Aviso", 0);
+                txtNumSalida.requestFocus();
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un numero de documento", "Aviso", 0);
+            JOptionPane.showMessageDialog(this, "Debe ingresar un numero de Salida", "Aviso", 0);
             txtNumSalida.requestFocus();
         }
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -758,6 +796,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         botones(false);
         btnGuardar.setText("Guardar");
         flag = "Guardar";
+
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -789,7 +828,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                             Timestamp fecha = new Timestamp(calendar.getTime().getTime());
                             movimiento.setFechaRegistro(fecha);
                             movimiento.setNumSalida(MyConfig.getGenerarCodigo(txtNumSalida.getText().toUpperCase().trim()));
-                            tempMovimiento_id = MyConfig.getGenerarCodigo(txtNumSalida.getText().toUpperCase().trim()); 
+                            tempMovimiento_id = MyConfig.getGenerarCodigo(txtNumSalida.getText().toUpperCase().trim());
                             movimiento.setNumExpediente(txtNumExpediente.getText().trim());
                             movimiento.setNumDocumento(txtNumDocumento.getText().trim());
                             movimiento.setAsunto(txtAsunto.getText().trim());
@@ -802,7 +841,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                             movimiento.setColor(txtColor.getText().trim());
                             movimiento.setNumSerie(txtSerie.getText().trim());
                             movimiento.setCodigoUnt(txtCodUnt.getText().trim());
-                            movimiento.setCodigoSaneamiento(txtCodSaneamiento.getText().trim()); 
+                            movimiento.setCodigoSaneamiento(txtCodSaneamiento.getText().trim());
                             movimiento.setObservacion(txtObservacion.getText().trim());
                             GestionarAutorizanteServicio gas = new GestionarAutorizanteServicio();
                             movimiento.setAutorizante(gas.obtenerId(gas.listar(), cboAutorizante.getSelectedItem().toString()));
@@ -859,6 +898,10 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnReporteActionPerformed
+
+    private void txtNumExpedienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyPressed
+
+    }//GEN-LAST:event_txtNumExpedienteKeyPressed
 
     /**
      * @param args the command line arguments
@@ -922,8 +965,8 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtColor;
     public static javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtModelo;
-    private javax.swing.JFormattedTextField txtNumDocumento;
-    private javax.swing.JFormattedTextField txtNumExpediente;
+    private javax.swing.JTextField txtNumDocumento;
+    private javax.swing.JTextField txtNumExpediente;
     private javax.swing.JFormattedTextField txtNumSalida;
     private javax.swing.JTextArea txtObservacion;
     private javax.swing.JTextField txtReferencia;

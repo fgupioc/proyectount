@@ -11,6 +11,7 @@ import c3_dominio.Producto;
 import c3_dominioFabrica.FabricaAbstractaDAO;
 import c3_dominioFabrica.IMovimientoDAO;
 import c4_persistenciaConexion.GestorJDBC;
+import config.MyConfig;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -250,18 +251,17 @@ public class GestionarMovimientoServicio {
     }
 
     public void reporteMemo(String id) throws Exception {
-        gestorJDBC.abrirConexion();
-        String dir = "C:/Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/src/Reportes/RptSalida.jrxml";
+        gestorJDBC.abrirConexion(); 
         Map p = new HashMap();
         p.put("numSalida", id);
         JasperReport report;
         JasperPrint print;
         try {
             gestorJDBC.iniciarTransaccion();
-            report = JasperCompileManager.compileReport(dir);
+            report = JasperCompileManager.compileReport(MyConfig.getAddressReport());
             print = JasperFillManager.fillReport(report, p, gestorJDBC.cn());
             JasperViewer view = new JasperViewer(print, false);
-            view.setTitle("reprote");
+            view.setTitle("Reporte de Memorando Nº"+id);
             view.setVisible(true);
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
