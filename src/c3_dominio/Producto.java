@@ -15,28 +15,29 @@ import java.sql.Timestamp;
  */
 public class Producto {
     private int id,cantidad,estado;
-    private String codigo,articulo,descripcion;
+    private String codigo,articulo,descripcion,marca,modelo,color;
     private Timestamp fechaRegistro; 
     private Categoria categoria;
-    private TipoProducto tipoProducto;
-    private Marca marca;
+    private TipoProducto tipoProducto; 
     private Almacen almacen;
     private Unidad unidad;
 
     public Producto() {
     }
 
-    public Producto(int id, int cantidad, int estado, String codigo, String articulo, String descripcion, Timestamp fechaRegistro, Categoria categoria, TipoProducto tipoProducto, Marca marca, Almacen almacen, Unidad unidad) {
+    public Producto(int id, int cantidad, int estado, String codigo, String articulo, String descripcion, String marca, String modelo, String color, Timestamp fechaRegistro, Categoria categoria, TipoProducto tipoProducto, Almacen almacen, Unidad unidad) {
         this.id = id;
         this.cantidad = cantidad;
         this.estado = estado;
         this.codigo = codigo;
         this.articulo = articulo;
         this.descripcion = descripcion;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.color = color;
         this.fechaRegistro = fechaRegistro;
         this.categoria = categoria;
         this.tipoProducto = tipoProducto;
-        this.marca = marca;
         this.almacen = almacen;
         this.unidad = unidad;
     }
@@ -89,6 +90,30 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     public Timestamp getFechaRegistro() {
         return fechaRegistro;
     }
@@ -113,14 +138,6 @@ public class Producto {
         this.tipoProducto = tipoProducto;
     }
 
-    public Marca getMarca() {
-        return marca;
-    }
-
-    public void setMarca(Marca marca) {
-        this.marca = marca;
-    }
-
     public Almacen getAlmacen() {
         return almacen;
     }
@@ -136,6 +153,6 @@ public class Producto {
     public void setUnidad(Unidad unidad) {
         this.unidad = unidad;
     }
-
+    
     
 }

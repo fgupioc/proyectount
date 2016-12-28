@@ -9,6 +9,7 @@ import c3_dominio.Producto;
 import c3_dominioFabrica.FabricaAbstractaDAO;
 import c3_dominioFabrica.IProductoDAO;
 import c4_persistenciaConexion.GestorJDBC;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -130,13 +131,15 @@ public class GestionarProductoServicio {
         model.setColumnCount(0);
         model.addColumn("id");
         model.addColumn("Codigo");
-        model.addColumn("Producto"); 
+        model.addColumn("Producto");
         model.addColumn("Registro");
         model.addColumn("Cantidad");
+        model.addColumn("Marca");
+        model.addColumn("Modelo");
+        model.addColumn("Color");
         model.addColumn("estado");
         model.addColumn("Categoria");
-        model.addColumn("Tipo");
-        model.addColumn("Marca");
+        model.addColumn("Tipo"); 
         model.addColumn("Almacen");
         model.addColumn("Unidad");
 
@@ -145,15 +148,17 @@ public class GestionarProductoServicio {
         for (Producto dts : productos) {
             model.setValueAt(dts.getId(), i, 0);
             model.setValueAt(dts.getCodigo(), i, 1);
-            model.setValueAt(dts.getArticulo(), i, 2); 
+            model.setValueAt(dts.getArticulo(), i, 2);
             model.setValueAt(dts.getFechaRegistro(), i, 3);
             model.setValueAt(dts.getCantidad(), i, 4);
-            model.setValueAt(dts.getEstado(), i, 5);
-            model.setValueAt(dts.getCategoria().getDescripcion(), i, 6);
-            model.setValueAt(dts.getTipoProducto().getDescripcion(), i, 7);
-            model.setValueAt(dts.getMarca().getDescripcion(), i, 8);
-            model.setValueAt(dts.getAlmacen().getDescripcion(), i, 9);
-            model.setValueAt(dts.getUnidad().getDescripcion(), i, 10);
+            model.setValueAt(dts.getMarca(), i, 5);
+            model.setValueAt(dts.getModelo(), i, 6);
+            model.setValueAt(dts.getColor(), i, 7);
+            model.setValueAt(dts.getEstado(), i, 8);
+            model.setValueAt(dts.getCategoria().getDescripcion(), i, 9);
+            model.setValueAt(dts.getTipoProducto().getDescripcion(), i, 10);
+            model.setValueAt(dts.getAlmacen().getDescripcion(), i, 11);
+            model.setValueAt(dts.getUnidad().getDescripcion(), i, 12);
             i++;
         }
         listado.setModel(model);
@@ -179,16 +184,15 @@ public class GestionarProductoServicio {
         listado.getColumnModel().getColumn(1).setMaxWidth(80);
         listado.getColumnModel().getColumn(1).setMinWidth(80);
         listado.getColumnModel().getColumn(1).setPreferredWidth(80);
- 
 
         listado.getColumnModel().getColumn(3).setMaxWidth(0);
         listado.getColumnModel().getColumn(3).setMinWidth(0);
-        listado.getColumnModel().getColumn(3).setPreferredWidth(0); 
-        
+        listado.getColumnModel().getColumn(3).setPreferredWidth(0);
+
         listado.getColumnModel().getColumn(4).setMaxWidth(60);
         listado.getColumnModel().getColumn(4).setMinWidth(60);
-        listado.getColumnModel().getColumn(4).setPreferredWidth(60); 
-        
+        listado.getColumnModel().getColumn(4).setPreferredWidth(60);
+
         listado.getColumnModel().getColumn(5).setMaxWidth(0);
         listado.getColumnModel().getColumn(5).setMinWidth(0);
         listado.getColumnModel().getColumn(5).setPreferredWidth(0);
@@ -207,11 +211,19 @@ public class GestionarProductoServicio {
 
         listado.getColumnModel().getColumn(9).setMaxWidth(0);
         listado.getColumnModel().getColumn(9).setMinWidth(0);
-        listado.getColumnModel().getColumn(9).setPreferredWidth(0); 
-        
+        listado.getColumnModel().getColumn(9).setPreferredWidth(0);
+
         listado.getColumnModel().getColumn(10).setMaxWidth(0);
         listado.getColumnModel().getColumn(10).setMinWidth(0);
-        listado.getColumnModel().getColumn(10).setPreferredWidth(0); 
+        listado.getColumnModel().getColumn(10).setPreferredWidth(0);
+        
+        listado.getColumnModel().getColumn(11).setMaxWidth(0);
+        listado.getColumnModel().getColumn(11).setMinWidth(0);
+        listado.getColumnModel().getColumn(11).setPreferredWidth(0);
+        
+        listado.getColumnModel().getColumn(12).setMaxWidth(0);
+        listado.getColumnModel().getColumn(12).setMinWidth(0);
+        listado.getColumnModel().getColumn(12).setPreferredWidth(0);
     }
 
     public boolean buscarProductoList(List<Producto> productos, String nombre) {
@@ -226,5 +238,45 @@ public class GestionarProductoServicio {
         }
         return flag;
     }
-
+     public Producto buscarProductoCodigoList(List<Producto> productos, String codigo) {
+       Producto obj = new Producto();
+        for (Producto dt : productos) {
+            if (dt.getCodigo().equals(codigo)) {
+                obj =dt;
+                break;
+            } else {
+                obj = null;
+            }
+        }
+        return obj;
+    }
+    public boolean portafolio(Timestamp fecha, int  personal_id,int producto_id,String operacion,String descripcion) throws Exception {
+        boolean flag = false;
+        gestorJDBC.abrirConexion();
+        try {
+            gestorJDBC.iniciarTransaccion();
+            flag = productoDAO.portafolio(fecha, personal_id, producto_id, operacion, descripcion);
+            gestorJDBC.terminarTransaccion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            gestorJDBC.cancelarTransaccion();
+        }
+        gestorJDBC.cerrarConexion();
+        return flag;
+    }
+    public int obtenerIdProducto( String codigo) throws Exception {
+        int res = 0;
+        gestorJDBC.abrirConexion();
+        try {
+            gestorJDBC.iniciarTransaccion();
+            res = productoDAO.obtenetIdProducto(codigo);
+            gestorJDBC.terminarTransaccion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            gestorJDBC.cancelarTransaccion();
+        }
+        gestorJDBC.cerrarConexion();
+        return res;
+    }
+    
 }

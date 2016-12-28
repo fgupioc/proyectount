@@ -16,6 +16,7 @@ public class MyConfig {
     private static final String rutaCredencialDB =ruta_base+"Config.xml";  
     private static final int version = 1; 
     private static final String adrress_report="C:/Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/src/Reportes/RptSalida.jrxml";
+    private static final String adrress_reportportafolio="C:/Users/junio_000/Documents/NetBeansProjects/SistemaAlmacenUNT/src/Reportes/RptPortafolioUser.jrxml";
     
     public static String getCorreo(){
         return correo;
@@ -37,6 +38,9 @@ public class MyConfig {
     }
     public static String getAddressReport(){
         return adrress_report;
+    }
+    public static String getAddressReportPortafolio(){
+        return adrress_reportportafolio;
     }
     public static String getGenerarCodigo(String num) {
         String res = "";

@@ -14,6 +14,7 @@ import c3_dominio.Movimiento;
 import c3_dominio.Producto;
 import c3_dominio.Autorizante;
 import c3_dominio.Cabecera;
+import c3_dominio.DetalleMovimiento;
 import config.MyConfig;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
     private GestionarMovimientoServicio gu;
     private List<Movimiento> movimientos;
     private List<Movimiento> templist = new ArrayList();
+    private List<DetalleMovimiento> tempObj = new ArrayList();
     private Cabecera cabecera;
     private final LoginUser user = LoginUser.getInstancia();
     private boolean reporte = false;
@@ -49,7 +51,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
     public FormGestionarSalidaArticulo(java.awt.Frame parent, boolean modal) {
         initComponents();
         lblPersonal.setText(user.getPersonal().getNombre() + " " + user.getPersonal().getApellidoPaterno() + " " + user.getPersonal().getApellidoMaterno());
-        mostrar(templist);
+        mostrar(tempObj);
         cargarAutorizante();
         cargarArea();
         botones(false);
@@ -192,7 +194,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
-        jLabel18.setText("Area :");
+        jLabel18.setText("Seccion  :");
 
         txtCabecera.setColumns(20);
         txtCabecera.setLineWrap(true);
@@ -238,10 +240,6 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtReferencia))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addGap(31, 31, 31)
-                                .addComponent(txtAsunto))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel14)
                                     .addComponent(lblSolicitante))
@@ -249,11 +247,6 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cboAutorizante, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtSolicitante)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addGap(47, 47, 47)
-                                .addComponent(cboArea, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
@@ -272,7 +265,17 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNumDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)))))
+                                .addComponent(txtNumDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel18))
+                                .addGap(25, 25, 25)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(cboArea, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txtAsunto))))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -302,15 +305,15 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(txtSolicitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(cboArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
-                    .addComponent(txtAsunto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtAsunto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -320,7 +323,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
@@ -626,7 +629,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         txtNumSalida.setText("");
         txtNumSalida.requestFocus();
         templist = new ArrayList();
-        mostrar(templist);
+        mostrar(tempObj);
 
     }
 
@@ -697,7 +700,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
         }
     }
 
-    private void mostrar(List<Movimiento> movimientos) {
+    private void mostrar(List<DetalleMovimiento> movimientos) {
         try {
             gu = new GestionarMovimientoServicio();
             gu.llenarLista(listado, movimientos);
@@ -711,40 +714,64 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         String salida = txtNumSalida.getText().trim();
         String exp = txtNumExpediente.getText().trim();
-        String doc = txtNumDocumento.getText().trim(); 
+        String doc = txtNumDocumento.getText().trim();
+        movimiento = new Movimiento();     
+
         int i = 0;
         if (!salida.equals("")) {
             if (MyConfig.validarInt(salida)) {
                 if (MyConfig.validarTamanio(salida, 4)) {
                     if (!exp.equals("")) {
-                        if (MyConfig.validarTamanio(exp,15)) {
+                        if (MyConfig.validarTamanio(exp, 15)) {
                             if (MyConfig.validarInt(exp)) {
                                 if (!doc.equals("")) {
-                                    if (MyConfig.validarTamanio(doc,15)) {
+                                    if (MyConfig.validarTamanio(doc, 15)) {
                                         if (MyConfig.validarInt(doc)) {
-                                            if (templist.size() >= 1) {
+                                            if (tempObj.size() >= 1) {
                                                 try {
                                                     gu = new GestionarMovimientoServicio();
+                                                    movimiento.setOperacion("salida");
+                                                    Calendar calendar = Calendar.getInstance();
+                                                    Timestamp fecha = new Timestamp(calendar.getTime().getTime());
+                                                    movimiento.setFechaRegistro(fecha);
+                                                    movimiento.setNumSalida(MyConfig.getGenerarCodigo(txtNumSalida.getText().toUpperCase().trim()));
+                                                    tempMovimiento_id = MyConfig.getGenerarCodigo(txtNumSalida.getText().toUpperCase().trim());
+                                                    movimiento.setNumExpediente(txtNumExpediente.getText().trim());
+                                                    movimiento.setNumDocumento(txtNumDocumento.getText().trim());
+                                                    movimiento.setAsunto(txtAsunto.getText().trim());
+                                                    movimiento.setSolicitante(txtSolicitante.getText().trim());
+                                                    GestionarAreaServicio gars = new GestionarAreaServicio();
+                                                    movimiento.setArea(gars.obtenerId(gars.listar(), cboArea.getSelectedItem().toString()));
+                                                    GestionarAutorizanteServicio gas = new GestionarAutorizanteServicio();
+                                                    movimiento.setAutorizante(gas.obtenerId(gas.listar(), cboAutorizante.getSelectedItem().toString()));
+                                                    movimiento.setReferencia(txtReferencia.getText().trim());
+                                                    movimiento.setPersonal(user.getPersonal());
+                                                    movimiento.setCabecera(txtCabecera.getText());
+
                                                     if (flag.equals("Guardar")) {
-                                                        System.out.println("cont " + templist.size());
-                                                        for (Movimiento dts : templist) {
-                                                            if (gu.insertarSalida(dts)) {
-                                                                i++;
-                                                                gu.removeCantidad(dts);
-                                                                if (i == templist.size()) {
-                                                                    JOptionPane.showMessageDialog(null, "Guardar");
+                                                        if(gu.insertarSalida(movimiento,tempObj)){
+                                                             JOptionPane.showMessageDialog(null, "Guardar");
                                                                     botones(false);
                                                                     btnReporte.setEnabled(true);
                                                                     reporte = true;
-                                                                }
-                                                            } else {
-                                                                JOptionPane.showMessageDialog(null, "No se pudo guardar");
-                                                            }
+                                                        }else{
+                                                             JOptionPane.showMessageDialog(null, "No se pudo guardar");
                                                         }
-                                                        cabecera = new Cabecera();
-                                                        cabecera.setDescripcion(txtCabecera.getText());
-                                                        cabecera.setCodigoMovimiento(tempMovimiento_id);
-                                                        gu.insertCabecera(cabecera);
+//                                                        System.out.println("cont " + templist.size());
+//                                                        for (Movimiento dts : templist) {
+//                                                            if (gu.insertarSalida(dts)) {
+//                                                                i++;
+//                                                                gu.removeCantidad(dts);
+//                                                                if (i == templist.size()) {
+//                                                                    JOptionPane.showMessageDialog(null, "Guardar");
+//                                                                    botones(false);
+//                                                                    btnReporte.setEnabled(true);
+//                                                                    reporte = true;
+//                                                                }
+//                                                            } else {
+//                                                                JOptionPane.showMessageDialog(null, "No se pudo guardar");
+//                                                            }
+//                                                        }
                                                     }
                                                 } catch (Exception e) {
                                                     JOptionPane.showMessageDialog(null, e);
@@ -817,38 +844,20 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_listadoMouseClicked
 
     private void btnAddArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddArticuloActionPerformed
-        movimiento = new Movimiento();
+        DetalleMovimiento detalle = new DetalleMovimiento();
         try {
             if (!lblCodigoProducto.getText().equals("000")) {
                 if (tempProducto.getCantidad() > 0) {
                     if (Integer.parseInt(jspCantidad.getValue().toString()) > 0) {
                         if (Integer.parseInt(jspCantidad.getValue().toString()) <= tempProducto.getCantidad()) {
-                            movimiento.setOperacion("salida");
-                            Calendar calendar = Calendar.getInstance();
-                            Timestamp fecha = new Timestamp(calendar.getTime().getTime());
-                            movimiento.setFechaRegistro(fecha);
-                            movimiento.setNumSalida(MyConfig.getGenerarCodigo(txtNumSalida.getText().toUpperCase().trim()));
-                            tempMovimiento_id = MyConfig.getGenerarCodigo(txtNumSalida.getText().toUpperCase().trim());
-                            movimiento.setNumExpediente(txtNumExpediente.getText().trim());
-                            movimiento.setNumDocumento(txtNumDocumento.getText().trim());
-                            movimiento.setAsunto(txtAsunto.getText().trim());
-                            movimiento.setSolicitante(txtSolicitante.getText().trim());
-                            GestionarAreaServicio gars = new GestionarAreaServicio();
-                            movimiento.setArea(gars.obtenerId(gars.listar(), cboArea.getSelectedItem().toString()));
-                            movimiento.setReferencia(txtReferencia.getText().trim());
-                            movimiento.setCantidad(Integer.parseInt(jspCantidad.getValue().toString()));
-                            movimiento.setModelo(txtModelo.getText().trim());
-                            movimiento.setColor(txtColor.getText().trim());
-                            movimiento.setNumSerie(txtSerie.getText().trim());
-                            movimiento.setCodigoUnt(txtCodUnt.getText().trim());
-                            movimiento.setCodigoSaneamiento(txtCodSaneamiento.getText().trim());
-                            movimiento.setObservacion(txtObservacion.getText().trim());
-                            GestionarAutorizanteServicio gas = new GestionarAutorizanteServicio();
-                            movimiento.setAutorizante(gas.obtenerId(gas.listar(), cboAutorizante.getSelectedItem().toString()));
-                            movimiento.setPersonal(user.getPersonal());
-                            movimiento.setProducto(tempProducto);
-                            templist.add(movimiento);
-                            mostrar(templist);
+                            detalle.setCantidad(Integer.parseInt(jspCantidad.getValue().toString()));
+                            detalle.setNumSerie(txtSerie.getText().trim());
+                            detalle.setCodigoUnt(txtCodUnt.getText().trim());
+                            detalle.setCodigoSaneamiento(txtCodSaneamiento.getText().trim());
+                            detalle.setObservacion(txtObservacion.getText().trim());
+                            detalle.setProducto(tempProducto);
+                            tempObj.add(detalle);
+                            mostrar(tempObj);
                             limpiaradd();
                         } else {
                             JOptionPane.showMessageDialog(null, "La cantidad supera al stock actual del producto", "aviso", 2);
@@ -882,8 +891,8 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
 
     private void btnRemoveArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveArticuloActionPerformed
         if (this.rem) {
-            templist.remove(Integer.parseInt(lblindiceselect.getText()));
-            mostrar(templist);
+            tempObj.remove(Integer.parseInt(lblindiceselect.getText()));
+            mostrar(tempObj);
             limpiaradd();
             this.rem = false;
         } else {

@@ -6,6 +6,7 @@
 package c1_precentacion;
 
 import c2_aplicacion.GestionarMovimientoServicio;
+import c3_dominio.DetalleMovimiento;
 import c3_dominio.LoginUser;
 import c3_dominio.Movimiento;
 import config.MyConfig;
@@ -25,19 +26,20 @@ public class FormGestionarIngresoArticulo extends javax.swing.JInternalFrame {
     /**
      * Creates new form FormGestionarUnidad
      */
-    private String flag = "Guardar";
+    private String flag = "Guardar";    
     private boolean rem = false;
     Movimiento movimiento;
     Producto producto;
     public static Producto tempProducto;
     private GestionarMovimientoServicio gu;
     private List<Movimiento> templist = new ArrayList();
+    private List<DetalleMovimiento> tempdetalle = new ArrayList();
     private final LoginUser user = LoginUser.getInstancia();
 
     public FormGestionarIngresoArticulo(java.awt.Frame parent, boolean modal) {
         initComponents();
         lblPersonal.setText(user.getPersonal().getNombre() + " " + user.getPersonal().getApellidoPaterno() + " " + user.getPersonal().getApellidoMaterno());
-        mostrar(templist);
+        mostrar(tempdetalle);
         botones(false);
         lblId.setVisible(false);
         lblIdArticulo.setVisible(false);
@@ -307,7 +309,7 @@ public class FormGestionarIngresoArticulo extends javax.swing.JInternalFrame {
         txtNumIngreso.setText("");
         txtNumIngreso.requestFocus();
         templist = new ArrayList();
-        mostrar(templist);
+        mostrar(tempdetalle);
 
     }
 
@@ -329,10 +331,10 @@ public class FormGestionarIngresoArticulo extends javax.swing.JInternalFrame {
 
     }
 
-    private void mostrar(List<Movimiento> movimientos) {
+    private void mostrar(List<DetalleMovimiento> detalles) {
         try {
             gu = new GestionarMovimientoServicio();
-            gu.llenarLista(listado, movimientos);
+            gu.llenarLista(listado, detalles);
             lblNumRegistro.setText("Nº Registros : " + String.valueOf(listado.getRowCount()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e);
@@ -341,32 +343,37 @@ public class FormGestionarIngresoArticulo extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (!txtNumIngreso.getText().equals("")) {
-            if(MyConfig.validarInt(txtNumIngreso.getText().trim())){
+            if (MyConfig.validarInt(txtNumIngreso.getText().trim())) {
                 if (MyConfig.validarTamanio(txtNumIngreso.getText().trim(), 4)) {
-                if (templist.size() >= 1) {
-                    try {
-                        gu = new GestionarMovimientoServicio();
-                        if (flag.equals("Guardar")) {
-                            for (Movimiento dts : templist) {
-                                gu.addCantidad(dts);
-                                if (gu.insertarIngreso(dts)) {
+                    if (tempdetalle.size() >= 1) {
+                        try {
+                            gu = new GestionarMovimientoServicio();
+                            movimiento = new Movimiento();
+                            movimiento.setOperacion("ingreso");
+                            Calendar calendar = Calendar.getInstance();
+                            Timestamp fecha = new Timestamp(calendar.getTime().getTime());
+                            movimiento.setFechaRegistro(fecha);
+                            movimiento.setNumIngreso(MyConfig.getGenerarCodigo(txtNumIngreso.getText().toUpperCase().trim()));
+                            movimiento.setPersonal(user.getPersonal());                           
+                            if (flag.equals("Guardar")) {
+                                if (gu.insertarIngreso(movimiento, tempdetalle)) {
                                     JOptionPane.showMessageDialog(null, "Guardado correctamente");
+                                    this.dispose();
                                 } else {
                                     JOptionPane.showMessageDialog(null, "No se pudo guardar");
                                 }
                             }
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(null, e);
                         }
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, e);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Debe agregar almenos un articulo", "Aviso", 0);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Debe agregar almenos un articulo", "Aviso", 0);
+                    JOptionPane.showMessageDialog(this, "Solo se permiten 4 digitos", "Aviso", 0);
+                    txtNumIngreso.requestFocus();
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Solo se permiten 4 digitos", "Aviso", 0);
-                txtNumIngreso.requestFocus();
-            }
-            }else{
                 JOptionPane.showMessageDialog(this, "Solo se acepta numeros", "Aviso", 0);
                 txtNumIngreso.requestFocus();
             }
@@ -404,17 +411,11 @@ public class FormGestionarIngresoArticulo extends javax.swing.JInternalFrame {
     private void btnAddArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddArticuloActionPerformed
         if (!lblCodigoProducto.getText().equals("000")) {
             if (Integer.parseInt(jspCantidad.getValue().toString()) >= 1) {
-                movimiento = new Movimiento();
-                movimiento.setOperacion("ingreso");
-                Calendar calendar = Calendar.getInstance();
-                Timestamp fecha = new Timestamp(calendar.getTime().getTime());
-                movimiento.setFechaRegistro(fecha);
-                movimiento.setNumIngreso(MyConfig.getGenerarCodigo(txtNumIngreso.getText().toUpperCase().trim()));
-                movimiento.setCantidad(Integer.parseInt(jspCantidad.getValue().toString()));
-                movimiento.setPersonal(user.getPersonal());
-                movimiento.setProducto(tempProducto);
-                templist.add(movimiento);
-                mostrar(templist);
+                DetalleMovimiento detalle = new DetalleMovimiento();
+                detalle.setCantidad(Integer.parseInt(jspCantidad.getValue().toString()));
+                detalle.setProducto(tempProducto);
+                tempdetalle.add(detalle);
+                mostrar(tempdetalle);
                 limpiaradd();
             } else {
                 JOptionPane.showMessageDialog(null, "La cantidad debe de ser almenos 1");
@@ -441,8 +442,8 @@ public class FormGestionarIngresoArticulo extends javax.swing.JInternalFrame {
 
     private void btnRemoveArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveArticuloActionPerformed
         if (this.rem) {
-            templist.remove(Integer.parseInt(lblindiceselect.getText()));
-            mostrar(templist);
+            tempdetalle.remove(Integer.parseInt(lblindiceselect.getText()));
+            mostrar(tempdetalle);
             limpiaradd();
             this.rem = false;
         } else {

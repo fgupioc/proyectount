@@ -11,15 +11,16 @@ package c3_dominio;
  */
 public class TipoPersonal {
     private int idtipoPersonal,estado;
-    private String tipoPersonal;
+    private String tipoPersonal,codigo;
 
     public TipoPersonal() {
     }
 
-    public TipoPersonal(int idtipoPersonal, int estado, String tipoPersonal) {
+    public TipoPersonal(int idtipoPersonal, int estado, String tipoPersonal,String codigo) {
         this.idtipoPersonal = idtipoPersonal;
         this.estado = estado;
         this.tipoPersonal = tipoPersonal;
+        this.codigo = codigo;
     }
 
     public int getIdtipoPersonal() {
@@ -45,6 +46,15 @@ public class TipoPersonal {
     public void setTipoPersonal(String tipoPersonal) {
         this.tipoPersonal = tipoPersonal;
     }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+    
     
     
 }

@@ -6,6 +6,7 @@
 package c2_aplicacion;
 
 import c3_dominio.Cabecera;
+import c3_dominio.DetalleMovimiento;
 import c3_dominio.Movimiento;
 import c3_dominio.Producto;
 import c3_dominioFabrica.FabricaAbstractaDAO;
@@ -41,16 +42,25 @@ public class GestionarMovimientoServicio {
         FabricaAbstractaDAO fabricaAbstractaDAO = FabricaAbstractaDAO.getInstancia();
         gestorJDBC = fabricaAbstractaDAO.crearGestorJDBC();
         movimientoDAO = fabricaAbstractaDAO.crearMovimientoDAO(gestorJDBC);
-    }
-
-    public boolean insertarIngreso(Movimiento movimiento) throws Exception {
+    } 
+    public boolean insertarIngreso(Movimiento movimiento,List<DetalleMovimiento> detalles) throws Exception {
         boolean flag = false;
+        String det ="A Ingresado :: ";
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            flag = movimientoDAO.ingreso(movimiento);
+            movimientoDAO.ingreso(movimiento); 
+            int id = movimientoDAO.obtenerIdIngreso(movimiento.getNumIngreso(),movimiento.getPersonal().getIdpersonal()); 
+            for(DetalleMovimiento dts : detalles){
+                det +="-Articulo :"+dts.getProducto().getArticulo()+" Cantidada: "+dts.getCantidad();
+                movimientoDAO.detalleIngreso(dts,id);                
+                movimientoDAO.addCantidaProducto(dts.getProducto().getId(), dts.getProducto().getCodigo(),dts.getCantidad());                
+            } 
+            movimientoDAO.portafolio(movimiento.getFechaRegistro(),movimiento.getPersonal().getIdpersonal(),id,"Ingreso del Stock",det);
+            flag= true;
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
+            flag= false;
             JOptionPane.showMessageDialog(null, e);
             gestorJDBC.cancelarTransaccion();
         }
@@ -58,12 +68,23 @@ public class GestionarMovimientoServicio {
         return flag;
     }
 
-    public boolean insertarSalida(Movimiento movimiento) throws Exception {
+    public boolean insertarSalida(Movimiento movimiento,List<DetalleMovimiento> detalles ) throws Exception {
         boolean flag = false;
+        String det ="A Salido :: ";
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            flag = movimientoDAO.salida(movimiento);
+            movimientoDAO.salida(movimiento); 
+           
+            int id = movimientoDAO.obtenerIdSalida(movimiento.getNumSalida(),movimiento.getPersonal().getIdpersonal()); 
+             System.out.println("cod "+id);
+            for(DetalleMovimiento dts : detalles){
+                det +="-Articulo :"+dts.getProducto().getArticulo()+" Cantidada: "+dts.getCantidad();
+                movimientoDAO.detalleSalida(dts,id);                
+                movimientoDAO.removeCantidaProducto(dts.getProducto().getId(), dts.getProducto().getCodigo(),dts.getCantidad());                
+            } 
+            movimientoDAO.portafolio(movimiento.getFechaRegistro(),movimiento.getPersonal().getIdpersonal(),id,"Salida del Stock",det);
+            flag= true;
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -130,7 +151,7 @@ public class GestionarMovimientoServicio {
 //        return movimientos;
 //    }
 
-    public void llenarLista(JTable listado, List<Movimiento> movimientos) throws Exception {
+    public void llenarLista(JTable listado, List<DetalleMovimiento> movimientos) throws Exception {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);
         model.addColumn("idArticulo");
@@ -140,7 +161,7 @@ public class GestionarMovimientoServicio {
 
         model.setNumRows(movimientos.size());
         int i = 0;
-        for (Movimiento dts : movimientos) {
+        for (DetalleMovimiento dts : movimientos) {
             model.setValueAt(dts.getProducto().getId(), i, 0);
             model.setValueAt(dts.getCantidad(), i, 1);
             model.setValueAt(dts.getProducto().getCodigo(), i, 2);
@@ -163,12 +184,15 @@ public class GestionarMovimientoServicio {
         listado.getColumnModel().getColumn(2).setPreferredWidth(60);
     }
 
-    public boolean addCantidad(Movimiento movimiento) throws Exception {
+    public boolean addCantidad( List<DetalleMovimiento> detalles) throws Exception {
         boolean flag = false;
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            flag = movimientoDAO.addCantidaProducto(movimiento);
+            for(DetalleMovimiento dts : detalles){
+                 flag = movimientoDAO.addCantidaProducto(dts.getProducto().getId(), dts.getProducto().getCodigo(),dts.getCantidad());
+            }
+            
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -183,7 +207,7 @@ public class GestionarMovimientoServicio {
         gestorJDBC.abrirConexion();
         try {
             gestorJDBC.iniciarTransaccion();
-            flag = movimientoDAO.removeCantidaProducto(movimiento);
+             
             gestorJDBC.terminarTransaccion();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -259,6 +283,26 @@ public class GestionarMovimientoServicio {
         try {
             gestorJDBC.iniciarTransaccion();
             report = JasperCompileManager.compileReport(MyConfig.getAddressReport());
+            print = JasperFillManager.fillReport(report, p, gestorJDBC.cn());
+            JasperViewer view = new JasperViewer(print, false);
+            view.setTitle("Reporte de Portafolio de usuario Nº"+id);
+            view.setVisible(true);
+            gestorJDBC.terminarTransaccion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            gestorJDBC.cancelarTransaccion();
+        }
+        gestorJDBC.cerrarConexion();
+    }
+     public void reportePortafolio(String id) throws Exception {
+        gestorJDBC.abrirConexion(); 
+        Map p = new HashMap();
+        p.put("id_personal", id);
+        JasperReport report;
+        JasperPrint print;
+        try {
+            gestorJDBC.iniciarTransaccion();
+            report = JasperCompileManager.compileReport(MyConfig.getAddressReportPortafolio());
             print = JasperFillManager.fillReport(report, p, gestorJDBC.cn());
             JasperViewer view = new JasperViewer(print, false);
             view.setTitle("Reporte de Memorando Nº"+id);

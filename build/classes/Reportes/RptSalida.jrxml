@@ -2,29 +2,28 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c100500c-0de7-4ce5-aa5d-089864b269ef">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="8"/>
 	<parameter name="numSalida" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select m.fechaRegistro as fecha,m.numSalida as numMemo,m.numExpediente as numExp,m.numDocumento as numDoc,m.asunto,m.solicitante,
-are.descripcion,m.referencia,m.cantidad,un.descripcion as unidad,c.descripcion as cabecera,
+are.descripcion,m.referencia,dm.cantidad,un.descripcion as unidad,
  concat(p.nombre,' ',p.apellidoPaterno,' ',p.apellidoMaterno) as encargado
  , a.nombre as autorizante ,a.especialidad,a.cargo,
- concat(pro.articulo,'- Modelo :',m.modelo,' - Marca :',mar.descripcion,' - Color : ',m.color,
- ' - otros : ',m.observacion,' - Nº Serie :',m.numSerie,' - Cod. UNT :',m.codigoUnt,' - Cod. Sane :',m.codigoSaneamiento
- ) as producto,
+ concat(pro.articulo,'- Modelo :',pro.modelo,' - Marca :',pro.marca,' - Color : ',pro.color,
+ ' - otros : ',dm.observacion,' - Nº Serie :',dm.numSerie,' - Cod. UNT :',dm.codigoUnt,' - Cod. Sane :',dm.codigoSaneamiento
+ ) as producto,m.cabecera,
 year(NOW()) as fechaActual
 
-from movimiento as m inner join
-autorizante as a on a.id= autorizante_id
+from movimiento as m 
+join detallemovimiento as dm on m.id=dm.movimiento_id
+join autorizante as a on a.id= autorizante_id
 join personal as p on m.personal_id = p.id
-join producto as pro on m.producto_id = pro.id
-join marca as mar on pro.marca_id=mar.id 
+join producto as pro on dm.producto_id = pro.id 
 join unidad as un on pro.unidad_id = un.id
-join area as are on m.area_id = are.id
-join cabecera c on m.numSalida = c.codigoMovimiento
-where m.operacion = 'salida'  and m.numSalida = $P{numSalida}]]>
+join area as are on m.area_id = are.id 
+where m.operacion = 'salida' and numSalida = $P{numSalida}]]>
 	</queryString>
 	<field name="fecha" class="java.sql.Timestamp"/>
 	<field name="numMemo" class="java.lang.String"/>
@@ -46,7 +45,6 @@ where m.operacion = 'salida'  and m.numSalida = $P{numSalida}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="unidad" class="java.lang.String"/>
-	<field name="cabecera" class="java.lang.String"/>
 	<field name="encargado" class="java.lang.String"/>
 	<field name="autorizante" class="java.lang.String"/>
 	<field name="especialidad" class="java.lang.String">
@@ -56,6 +54,9 @@ where m.operacion = 'salida'  and m.numSalida = $P{numSalida}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="producto" class="java.lang.String"/>
+	<field name="cabecera" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="fechaActual" class="java.lang.Long"/>
 	<group name="producto">
 		<groupExpression><![CDATA[$F{producto}]]></groupExpression>
@@ -149,7 +150,7 @@ where m.operacion = 'salida'  and m.numSalida = $P{numSalida}]]>
 				<reportElement x="7" y="134" width="548" height="1" uuid="3dee429d-d3a0-420b-b403-651ede809838"/>
 			</line>
 			<textField>
-				<reportElement x="7" y="135" width="548" height="46" uuid="4e63b61a-f43f-42de-bf8e-3738ab00cecd"/>
+				<reportElement x="7" y="135" width="535" height="53" uuid="c1fa9bfe-be0a-4041-93a7-972b028f2fb2"/>
 				<textFieldExpression><![CDATA[$F{cabecera}]]></textFieldExpression>
 			</textField>
 		</band>

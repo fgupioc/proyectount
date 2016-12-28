@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b1cad020-f1e7-4acd-a67f-dc0aa0e4b762">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_personal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from(select p.id as id,per.id as id_personal,
+ concat(per.nombre,' ',per.apellidoPaterno,' ',per.apellidoMaterno )as personal,p.operacion as operacion ,p.descripcion as descripcion
+from portafolio as p
+join personal as per on p.personal_id = per.id   
+where p.movimiento_id  is not NULL 
+union
+select p.id as id,per.id as id_personal
+ ,concat(per.nombre,' ',per.apellidoPaterno,' ',per.apellidoMaterno )as personal , p.operacion as operacion ,
+ CASE p.descripcion WHEN p.descripcion=' ' THEN p.descripcion ELSE pro.articulo END AS descripcion 
+from portafolio as p
+join personal as per on p.personal_id = per.id  
+join producto as pro on p.producto_id = pro.id 
+where p.producto_id  is not NULL
+) as res 
+where id_personal =$P{id_personal}
+order by id desc]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_personal" class="java.lang.Integer"/>
+	<field name="personal" class="java.lang.String"/>
+	<field name="operacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="descripcion">
+		<groupExpression><![CDATA[$F{descripcion}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="144" y="11" width="320" height="29" uuid="73ecd056-9127-4214-a515-c3f8302473fd"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Movimiento de Personal en los ultimos Meses]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="81" y="8" width="100" height="20" uuid="46ba5569-c3d7-4655-88e0-fc14fbbffd58"/>
+				<textFieldExpression><![CDATA[$F{personal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="8" width="55" height="20" uuid="1f4104de-2ac7-4f7e-a1f0-b4ed32d2c082"/>
+				<text><![CDATA[Personal :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="14" y="31" width="558" height="1" uuid="13a19a77-d2fa-41d2-b8d0-758dabef78a0"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="111" y="0" width="188" height="20" uuid="a7b0f4be-970c-4612-9342-813234babd23"/>
+				<text><![CDATA[Descripcion de Movimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="0" width="100" height="20" uuid="65b6630e-2de2-4f90-bef2-b01663b4518d"/>
+				<text><![CDATA[operacion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="53" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="472" height="49" uuid="6c311235-5ca7-4e5f-9f15-65f5ca8635ba"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="d3f52069-f3da-4437-8e31-df4d3ff4aba3"/>
+				<textFieldExpression><![CDATA[$F{operacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

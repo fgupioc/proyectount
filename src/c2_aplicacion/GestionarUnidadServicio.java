@@ -11,6 +11,7 @@ import c3_dominioFabrica.IUnidadDAO;
 import c4_persistenciaConexion.GestorJDBC;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -163,4 +164,13 @@ public class GestionarUnidadServicio {
         return flag;
     }
     
+    public int obtenerIndice(JComboBox combo ,String nombre){ 
+        int indice =0;
+        for(int i=0;i<combo.getItemCount();i++){             
+            if(combo.getItemAt(i).toString().equals(nombre)){
+                indice=i;                
+            } 
+        }  
+        return indice;
+    }
 }

@@ -7,6 +7,7 @@ package c3_dominioFabrica;
 
 import c3_dominio.Producto;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -21,4 +22,6 @@ public interface IProductoDAO {
     public List<Producto> buscarNombre(Producto producto) throws Exception;   
     public List<Producto> buscarArticuloCodigo(String location , String value) throws Exception ;
     public List<Producto> buscarArticuloNombre(String location , String value) throws Exception ;
+    public boolean portafolio(Timestamp fecha, int  personal_id,int producto_id,String operacion,String descripcion)throws Exception ;
+    public int obtenetIdProducto(String codigo)throws Exception ;
 }

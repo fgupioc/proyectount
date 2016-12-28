@@ -168,6 +168,7 @@ public class PersonalDAO implements IPersonalDAO {
 
     @Override
     public Personal loginPersonal(String user, String pass) throws Exception {      
+           
         mysql ="{call spLoginUser('"+user+"','"+pass+"')}";
         rs = gestorJDBC.ejecutarProcedimiento(mysql);        
         while (rs.next()) {
@@ -185,10 +186,12 @@ public class PersonalDAO implements IPersonalDAO {
             while (rs2.next()) {
                 tipoPersonal = new TipoPersonal();
                 tipoPersonal.setIdtipoPersonal(rs2.getInt("id"));
+                tipoPersonal.setCodigo(rs2.getString("codigo"));
                 tipoPersonal.setTipoPersonal(rs2.getString("descripcion"));
                 tipoPersonal.setEstado(rs2.getInt("estado"));
                 personal.setTipoPersonal(tipoPersonal);
             } 
+          
         }        
         return personal;
     }

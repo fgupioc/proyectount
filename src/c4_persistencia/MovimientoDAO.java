@@ -6,12 +6,14 @@
 package c4_persistencia;
 
 import c3_dominio.Cabecera;
+import c3_dominio.DetalleMovimiento;
 import c3_dominio.Movimiento; 
 import c3_dominioFabrica.IMovimientoDAO;
 import c4_persistenciaConexion.GestorJDBC;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException; 
+import java.sql.Timestamp;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,60 +36,93 @@ public class MovimientoDAO implements IMovimientoDAO {
 
     @Override
     public boolean ingreso(Movimiento dts) throws SQLException {
-        mysql = "{call spIngresoArticulo(?,?,?,?,?,?)}";
+        mysql = "{call spIngresoArticulo(?,?,?,?)}"; 
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
         cst.setString(1, dts.getOperacion());
         cst.setTimestamp(2, dts.getFechaRegistro());
-        cst.setString(3, dts.getNumIngreso());
-        cst.setInt(4, dts.getCantidad());
-        cst.setInt(5, dts.getPersonal().getIdpersonal());
-        cst.setInt(6, dts.getProducto().getId());
+        cst.setString(3, dts.getNumIngreso()); 
+        cst.setInt(4, dts.getPersonal().getIdpersonal()); 
         return (cst.executeUpdate() == 1) ? true : false;
     }
-
+     @Override
+    public int obtenerIdIngreso(String codigo, int Personal_id) throws Exception {
+        int res = 0;
+        mysql = "{call spObtenerIdMovimientoingreso('" + Personal_id + "','" + codigo + "')}";
+        rs = gestorJDBC.ejecutarProcedimiento(mysql);
+        while (rs.next()) {
+            res = rs.getInt("id");
+        }
+        rs.close();
+        return res;
+    }
+      public int obtenerIdSalida(String codigo, int Personal_id) throws Exception {
+        int res = 0;
+        mysql = "{call spObtenerIdMovimientoSalida('" + Personal_id + "','" + codigo + "')}";
+        rs = gestorJDBC.ejecutarProcedimiento(mysql);
+        while (rs.next()) {
+            res = rs.getInt("id");
+        }
+        rs.close();
+        return res;
+    }
+    
+    @Override
+     public boolean detalleIngreso(DetalleMovimiento dts,int id)throws Exception{
+        mysql = "{call spIngresoDetallerArticulos(?,?,?)}"; 
+        cst = gestorJDBC.procedimientoAlmacenado(mysql);
+        cst.setInt(1, id);
+        cst.setInt(2, dts.getProducto().getId());
+        cst.setInt(3, dts.getCantidad());  
+        return (cst.executeUpdate() == 1) ? true : false;
+     }
     @Override
     public boolean salida(Movimiento dts) throws SQLException {
-        mysql = "{call spSalidaProducto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-        cst = gestorJDBC.procedimientoAlmacenado(mysql);
+        mysql = "{call spSalidaProducto(?,?,?,?,?,?,?,?,?,?,?,?)}";
+        cst = gestorJDBC.procedimientoAlmacenado(mysql); 
         cst.setString(1, dts.getOperacion());
         cst.setTimestamp(2, dts.getFechaRegistro());
         cst.setString(3, dts.getNumSalida());
         cst.setString(4, dts.getNumExpediente());
         cst.setString(5, dts.getNumDocumento());
-        cst.setString(6, dts.getAsunto());
-        cst.setString(7, dts.getSolicitante());
-        cst.setString(8, dts.getReferencia());
-        cst.setInt(9, dts.getCantidad());
-        cst.setString(10, dts.getModelo());
-        cst.setString(11, dts.getColor());
-        cst.setString(12, dts.getNumSerie());
-        cst.setString(13, dts.getCodigoUnt());
-        cst.setString(14, dts.getCodigoSaneamiento()); 
-        cst.setString(15, dts.getObservacion());
-        cst.setInt(16, dts.getAutorizante().getId());
-        cst.setInt(17, dts.getPersonal().getIdpersonal());
-        cst.setInt(18, dts.getProducto().getId());
-        cst.setInt(19, dts.getArea().getId());
+        cst.setString(6, dts.getCabecera());  
+        cst.setString(7, dts.getAsunto());
+        cst.setString(8, dts.getSolicitante());
+        cst.setString(9, dts.getReferencia());  
+        cst.setInt(10, dts.getAutorizante().getId());
+        cst.setInt(11, dts.getPersonal().getIdpersonal()); 
+        cst.setInt(12, dts.getArea().getId());
         return (cst.executeUpdate() == 1) ? true : false;
     }
-
+@Override
+     public boolean detalleSalida(DetalleMovimiento dts,int id)throws Exception{
+        mysql = "{call spSalidaDetallerArticulos(?,?,?,?,?,?,?)}"; 
+        cst = gestorJDBC.procedimientoAlmacenado(mysql);
+        cst.setInt(1, id);
+        cst.setInt(2, dts.getProducto().getId());
+        cst.setString(3, dts.getObservacion());
+        cst.setInt(4, dts.getCantidad());  
+        cst.setString(5, dts.getNumSerie());
+        cst.setString(6, dts.getCodigoUnt());
+        cst.setString(7, dts.getCodigoSaneamiento());
+        return (cst.executeUpdate() == 1) ? true : false;
+     }
     @Override
-    public boolean addCantidaProducto(Movimiento dts) throws SQLException {
+    public boolean addCantidaProducto(int id,String codigo,int cantidad) throws SQLException {
         mysql = "{call spAddArticulo(?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
-        cst.setInt(1, dts.getProducto().getId());
-        cst.setString(2, dts.getProducto().getCodigo());
-        cst.setInt(3, dts.getCantidad());
+        cst.setInt(1, id);
+        cst.setString(2,codigo);
+        cst.setInt(3,cantidad);
         return (cst.executeUpdate() == 1) ? true : false;
     }
 
     @Override
-    public boolean removeCantidaProducto(Movimiento dts) throws SQLException {
+    public boolean removeCantidaProducto(int id,String codigo,int cantidad) throws SQLException {
         mysql = "{call spRemoveArticulo(?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
-        cst.setInt(1, dts.getProducto().getId());
-        cst.setString(2, dts.getProducto().getCodigo());
-        cst.setInt(3, dts.getCantidad());
+        cst.setInt(1, id);
+        cst.setString(2, codigo);
+        cst.setInt(3, cantidad);
         return (cst.executeUpdate() == 1) ? true : false;
     } 
     @Override
@@ -144,5 +179,19 @@ public class MovimientoDAO implements IMovimientoDAO {
         rs.close(); 
         return codigo ;    
     }
+
+    @Override
+    public boolean portafolio(Timestamp fecha, int personal_id, int movimiento_id,String operacion, String detalle) throws Exception {
+        mysql = "{Call spPortafolioMovimiento(?,?,?,?,?)}";
+        cst = gestorJDBC.procedimientoAlmacenado(mysql); 
+        cst.setTimestamp(1,fecha);  
+        cst.setInt(2, personal_id);
+        cst.setInt(3, movimiento_id); 
+        cst.setString(4, operacion);
+        cst.setString(5, detalle);
+        return (cst.executeUpdate() == 1) ? true : false;
+    }
+
+   
 
 }

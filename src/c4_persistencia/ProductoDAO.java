@@ -41,16 +41,18 @@ public class ProductoDAO implements IProductoDAO {
 
     @Override
     public boolean ingresar(Producto dts) throws SQLException {
-        mysql = "{Call spProductoInsertar (?,?,?,?,?,?,?,?)}";
+        mysql = "{Call spProductoInsertar (?,?,?,?,?,?,?,?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
         cst.setString(1, dts.getCodigo());
         cst.setString(2, dts.getArticulo()); 
         cst.setTimestamp(3, dts.getFechaRegistro()); 
-        cst.setInt(4, dts.getCategoria().getId());
-        cst.setInt(5, dts.getTipoProducto().getId());
-        cst.setInt(6, dts.getMarca().getId());
-        cst.setInt(7, dts.getAlmacen().getId());
-        cst.setInt(8, dts.getUnidad().getId());
+        cst.setString(4, dts.getMarca());
+        cst.setString(5, dts.getModelo());
+        cst.setString(6, dts.getColor());
+        cst.setInt(7, dts.getCategoria().getId());
+        cst.setInt(8, dts.getTipoProducto().getId());        
+        cst.setInt(9, dts.getAlmacen().getId());
+        cst.setInt(10, dts.getUnidad().getId());
         return (cst.executeUpdate() == 1) ? true : false;
     }
 
@@ -67,6 +69,9 @@ public class ProductoDAO implements IProductoDAO {
             producto.setArticulo(rs.getString("articulo")); 
             producto.setFechaRegistro(rs.getTimestamp("fechaRegistro")); 
             producto.setCantidad(rs.getInt("cantidad")); 
+            producto.setMarca(rs.getString("marca")); 
+            producto.setModelo(rs.getString("modelo")); 
+            producto.setColor(rs.getString("color")); 
             producto.setEstado(rs.getInt("estado"));
             rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
             while (rs3.next()) {
@@ -85,16 +90,7 @@ public class ProductoDAO implements IProductoDAO {
                 tipoProducto.setEstado(rs4.getInt("estado"));
                 producto.setTipoProducto(tipoProducto);
             }
-            rs4.close();
-            rs5 = gestorJDBC.ejecutarProcedimiento("call spMarcaId('" + rs.getInt("marca_id") + "')");
-            while (rs5.next()) {
-                Marca marca = new Marca();
-                marca.setId(rs5.getInt("id"));
-                marca.setDescripcion(rs5.getString("descripcion"));
-                marca.setEstado(rs5.getInt("estado"));
-                producto.setMarca(marca);
-            }
-            rs5.close();
+            rs4.close();            
             rs6 = gestorJDBC.ejecutarProcedimiento("call spAlmacenId('" + rs.getInt("almacen_id") + "')");
             while (rs6.next()) {
                 Almacen almacen = new Almacen();
@@ -121,17 +117,19 @@ public class ProductoDAO implements IProductoDAO {
 
     @Override
     public boolean editar(Producto dts) throws SQLException {
-        mysql = "{call spProductoEditar(?,?,?,?,?,?,?,?,?)}";
+        mysql = "{call spProductoEditar(?,?,?,?,?,?,?,?,?,?,?)}";
         cst = gestorJDBC.procedimientoAlmacenado(mysql);
         cst.setInt(1, dts.getId());
         cst.setString(2, dts.getCodigo());
         cst.setString(3, dts.getArticulo()); 
         cst.setTimestamp(4, dts.getFechaRegistro()); 
-        cst.setInt(5, dts.getCategoria().getId());
-        cst.setInt(6, dts.getTipoProducto().getId());
-        cst.setInt(7, dts.getMarca().getId());
-        cst.setInt(8, dts.getAlmacen().getId());
-        cst.setInt(9, dts.getUnidad().getId());
+        cst.setString(5, dts.getMarca()); 
+        cst.setString(6, dts.getModelo()); 
+        cst.setString(7, dts.getColor()); 
+        cst.setInt(8, dts.getCategoria().getId());
+        cst.setInt(9, dts.getTipoProducto().getId()); 
+        cst.setInt(10, dts.getAlmacen().getId());
+        cst.setInt(11, dts.getUnidad().getId());
         return (cst.executeUpdate() == 1) ? true : false;
     }
 
@@ -156,6 +154,9 @@ public class ProductoDAO implements IProductoDAO {
             producto.setArticulo(rs.getString("articulo")); 
             producto.setFechaRegistro(rs.getTimestamp("fechaRegistro"));
             producto.setCantidad(rs.getInt("cantidad")); 
+            producto.setMarca(rs.getString("marca")); 
+            producto.setModelo(rs.getString("modelo")); 
+            producto.setColor(rs.getString("color"));
             producto.setEstado(rs.getInt("estado"));
             rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
             while (rs3.next()) {
@@ -174,16 +175,7 @@ public class ProductoDAO implements IProductoDAO {
                 tipoProducto.setEstado(rs4.getInt("estado"));
                 producto.setTipoProducto(tipoProducto);
             }
-            rs4.close();
-            rs5 = gestorJDBC.ejecutarProcedimiento("call spMarcaId('" + rs.getInt("marca_id") + "')");
-            while (rs5.next()) {
-                Marca marca = new Marca();
-                marca.setId(rs5.getInt("id"));
-                marca.setDescripcion(rs5.getString("descripcion"));
-                marca.setEstado(rs5.getInt("estado"));
-                producto.setMarca(marca);
-            }
-            rs5.close();
+            rs4.close(); 
             rs6 = gestorJDBC.ejecutarProcedimiento("call spAlmacenId('" + rs.getInt("almacen_id") + "')");
             while (rs6.next()) {
                 Almacen almacen = new Almacen();
@@ -232,6 +224,9 @@ public class ProductoDAO implements IProductoDAO {
             producto.setArticulo(rs.getString("articulo")); 
             producto.setFechaRegistro(rs.getTimestamp("fechaRegistro")); 
             producto.setCantidad(rs.getInt("cantidad")); 
+            producto.setMarca(rs.getString("marca")); 
+            producto.setModelo(rs.getString("modelo")); 
+            producto.setColor(rs.getString("color"));
             producto.setEstado(rs.getInt("estado"));
             rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
             while (rs3.next()) {
@@ -250,16 +245,7 @@ public class ProductoDAO implements IProductoDAO {
                 tipoProducto.setEstado(rs4.getInt("estado"));
                 producto.setTipoProducto(tipoProducto);
             }
-            rs4.close();
-            rs5 = gestorJDBC.ejecutarProcedimiento("call spMarcaId('" + rs.getInt("marca_id") + "')");
-            while (rs5.next()) {
-                Marca marca = new Marca();
-                marca.setId(rs5.getInt("id"));
-                marca.setDescripcion(rs5.getString("descripcion"));
-                marca.setEstado(rs5.getInt("estado"));
-                producto.setMarca(marca);
-            }
-            rs5.close();
+            rs4.close();  
             rs6 = gestorJDBC.ejecutarProcedimiento("call spAlmacenId('" + rs.getInt("almacen_id") + "')");
             while (rs6.next()) {
                 Almacen almacen = new Almacen();
@@ -299,6 +285,9 @@ public class ProductoDAO implements IProductoDAO {
             producto.setArticulo(rs.getString("articulo")); 
             producto.setFechaRegistro(rs.getTimestamp("fechaRegistro"));
             producto.setCantidad(rs.getInt("cantidad")); 
+            producto.setMarca(rs.getString("marca")); 
+            producto.setModelo(rs.getString("modelo")); 
+            producto.setColor(rs.getString("color"));
             producto.setEstado(rs.getInt("estado"));
             rs3 = gestorJDBC.ejecutarProcedimiento("call spCategoriaId('" + rs.getInt("categoria_id") + "')");
             while (rs3.next()) {
@@ -317,16 +306,7 @@ public class ProductoDAO implements IProductoDAO {
                 tipoProducto.setEstado(rs4.getInt("estado"));
                 producto.setTipoProducto(tipoProducto);
             }
-            rs4.close();
-            rs5 = gestorJDBC.ejecutarProcedimiento("call spMarcaId('" + rs.getInt("marca_id") + "')");
-            while (rs5.next()) {
-                Marca marca = new Marca();
-                marca.setId(rs5.getInt("id"));
-                marca.setDescripcion(rs5.getString("descripcion"));
-                marca.setEstado(rs5.getInt("estado"));
-                producto.setMarca(marca);
-            }
-            rs5.close();
+            rs4.close(); 
             rs6 = gestorJDBC.ejecutarProcedimiento("call spAlmacenId('" + rs.getInt("almacen_id") + "')");
             while (rs6.next()) {
                 Almacen almacen = new Almacen();
@@ -352,5 +332,29 @@ public class ProductoDAO implements IProductoDAO {
         return productos;
     }
 
+    @Override
+    public boolean portafolio(Timestamp fecha, int personal_id, int producto_id, String operacion, String descripcion) throws Exception {
+        mysql = "{Call spPortafolioProducto (?,?,?,?,?)}";
+        cst = gestorJDBC.procedimientoAlmacenado(mysql); 
+        cst.setTimestamp(1,fecha);  
+        cst.setInt(2, personal_id);
+        cst.setInt(3, producto_id); 
+        cst.setString(4, operacion);
+        cst.setString(5, descripcion);
+        return (cst.executeUpdate() == 1) ? true : false;
+    }
+
+    @Override
+    public int obtenetIdProducto(String codigo) throws Exception {
+       int res = 0;
+        mysql = "{call spProductoObtenerId('" + codigo + "')}";
+        rs = gestorJDBC.ejecutarProcedimiento(mysql);
+        while (rs.next()) {
+            res = rs.getInt("id");
+        }
+        rs.close();
+        return res;
+    }
+    
     
 }
