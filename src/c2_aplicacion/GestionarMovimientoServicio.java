@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package c2_aplicacion;
-
-import c3_dominio.Cabecera;
+ 
 import c3_dominio.DetalleMovimiento;
 import c3_dominio.Movimiento;
 import c3_dominio.Producto;
@@ -52,7 +51,7 @@ public class GestionarMovimientoServicio {
             movimientoDAO.ingreso(movimiento); 
             int id = movimientoDAO.obtenerIdIngreso(movimiento.getNumIngreso(),movimiento.getPersonal().getIdpersonal()); 
             for(DetalleMovimiento dts : detalles){
-                det +="-Articulo :"+dts.getProducto().getArticulo()+" Cantidada: "+dts.getCantidad();
+                det +="=> Articulo :"+dts.getProducto().getArticulo()+" Cantidada: "+dts.getCantidad()+"; ";
                 movimientoDAO.detalleIngreso(dts,id);                
                 movimientoDAO.addCantidaProducto(dts.getProducto().getId(), dts.getProducto().getCodigo(),dts.getCantidad());                
             } 
@@ -79,7 +78,7 @@ public class GestionarMovimientoServicio {
             int id = movimientoDAO.obtenerIdSalida(movimiento.getNumSalida(),movimiento.getPersonal().getIdpersonal()); 
              System.out.println("cod "+id);
             for(DetalleMovimiento dts : detalles){
-                det +="-Articulo :"+dts.getProducto().getArticulo()+" Cantidada: "+dts.getCantidad();
+                det +="=> Articulo :"+dts.getProducto().getArticulo()+" Cantidada: "+dts.getCantidad()+"; ";
                 movimientoDAO.detalleSalida(dts,id);                
                 movimientoDAO.removeCantidaProducto(dts.getProducto().getId(), dts.getProducto().getCodigo(),dts.getCantidad());                
             } 
@@ -93,64 +92,7 @@ public class GestionarMovimientoServicio {
         gestorJDBC.cerrarConexion();
         return flag;
     }
-//    public List<Movimiento> listar()throws Exception{
-//        movimientos = new ArrayList();
-//        gestorJDBC.abrirConexion();
-//        try {
-//            gestorJDBC.iniciarTransaccion();
-//            movimientos = movimientoDAO.Listar();
-//            gestorJDBC.terminarTransaccion();
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//            gestorJDBC.cancelarTransaccion();
-//        }
-//        gestorJDBC.cerrarConexion();
-//        return movimientos;
-//    }
-//    public boolean editar(Movimiento movimiento)throws Exception{
-//        boolean flag = false;
-//        gestorJDBC.abrirConexion();
-//        try {
-//            gestorJDBC.iniciarTransaccion();
-//            flag = movimientoDAO.editar(movimiento);
-//            gestorJDBC.terminarTransaccion();
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//            gestorJDBC.cancelarTransaccion();
-//        }
-//        gestorJDBC.cerrarConexion();
-//        return flag;  
-//    }
-//    public boolean eliminar(Movimiento movimiento)throws Exception{
-//        boolean flag = false;
-//        gestorJDBC.abrirConexion();
-//        try {
-//            gestorJDBC.iniciarTransaccion();
-//            flag = movimientoDAO.eliminar(movimiento);
-//            gestorJDBC.terminarTransaccion();
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//            gestorJDBC.cancelarTransaccion();
-//        }
-//        gestorJDBC.cerrarConexion();
-//        return flag;
-//    }
-//    
-//    public List<Movimiento> buscarNombre(Movimiento movimiento) throws Exception{
-//        movimientos = new ArrayList();
-//        gestorJDBC.abrirConexion();
-//        try {
-//            gestorJDBC.iniciarTransaccion();
-//            movimientos = movimientoDAO.buscarNombre(movimiento);
-//            gestorJDBC.terminarTransaccion();
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//            gestorJDBC.cancelarTransaccion();
-//        }
-//        gestorJDBC.cerrarConexion();
-//        return movimientos;
-//    }
-
+ 
     public void llenarLista(JTable listado, List<DetalleMovimiento> movimientos) throws Exception {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnCount(0);
@@ -216,19 +158,7 @@ public class GestionarMovimientoServicio {
         gestorJDBC.cerrarConexion();
         return flag;
     }
-
-//    public boolean buscarMovimientoList(List<Movimiento> movimientos, String nombre){
-//        boolean flag = false; 
-//        for(Movimiento dt:movimientos){           
-//           if(dt.getDescripcion().equals(nombre)){ 
-//               flag = true;
-//               break;
-//           }else{ 
-//               flag = false;
-//           }
-//        }        
-//        return flag;
-//    }
+ 
     public DefaultTableModel consultaArea(String value) throws Exception {
         DefaultTableModel modelo = new DefaultTableModel();
         gestorJDBC.abrirConexion();
@@ -258,21 +188,7 @@ public class GestionarMovimientoServicio {
         gestorJDBC.cerrarConexion();
         return modelo;
     }
-
-    public boolean insertCabecera(Cabecera cabecera) throws Exception {
-        boolean flag = false;
-        gestorJDBC.abrirConexion();
-        try {
-            gestorJDBC.iniciarTransaccion();
-            flag = movimientoDAO.insertCabecera(cabecera);
-            gestorJDBC.terminarTransaccion();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-            gestorJDBC.cancelarTransaccion();
-        }
-        gestorJDBC.cerrarConexion();
-        return flag;
-    }
+ 
 
     public void reporteMemo(String id) throws Exception {
         gestorJDBC.abrirConexion(); 

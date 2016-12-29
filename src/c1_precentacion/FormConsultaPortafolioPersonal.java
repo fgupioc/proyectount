@@ -33,7 +33,7 @@ public class FormConsultaPortafolioPersonal extends javax.swing.JInternalFrame {
         initComponents(); 
         mostrar();
         botones(false); 
-        lblCodigo.setVisible(true);
+        lblCodigo.setVisible(false);
     }
 
     /**

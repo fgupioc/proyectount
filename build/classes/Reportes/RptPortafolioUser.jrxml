@@ -7,13 +7,15 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from(select p.id as id,per.id as id_personal,
+		<![CDATA[select * from(select 
+fecha as fecha,p.id as id,per.id as id_personal,
  concat(per.nombre,' ',per.apellidoPaterno,' ',per.apellidoMaterno )as personal,p.operacion as operacion ,p.descripcion as descripcion
 from portafolio as p
 join personal as per on p.personal_id = per.id   
 where p.movimiento_id  is not NULL 
 union
-select p.id as id,per.id as id_personal
+select 
+fecha as fecha,p.id as id,per.id as id_personal
  ,concat(per.nombre,' ',per.apellidoPaterno,' ',per.apellidoMaterno )as personal , p.operacion as operacion ,
  CASE p.descripcion WHEN p.descripcion=' ' THEN p.descripcion ELSE pro.articulo END AS descripcion 
 from portafolio as p
@@ -24,6 +26,9 @@ where p.producto_id  is not NULL
 where id_personal =$P{id_personal}
 order by id desc]]>
 	</queryString>
+	<field name="fecha" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -63,31 +68,42 @@ order by id desc]]>
 				<text><![CDATA[Personal :]]></text>
 			</staticText>
 			<line>
-				<reportElement x="14" y="31" width="558" height="1" uuid="13a19a77-d2fa-41d2-b8d0-758dabef78a0"/>
+				<reportElement x="11" y="28" width="558" height="1" uuid="13a19a77-d2fa-41d2-b8d0-758dabef78a0"/>
 			</line>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="34" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement x="111" y="0" width="188" height="20" uuid="a7b0f4be-970c-4612-9342-813234babd23"/>
+				<reportElement x="221" y="0" width="188" height="20" uuid="a7b0f4be-970c-4612-9342-813234babd23"/>
 				<text><![CDATA[Descripcion de Movimiento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="11" y="0" width="100" height="20" uuid="65b6630e-2de2-4f90-bef2-b01663b4518d"/>
-				<text><![CDATA[operacion]]></text>
+				<reportElement x="121" y="0" width="87" height="20" uuid="65b6630e-2de2-4f90-bef2-b01663b4518d"/>
+				<text><![CDATA[Operacion]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="11" y="0" width="100" height="20" uuid="b11588be-5319-48e6-8061-c7ae3d8fd103"/>
+				<text><![CDATA[Fecha Registro]]></text>
+			</staticText>
+			<line>
+				<reportElement x="11" y="19" width="558" height="1" uuid="0a44d9ef-e1f4-401b-a9ff-9430d23a4329"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="53" splitType="Stretch">
+		<band height="55" splitType="Stretch">
 			<textField>
-				<reportElement x="100" y="0" width="472" height="49" uuid="6c311235-5ca7-4e5f-9f15-65f5ca8635ba"/>
+				<reportElement x="221" y="0" width="351" height="49" uuid="6c311235-5ca7-4e5f-9f15-65f5ca8635ba"/>
 				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="100" height="20" uuid="d3f52069-f3da-4437-8e31-df4d3ff4aba3"/>
+				<reportElement x="121" y="0" width="100" height="20" uuid="d3f52069-f3da-4437-8e31-df4d3ff4aba3"/>
 				<textFieldExpression><![CDATA[$F{operacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="11" y="0" width="100" height="20" uuid="009e8ad7-8c81-42e9-a460-dd9721d3a921"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

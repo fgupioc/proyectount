@@ -5,7 +5,7 @@
  */
 package c3_dominioFabrica;
 
-import c3_dominio.Cabecera;
+ 
 import c3_dominio.DetalleMovimiento;
 import c3_dominio.Movimiento;
 import c3_dominio.Producto;
@@ -25,7 +25,7 @@ public interface IMovimientoDAO {
     public boolean removeCantidaProducto(int id,String codigo,int cantidad) throws SQLException;   
     public DefaultTableModel consultaArea(String value) throws Exception ;
     public DefaultTableModel consultaProductoMovimiento(String codigo) throws Exception ;
-    public boolean insertCabecera(Cabecera cabecera)throws Exception;
+ 
     public String consultaCodigo()throws Exception;
     public int obtenerIdIngreso(String codigo,int Personal_id)throws Exception;
     public int obtenerIdSalida(String codigo,int Personal_id)throws Exception;

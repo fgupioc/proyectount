@@ -12,8 +12,7 @@ import c3_dominio.Area;
 import c3_dominio.LoginUser;
 import c3_dominio.Movimiento;
 import c3_dominio.Producto;
-import c3_dominio.Autorizante;
-import c3_dominio.Cabecera;
+import c3_dominio.Autorizante; 
 import c3_dominio.DetalleMovimiento;
 import config.MyConfig;
 import java.sql.Timestamp;
@@ -43,8 +42,7 @@ public class FormGestionarSalidaArticulo extends javax.swing.JInternalFrame {
     private GestionarMovimientoServicio gu;
     private List<Movimiento> movimientos;
     private List<Movimiento> templist = new ArrayList();
-    private List<DetalleMovimiento> tempObj = new ArrayList();
-    private Cabecera cabecera;
+    private List<DetalleMovimiento> tempObj = new ArrayList(); 
     private final LoginUser user = LoginUser.getInstancia();
     private boolean reporte = false;
 

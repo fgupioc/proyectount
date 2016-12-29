@@ -5,7 +5,7 @@
  */
 package c4_persistencia;
 
-import c3_dominio.Cabecera;
+ 
 import c3_dominio.DetalleMovimiento;
 import c3_dominio.Movimiento; 
 import c3_dominioFabrica.IMovimientoDAO;
@@ -160,15 +160,7 @@ public class MovimientoDAO implements IMovimientoDAO {
         }
         return modelo;
     } 
-    
-    @Override
-    public boolean insertCabecera(Cabecera dts) throws Exception {
-        mysql= "{Call spCabeceraInsertar (?,?)}";
-        cst = gestorJDBC.procedimientoAlmacenado(mysql);
-        cst.setString(1, dts.getDescripcion()); 
-        cst.setString(2, dts.getCodigoMovimiento());  
-        return (cst.executeUpdate()==1);  
-    }
+  
     public String consultaCodigo()throws Exception{
        mysql =  "{call spConsultaCodigo}";
        String codigo = "";
